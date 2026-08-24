@@ -1,16 +1,16 @@
-## Hi there 👋
+# T0PK1DK
 
-<!--
-**T0PK1DK/t0pk1dk** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+King Leonard Jr. — I build apps, games, and sites for people who want them shipped.
 
-Here are some ideas to get you started:
+**Site:** [t0pk1dk.com](https://t0pk1dk.com)  
+**GitHub:** [github.com/T0PK1DK](https://github.com/T0PK1DK)
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Deploy
+
+Cloudflare Pages, static.
+
+- Build command: none
+- Output directory: `/` (repo root)
+- Custom domain: `t0pk1dk.com`
+
+Pretty URLs come from folder pages (`/work/`, `/about/`, `/contact/`).
