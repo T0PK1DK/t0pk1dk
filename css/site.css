@@ -186,7 +186,7 @@ p {
 
 .nav-desktop {
   display: none;
-  gap: 28px;
+  gap: 22px;
 }
 
 .nav-desktop a {
@@ -335,7 +335,7 @@ p {
   background: color-mix(in srgb, var(--bg) 94%, transparent);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  padding: 28px var(--gutter) 32px;
+  padding: 28px var(--gutter) calc(32px + env(safe-area-inset-bottom));
   display: none;
   flex-direction: column;
   gap: 8px;
@@ -490,6 +490,138 @@ p {
   width: 150px;
   height: 120px;
   opacity: 0.95;
+}
+
+/* Sites hub */
+
+.hub-grid {
+  display: grid;
+  gap: var(--gutter);
+}
+
+.hub-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px 20px 20px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+  color: inherit;
+}
+
+.hub-card.is-link {
+  padding-right: 58px;
+}
+
+.hub-card.is-link:hover {
+  border-color: color-mix(in srgb, var(--forest) 35%, var(--line));
+}
+
+.about-card a {
+  color: var(--forest);
+}
+
+.hub-card h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 5vw, 1.85rem);
+  font-weight: 560;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.hub-card p {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.hub-status {
+  justify-self: start;
+  background: var(--moss);
+  color: var(--forest-deep);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hub-status.soon {
+  background: color-mix(in srgb, var(--gold) 28%, var(--card));
+  color: #5c4318;
+}
+
+.hub-url {
+  color: var(--forest) !important;
+  font-size: 13px !important;
+  font-weight: 560;
+  overflow-wrap: anywhere;
+}
+
+.hub-also {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.hub-also a {
+  color: var(--forest);
+  font-weight: 560;
+}
+
+.hub-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.hub-actions .btn {
+  min-height: 40px;
+  padding: 0 14px;
+}
+
+.hub-go {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--white);
+  display: grid;
+  place-items: center;
+}
+
+.hub-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: var(--forest);
+  color: var(--cream);
+  min-height: 56px;
+}
+
+.hub-banner span {
+  font-weight: 560;
+}
+
+.section-head a {
+  color: var(--forest);
+  font-weight: 560;
+}
+
+.section-head a:hover {
+  text-decoration: underline;
 }
 
 /* Sections */
@@ -963,6 +1095,8 @@ p {
 .theme-apps { background: linear-gradient(160deg, #1c3a2e, #2f5a48); }
 .theme-games { background: linear-gradient(160deg, #2a1d14, #c9a15b); }
 .theme-sites { background: linear-gradient(160deg, #1e2430, #6d7c92); }
+.theme-funnel { background: linear-gradient(160deg, #2a2218, #8a6a3d); }
+.theme-github { background: linear-gradient(160deg, #161814, #3d3b35); }
 
 /* Wide screens */
 
@@ -986,6 +1120,10 @@ p {
 
   .bento {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hub-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .project-card {
