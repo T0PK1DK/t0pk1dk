@@ -171,10 +171,10 @@ p {
   color: var(--cream);
   display: grid;
   place-items: center;
-  font-family: var(--serif);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   flex: 0 0 auto;
 }
 
@@ -838,6 +838,10 @@ p {
   display: block;
   color: var(--muted);
   font-size: 12px;
+}
+
+.contact-link strong {
+  overflow-wrap: anywhere;
 }
 
 .soon {
