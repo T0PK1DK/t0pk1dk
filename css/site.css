@@ -1576,6 +1576,94 @@ html[data-theme="dark"] .toy-link {
   margin-top: 8px;
 }
 
+/* Private vault */
+
+.private-lock-card {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(1.15);
+  -webkit-backdrop-filter: blur(20px) saturate(1.15);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.private-lock-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.private-lock-title {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 560;
+  margin-bottom: 8px;
+}
+
+.private-lock-lede {
+  color: var(--ink-soft);
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.private-lock-form {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+
+.private-lock-label {
+  font-size: 13px;
+  font-weight: 560;
+  color: var(--muted);
+}
+
+.private-lock-input {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.private-lock-error {
+  margin: 0;
+  font-size: 14px;
+  color: #a33b2c;
+}
+
+.private-lock-submit {
+  margin-top: 4px;
+  width: 100%;
+}
+
+.private-unlocked-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.private-unlocked-title {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 560;
+  margin: 0;
+}
+
+.private-lock-btn {
+  flex-shrink: 0;
+}
+
+.toy-card--private {
+  border-color: color-mix(in srgb, var(--gold) 22%, var(--line));
+}
+
 @media (min-width: 640px) {
   .toy-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
