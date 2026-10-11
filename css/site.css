@@ -1360,7 +1360,6 @@ html:not([data-theme="dark"]) .theme-icon-moon {
 
 .toy-card {
   position: relative;
-  padding: 20px 20px 18px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--card);
@@ -1373,16 +1372,69 @@ html:not([data-theme="dark"]) .theme-icon-moon {
     border-color 0.35s var(--ease);
 }
 
-.toy-card:not([hidden]):hover,
-.toy-card:not([hidden]):focus-within {
+.toy-card--static {
+  padding: 20px 20px 18px;
+}
+
+.toy-card--static:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--forest) 70%, transparent);
+  outline-offset: 3px;
+}
+
+.toy-card-link {
+  display: block;
+  padding: 20px 20px 16px;
+  color: inherit;
+  text-decoration: none;
+  border-radius: calc(var(--radius) - 1px);
+}
+
+.toy-card-link:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--forest) 70%, transparent);
+  outline-offset: 3px;
+}
+
+.toy-card--linked:not([hidden]):hover,
+.toy-card--linked:not([hidden]):focus-within {
   transform: translateY(-4px);
   border-color: color-mix(in srgb, var(--gold) 35%, var(--line));
   box-shadow: 0 26px 48px rgba(22, 24, 20, 0.12);
 }
 
-html[data-theme="dark"] .toy-card:not([hidden]):hover,
-html[data-theme="dark"] .toy-card:not([hidden]):focus-within {
+.toy-card--linked:not([hidden]):active {
+  transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .toy-card--linked:not([hidden]):hover,
+html[data-theme="dark"] .toy-card--linked:not([hidden]):focus-within {
   box-shadow: 0 28px 56px rgba(0, 0, 0, 0.45);
+}
+
+.toy-card-go {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  font-weight: 560;
+  color: var(--forest-mid);
+}
+
+html[data-theme="dark"] .toy-card-go {
+  color: var(--gold);
+}
+
+.toy-card--linked:hover .toy-arrow,
+.toy-card--linked:focus-within .toy-arrow {
+  transform: translate(2px, -2px);
+}
+
+.toy-arrow {
+  flex-shrink: 0;
+  transition: transform 0.25s var(--ease);
 }
 
 .toy-card[hidden],
@@ -1459,7 +1511,8 @@ html[data-theme="dark"] .status-progress {
   flex-wrap: wrap;
   gap: 10px 16px;
   align-items: center;
-  margin-bottom: 14px;
+  padding: 0 20px 14px;
+  margin-top: -4px;
 }
 
 .toy-link {
@@ -1551,8 +1604,14 @@ html[data-theme="dark"] .toy-link {
     animation: none !important;
   }
 
-  .toy-card:not([hidden]):hover,
-  .toy-card:not([hidden]):focus-within {
+  .toy-card--linked:not([hidden]):hover,
+  .toy-card--linked:not([hidden]):focus-within,
+  .toy-card--linked:not([hidden]):active {
+    transform: none;
+  }
+
+  .toy-card--linked:hover .toy-arrow,
+  .toy-card--linked:focus-within .toy-arrow {
     transform: none;
   }
 

@@ -20,8 +20,7 @@ const LIVE = {
   "respawn-hq": "https://respawnhq.net",
 };
 
-/** Never list on the Toy Box shelf. */
-const EXCLUDED_IDS = new Set(["kings-notebook", "king-notebook", "notebook"]);
+const EXCLUDED_IDS = new Set();
 
 /** Private or non-GitHub-visible builds — no githubRepo on the card. */
 const PRIVATE = [
