@@ -43,10 +43,33 @@ Edit the `PRIVATE` array in `scripts/write-projects-json.mjs` when adding a new 
 
 ### Privacy
 
-- **Never** commit URLs containing `kingleonardjr19` (including `*.workers.dev` addresses that expose a legal name).
-- Do **not** put King's legal name in site copy; use **T0PK1DK** / **King's Toy Box** in public text.
-- The public **Notebook** card uses `https://kingsnotes.pages.dev` only — never workers.dev URLs with forbidden name fragments.
-- `npm test` scans tracked source files for forbidden URL fragments and legal-name text.
+- Sensitive URLs and titles live only in **gitignored** `data/private.json`, encrypted to `data/private.enc.json`. Never commit the plaintext file or the vault password.
+- Do **not** put King's legal name in public site copy; use **T0PK1DK** / **King's Toy Box**.
+- `npm test` scans the repo for forbidden hostname fragments outside the ciphertext bundle.
+
+## Private shelf (encrypted)
+
+King-only project links are **not** in `data/projects.json`. They live in gitignored `data/private.json`:
+
+```json
+{
+  "projects": [
+    { "title": "Project name", "url": "https://…", "note": "Short note for the card." }
+  ]
+}
+```
+
+Encrypt before deploy (password only via environment — never commit it):
+
+```bash
+export PRIVATE_PASSWORD='your-password-here'
+npm run encrypt-private
+npm test
+```
+
+- Uses **PBKDF2-SHA256** (210k iterations) + **AES-GCM**. Only `data/private.enc.json` is committed (`salt`, `iv`, `ciphertext`, `cardCount`).
+- The site unlocks in the browser for the **session** (`sessionStorage`); use **Lock** to clear.
+- Wrong password shows **Wrong password**; no hints.
 
 ### Post an update note
 
@@ -85,6 +108,7 @@ npm run build
 | --- | --- |
 | `index.html` | Toy Box shell, meta/OG tags, filters markup |
 | `js/toybox.js` | Loads JSON, renders cards + Updates feed, theme toggle |
+| `js/private-vault.js` | Password gate + decrypts `private.enc.json` |
 | `css/site.css` | Shared styles + Toy Box glass cards and dark mode |
 | `js/site.js` | Header, mobile nav (unchanged) |
 

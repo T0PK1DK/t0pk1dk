@@ -25,13 +25,13 @@
     {
       "id": "beep",
       "name": "BEEP",
-      "description": "BEEP product site and brand — in the works.",
+      "description": "BEEP product site and brand.",
       "category": "site",
-      "status": "In progress",
-      "liveUrl": null,
+      "status": "Live",
+      "liveUrl": "https://get-beep.com",
       "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Coming soon — domain not pointed at the site yet."
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Live at get-beep.com."
     },
     {
       "id": "buzzahhjitt-links",
@@ -166,17 +166,6 @@
       "updateNote": "SQLite + FTS5 cited encyclopedia work on the public repo."
     },
     {
-      "id": "kings-notes",
-      "name": "Notebook",
-      "description": "King's notes on the web — quick capture and pages at kingsnotes.pages.dev.",
-      "category": "app",
-      "status": "Live",
-      "liveUrl": "https://kingsnotes.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-10-11",
-      "updateNote": "Live notebook on Cloudflare Pages."
-    },
-    {
       "id": "nard",
       "name": "Nard",
       "description": "Nard — backgammon-family game build.",
@@ -267,13 +256,13 @@
     {
       "id": "sweet-d",
       "name": "SWEET-D",
-      "description": "SWEET-D — private game project.",
+      "description": "SWEET-D diner experience on the web.",
       "category": "game",
-      "status": "In progress",
-      "liveUrl": null,
+      "status": "Live",
+      "liveUrl": "https://diner.thebando.cc",
       "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Live at diner.thebando.cc."
     },
     {
       "id": "launch-kit",

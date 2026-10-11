@@ -3,34 +3,44 @@ import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { listPublicRepos } from "./sync-public-repos.mjs";
+import { decryptPrivatePayload } from "./crypto-private.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DATA_PATH = join(ROOT, "data", "projects.json");
+const ENC_PATH = join(ROOT, "data", "private.enc.json");
 
 const STATUSES = new Set(["Live", "In progress", "Early", "Parked"]);
 const CATEGORIES = new Set(["game", "app", "site"]);
-const MIN_PROJECTS = 25;
-const FORBIDDEN_URL = "kingleonardjr19";
+const MIN_PROJECTS = 24;
 const FORBIDDEN_TEXT = [/king\s+leonard/i, /leonard\s+jr\.?/i];
+const SECRET_FRAGMENTS = [Buffer.from("a2luZ2xlb25hcmRqcjE5", "base64").toString(), Buffer.from("a2luZ3Nub3Rlcw==", "base64").toString()];
+const FORBIDDEN_URL = SECRET_FRAGMENTS[0];
 const EXCLUDED_PROJECT_IDS = new Set();
-const SCAN_SKIP = new Set(["node_modules", ".git", "package-lock.json"]);
+const SCAN_SKIP = new Set(["node_modules", ".git", "package-lock.json", "private.json"]);
+const SCAN_SKIP_FILES = new Set(["data/private.enc.json", "data/private.json"]);
 
-function scanTreePrivacy(dir, hits = []) {
+function scanTreeSecrets(dir, hits = []) {
   for (const name of readdirSync(dir)) {
     if (SCAN_SKIP.has(name)) continue;
     const full = join(dir, name);
+    const rel = relative(ROOT, full);
+    if (SCAN_SKIP_FILES.has(rel.replace(/\\/g, "/"))) continue;
+
     const st = statSync(full);
     if (st.isDirectory()) {
-      scanTreePrivacy(full, hits);
+      scanTreeSecrets(full, hits);
       continue;
     }
     if (!/\.(html|json|md|js|mjs|css|xml|txt|webmanifest|svg)$/i.test(name)) continue;
-    const text = readFileSync(full, "utf8");
-    const rel = relative(ROOT, full);
+    const text = readFileSync(full, "utf8").toLowerCase();
+    for (const frag of SECRET_FRAGMENTS) {
+      if (text.includes(frag)) hits.push(`${rel}: contains forbidden fragment`);
+    }
+    const raw = readFileSync(full, "utf8");
     const forbiddenUrl = new RegExp(`https?:\\/\\/[^\\s"'<>]*${FORBIDDEN_URL}`, "i");
-    if (forbiddenUrl.test(text)) hits.push(`${rel}: contains forbidden URL`);
+    if (forbiddenUrl.test(raw)) hits.push(`${rel}: contains forbidden URL`);
     for (const re of FORBIDDEN_TEXT) {
-      if (re.test(text)) hits.push(`${rel}: contains forbidden legal name text`);
+      if (re.test(raw)) hits.push(`${rel}: contains forbidden legal name text`);
     }
   }
   return hits;
@@ -43,6 +53,7 @@ function fail(msg) {
 
 async function main() {
   if (!existsSync(DATA_PATH)) fail("missing data/projects.json");
+  if (!existsSync(ENC_PATH)) fail("missing data/private.enc.json — run npm run encrypt-private");
 
   let doc;
   try {
@@ -66,6 +77,7 @@ async function main() {
     }
     if (ids.has(p.id)) fail(`duplicate id: ${p.id}`);
     ids.add(p.id);
+    if (p.id === "kings-notes") fail("Notebook must not be on the public shelf");
     if (!CATEGORIES.has(p.category)) fail(`${p.id}: invalid category`);
     if (!STATUSES.has(p.status)) fail(`${p.id}: invalid status`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(p.lastUpdated)) fail(`${p.id}: lastUpdated must be YYYY-MM-DD`);
@@ -83,11 +95,16 @@ async function main() {
       fail(`${p.id}: must not appear on the Toy Box shelf`);
     }
     if (p.liveUrl && p.liveUrl.toLowerCase().includes(FORBIDDEN_URL)) {
-      fail(`${p.id}: liveUrl must not contain ${FORBIDDEN_URL}`);
+      fail(`${p.id}: liveUrl must not contain forbidden URL fragment`);
+    }
+    for (const frag of SECRET_FRAGMENTS) {
+      if (JSON.stringify(p).toLowerCase().includes(frag)) {
+        fail(`${p.id}: public project data must not contain forbidden fragment`);
+      }
     }
   }
 
-  const required = ["index.html", "js/toybox.js", "css/site.css", "HANDOFF.md"];
+  const required = ["index.html", "js/toybox.js", "js/private-vault.js", "css/site.css", "HANDOFF.md"];
   for (const rel of required) {
     if (!existsSync(join(ROOT, rel))) fail(`missing ${rel}`);
   }
@@ -109,10 +126,10 @@ async function main() {
     }
   }
 
-  const privacyHits = scanTreePrivacy(ROOT);
-  if (privacyHits.length) {
-    for (const h of privacyHits) console.error(`validate: ${h}`);
-    fail("privacy check failed");
+  const secretHits = scanTreeSecrets(ROOT);
+  if (secretHits.length) {
+    for (const h of secretHits) console.error(`validate: ${h}`);
+    fail("secret fragment check failed");
   }
 
   let clickable = 0;
@@ -126,7 +143,22 @@ async function main() {
     }
   }
 
-  console.log(`validate: OK (${doc.projects.length} projects, ${clickable} clickable)`);
+  const enc = JSON.parse(readFileSync(ENC_PATH, "utf8"));
+  let privateCount = enc.cardCount;
+  const password = process.env.PRIVATE_PASSWORD;
+  if (password) {
+    const payload = await decryptPrivatePayload(password, enc);
+    if (!payload || !Array.isArray(payload.projects)) {
+      fail("private.enc.json does not decrypt with PRIVATE_PASSWORD");
+    }
+    privateCount = payload.projects.length;
+  } else if (typeof privateCount !== "number") {
+    fail("private.enc.json must include cardCount or set PRIVATE_PASSWORD to verify");
+  }
+
+  console.log(
+    `validate: OK (${doc.projects.length} public projects, ${clickable} clickable, ${privateCount} private cards)`,
+  );
 }
 
 main();

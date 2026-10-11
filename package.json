@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/validate.mjs",
     "test": "node scripts/validate.mjs",
-    "refresh:dates": "node scripts/refresh-github-dates.mjs"
+    "refresh:dates": "node scripts/refresh-github-dates.mjs",
+    "encrypt-private": "node scripts/encrypt-private.mjs"
   }
 }

@@ -1,6 +1,6 @@
 (() => {
   const STORAGE_THEME = "toybox-theme";
-  const FORBIDDEN_URL = "kingleonardjr19";
+  const FORBIDDEN_URL = atob("a2luZ2xlb25hcmRqcjE5");
   const GITHUB_USER = "T0PK1DK";
 
   const formatDate = (iso) => {
