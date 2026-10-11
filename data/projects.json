@@ -166,6 +166,17 @@
       "updateNote": "SQLite + FTS5 cited encyclopedia work on the public repo."
     },
     {
+      "id": "kings-notes",
+      "name": "Notebook",
+      "description": "King's notes on the web — quick capture and pages at kingsnotes.pages.dev.",
+      "category": "app",
+      "status": "Live",
+      "liveUrl": "https://kingsnotes.pages.dev",
+      "githubRepo": null,
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Live notebook on Cloudflare Pages."
+    },
+    {
       "id": "nard",
       "name": "Nard",
       "description": "Nard — backgammon-family game build.",

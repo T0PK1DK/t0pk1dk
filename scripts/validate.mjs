@@ -12,7 +12,7 @@ const CATEGORIES = new Set(["game", "app", "site"]);
 const MIN_PROJECTS = 25;
 const FORBIDDEN_URL = "kingleonardjr19";
 const FORBIDDEN_TEXT = [/king\s+leonard/i, /leonard\s+jr\.?/i];
-const EXCLUDED_PROJECT_IDS = new Set(["kings-notebook", "king-notebook", "notebook"]);
+const EXCLUDED_PROJECT_IDS = new Set();
 const SCAN_SKIP = new Set(["node_modules", ".git", "package-lock.json"]);
 
 function scanTreePrivacy(dir, hits = []) {
@@ -115,7 +115,18 @@ async function main() {
     fail("privacy check failed");
   }
 
-  console.log(`validate: OK (${doc.projects.length} projects)`);
+  let clickable = 0;
+  for (const p of doc.projects) {
+    if (p.liveUrl && !p.liveUrl.toLowerCase().includes(FORBIDDEN_URL)) {
+      clickable += 1;
+      continue;
+    }
+    if (publicNames && p.githubRepo && publicNames.has(p.githubRepo)) {
+      clickable += 1;
+    }
+  }
+
+  console.log(`validate: OK (${doc.projects.length} projects, ${clickable} clickable)`);
 }
 
 main();
