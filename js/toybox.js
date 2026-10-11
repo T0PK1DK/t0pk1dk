@@ -1,0 +1,171 @@
+(() => {
+  const STORAGE_THEME = "toybox-theme";
+
+  const formatDate = (iso) => {
+    try {
+      return new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(`${iso}T12:00:00Z`));
+    } catch {
+      return iso;
+    }
+  };
+
+  const statusClass = (status) => {
+    const map = {
+      Live: "status-live",
+      "In progress": "status-progress",
+      Early: "status-early",
+      Parked: "status-parked",
+    };
+    return map[status] || "status-progress";
+  };
+
+  const escapeHtml = (str) =>
+    String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+
+  const setTheme = (theme) => {
+    const next = theme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem(STORAGE_THEME, next);
+    const toggle = document.querySelector("[data-theme-toggle]");
+    if (toggle) {
+      toggle.setAttribute("aria-pressed", String(next === "dark"));
+      toggle.setAttribute(
+        "aria-label",
+        next === "dark" ? "Switch to light mode" : "Switch to dark mode",
+      );
+    }
+  };
+
+  const initTheme = () => {
+    const saved = localStorage.getItem(STORAGE_THEME);
+    if (saved === "dark" || saved === "light") {
+      setTheme(saved);
+      return;
+    }
+    setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  };
+
+  const renderUpdates = (projects, container) => {
+    const items = [...projects]
+      .filter((p) => p.updateNote)
+      .sort((a, b) => b.lastUpdated.localeCompare(a.lastUpdated))
+      .slice(0, 8);
+
+    if (!items.length) {
+      container.hidden = true;
+      return;
+    }
+
+    container.innerHTML = items
+      .map(
+        (p) => `
+      <article class="update-item">
+        <time class="update-date" datetime="${escapeHtml(p.lastUpdated)}">${escapeHtml(formatDate(p.lastUpdated))}</time>
+        <div class="update-body">
+          <strong class="update-project">${escapeHtml(p.name)}</strong>
+          <p>${escapeHtml(p.updateNote)}</p>
+        </div>
+      </article>`,
+      )
+      .join("");
+  };
+
+  const renderCards = (projects, grid) => {
+    const sorted = [...projects].sort((a, b) => a.name.localeCompare(b.name, "en"));
+    grid.innerHTML = sorted
+      .map((p) => {
+        const kind = p.category;
+        const live = p.liveUrl
+          ? `<a class="toy-link" href="${escapeHtml(p.liveUrl)}" target="_blank" rel="noopener noreferrer">Open live site<span class="sr-only"> (${escapeHtml(p.name)})</span></a>`
+          : `<span class="toy-coming-soon" role="status">Coming soon</span>`;
+        const repo = p.githubRepo
+          ? `<a class="toy-meta-link" href="https://github.com/T0PK1DK/${encodeURIComponent(p.githubRepo)}" target="_blank" rel="noopener noreferrer">GitHub</a>`
+          : "";
+
+        return `
+      <article class="toy-card" data-kind="${escapeHtml(kind)}" tabindex="0">
+        <div class="toy-card-top">
+          <span class="toy-status ${statusClass(p.status)}">${escapeHtml(p.status)}</span>
+          <span class="toy-kind">${escapeHtml(kind)}</span>
+        </div>
+        <h3 class="toy-name">${escapeHtml(p.name)}</h3>
+        <p class="toy-desc">${escapeHtml(p.description)}</p>
+        <div class="toy-card-foot">
+          ${live}
+          ${repo}
+        </div>
+        <div class="toy-update">
+          <span class="toy-updated-label">Last updated</span>
+          <time datetime="${escapeHtml(p.lastUpdated)}">${escapeHtml(formatDate(p.lastUpdated))}</time>
+          <p class="toy-note">${escapeHtml(p.updateNote)}</p>
+        </div>
+      </article>`;
+      })
+      .join("");
+  };
+
+  const bindFilters = () => {
+    const filters = document.querySelectorAll("[data-toy-filter]");
+    const cards = document.querySelectorAll(".toy-card[data-kind]");
+
+    filters.forEach((button) => {
+      button.addEventListener("click", () => {
+        const next = button.getAttribute("data-toy-filter");
+        filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+        cards.forEach((card) => {
+          const match = next === "all" || card.getAttribute("data-kind") === next;
+          card.hidden = !match;
+          card.classList.toggle("is-filtered-out", !match);
+        });
+      });
+    });
+  };
+
+  const load = async () => {
+    const grid = document.querySelector("[data-toy-grid]");
+    const updates = document.querySelector("[data-updates-feed]");
+    const statusEl = document.querySelector("[data-toy-status]");
+
+    if (!grid) return;
+
+    try {
+      const res = await fetch("/data/projects.json", { cache: "no-cache" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const doc = await res.json();
+      const projects = doc.projects || [];
+
+      renderUpdates(projects, updates);
+      renderCards(projects, grid);
+      bindFilters();
+
+      if (statusEl) statusEl.textContent = `${projects.length} projects in the box`;
+    } catch (err) {
+      grid.innerHTML = `<p class="toy-error" role="alert">Could not load projects. ${escapeHtml(err.message)}</p>`;
+      if (statusEl) statusEl.textContent = "Load failed";
+    }
+  };
+
+  initTheme();
+  const themeToggle = document.querySelector("[data-theme-toggle]");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const isDark = document.documentElement.dataset.theme === "dark";
+      setTheme(isDark ? "light" : "dark");
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", load);
+  } else {
+    load();
+  }
+})();
