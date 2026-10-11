@@ -11,3 +11,7 @@
 
 /assets/*
   Cache-Control: public, max-age=604800
+
+/data/*
+  Cache-Control: public, max-age=300
+  Content-Type: application/json

@@ -1,0 +1,81 @@
+{
+  "projects": [
+    {
+      "id": "slide",
+      "name": "Slide",
+      "description": "Driver-first navigation — smoothest route, posted speeds, precise timing.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": "https://kings-slide.pages.dev",
+      "githubRepo": "Slide",
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Active pushes on the Slide repo; driver-first routing work continues."
+    },
+    {
+      "id": "actually-worth-it",
+      "name": "Actually Worth It",
+      "description": "Honest reviews of mid-ticket electronics — buy, skip, or wait.",
+      "category": "site",
+      "status": "Live",
+      "liveUrl": "https://actuallyworthit.com",
+      "githubRepo": "actuallyworthit",
+      "lastUpdated": "2026-10-04",
+      "updateNote": "Review funnel and affiliate content updates on the public repo."
+    },
+    {
+      "id": "beep",
+      "name": "BEEP",
+      "description": "Product site for BEEP — shipped on its own domain.",
+      "category": "site",
+      "status": "Live",
+      "liveUrl": "https://get-beep.com",
+      "githubRepo": null,
+      "lastUpdated": "2026-08-01",
+      "updateNote": "Live at get-beep.com (repo is private — dates are manual)."
+    },
+    {
+      "id": "buzzahhjitt-links",
+      "name": "BuzzahhJitt Links",
+      "description": "Link hub for BuzzahhJitt — one place for socials and pages.",
+      "category": "site",
+      "status": "Live",
+      "liveUrl": "https://buzzahhjitt-links.pages.dev",
+      "githubRepo": null,
+      "lastUpdated": "2026-08-01",
+      "updateNote": "Live on Cloudflare Pages (repo is private — dates are manual)."
+    },
+    {
+      "id": "nabu",
+      "name": "Nabu",
+      "description": "Local cited encyclopedia and search index — humans search the tablet; agents use the API.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": "nabu",
+      "lastUpdated": "2026-10-11",
+      "updateNote": "SQLite + FTS5 index and agent API work on the public repo."
+    },
+    {
+      "id": "product-funnel",
+      "name": "product-funnel",
+      "description": "Plain HTML/CSS/JS sales-funnel demo — cart in the browser, no real payments.",
+      "category": "site",
+      "status": "Live",
+      "liveUrl": "https://t0pk1dk.github.io/product-funnel/",
+      "githubRepo": "product-funnel",
+      "lastUpdated": "2026-10-04",
+      "updateNote": "GitHub Pages demo refreshed from the public repo."
+    },
+    {
+      "id": "launch-kit",
+      "name": "T0PK1DK Launch Kit",
+      "description": "Landing page kit for sale — HTML/CSS demo plus source.",
+      "category": "site",
+      "status": "Early",
+      "liveUrl": null,
+      "githubRepo": "t0pk1dk-launch-kit",
+      "lastUpdated": "2026-08-27",
+      "updateNote": "Kit packaging and demo polish on the public repo."
+    }
+  ]
+}

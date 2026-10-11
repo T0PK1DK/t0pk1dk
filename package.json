@@ -1,0 +1,10 @@
+{
+  "name": "t0pk1dk-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/validate.mjs",
+    "test": "node scripts/validate.mjs",
+    "refresh:dates": "node scripts/refresh-github-dates.mjs"
+  }
+}
