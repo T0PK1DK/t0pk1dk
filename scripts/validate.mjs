@@ -9,7 +9,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DATA_PATH = join(ROOT, "data", "projects.json");
 const ENC_PATH = join(ROOT, "data", "private.enc.json");
 
-const STATUSES = new Set(["Live", "In progress", "Early", "Parked"]);
+const STATUSES = new Set(["Live", "In progress", "Early", "Parked", "Testing"]);
 const CATEGORIES = new Set(["game", "app", "site"]);
 const MIN_PROJECTS = 24;
 const FORBIDDEN_TEXT = [/king\s+leonard/i, /leonard\s+jr\.?/i];
@@ -88,8 +88,8 @@ async function main() {
       fail(`${p.id}: githubRepo must be string or null`);
     }
     if (p.githubRepo) githubLinks.add(p.githubRepo);
-    if (!p.liveUrl && p.status === "Live") {
-      fail(`${p.id}: Live status requires liveUrl`);
+    if (!p.liveUrl && (p.status === "Live" || p.status === "Testing")) {
+      fail(`${p.id}: Live/Testing status requires liveUrl`);
     }
     if (EXCLUDED_PROJECT_IDS.has(p.id)) {
       fail(`${p.id}: must not appear on the Toy Box shelf`);
@@ -156,8 +156,13 @@ async function main() {
     fail("private.enc.json must include cardCount or set PRIVATE_PASSWORD to verify");
   }
 
+  const statusCounts = {};
+  for (const p of doc.projects) {
+    statusCounts[p.status] = (statusCounts[p.status] || 0) + 1;
+  }
+
   console.log(
-    `validate: OK (${doc.projects.length} public projects, ${clickable} clickable, ${privateCount} private cards)`,
+    `validate: OK (${doc.projects.length} public projects, ${clickable} clickable, ${privateCount} private cards, statuses: ${JSON.stringify(statusCounts)})`,
   );
 }
 

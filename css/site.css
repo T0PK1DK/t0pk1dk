@@ -1486,6 +1486,16 @@ html[data-theme="dark"] .status-progress {
   color: var(--muted);
 }
 
+.status-testing {
+  background: color-mix(in srgb, #6b5ae0 16%, transparent);
+  color: #5346b8;
+  border-color: color-mix(in srgb, #6b5ae0 35%, var(--line));
+}
+
+html[data-theme="dark"] .status-testing {
+  color: #b8a8ff;
+}
+
 .toy-kind {
   font-size: 12px;
   color: var(--muted);
