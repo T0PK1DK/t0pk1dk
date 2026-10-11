@@ -12,7 +12,7 @@ Each object in `projects` is one card.
 | `name` | yes | Card title. |
 | `description` | yes | One line shown on the card. |
 | `category` | yes | `game`, `app`, or `site` — drives filter chips. |
-| `status` | yes | `Live`, `In progress`, `Early`, or `Parked`. |
+| `status` | yes | `Live`, `Testing`, `In progress`, `Early`, or `Parked`. |
 | `liveUrl` | yes | HTTPS URL or `null` if nothing public. **Do not invent URLs.** |
 | `githubRepo` | yes | Public repo name under `T0PK1DK`, or `null` if private / not on GitHub. |
 | `lastUpdated` | yes | `YYYY-MM-DD`. Auto-updated when `githubRepo` is set (see script below). |
@@ -22,7 +22,8 @@ Each object in `projects` is one card.
 
 1. Open `data/projects.json`.
 2. Append a new object to `projects` with a unique `id`.
-3. Set `liveUrl` only if a real public URL exists (homepage, known Pages domain, etc.).
+3. Set `liveUrl` to a real public URL, or `https://toybox-soon.pages.dev` while a build is still in progress.
+4. Use **`Testing`** when the live site still runs on demo, seed, or draft/bot-generated data (see repo README).
 4. Set `githubRepo` to the repo name if it is public under [T0PK1DK](https://github.com/T0PK1DK); otherwise `null` and maintain `lastUpdated` by hand.
 5. Write `updateNote` in plain language (one or two sentences).
 6. Run `npm test` (validates JSON and required files).

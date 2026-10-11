@@ -22,6 +22,7 @@
       "In progress": "status-progress",
       Early: "status-early",
       Parked: "status-parked",
+      Testing: "status-testing",
     };
     return map[status] || "status-progress";
   };
@@ -129,11 +130,17 @@
         </div>`
           : "";
 
-        const goLabel = p.liveUrl && isAllowedUrl(p.liveUrl)
-          ? "Open live site"
-          : href
-            ? "Open on GitHub"
-            : "";
+        const isSoon =
+          p.liveUrl && p.liveUrl.replace(/\/$/, "") === "https://toybox-soon.pages.dev";
+        const goLabel = isSoon
+          ? "In progress — details"
+          : p.liveUrl && isAllowedUrl(p.liveUrl)
+            ? p.status === "Testing"
+              ? "Open testing site"
+              : "Open live site"
+            : href
+              ? "Open on GitHub"
+              : "";
 
         const body = `
         <div class="toy-card-top">
@@ -150,7 +157,7 @@
 
         if (href) {
           return `
-      <article class="toy-card toy-card--linked" data-kind="${escapeHtml(kind)}" data-clickable="true">
+      <article class="toy-card toy-card--linked" data-kind="${escapeHtml(kind)}" data-status="${escapeHtml(p.status)}" data-clickable="true">
         <a class="toy-card-link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">
           <span class="sr-only">${escapeHtml(p.name)} — ${escapeHtml(goLabel)}</span>
           ${body}
@@ -164,7 +171,7 @@
         }
 
         return `
-      <article class="toy-card toy-card--static" data-kind="${escapeHtml(kind)}" data-clickable="false" tabindex="0">
+      <article class="toy-card toy-card--static" data-kind="${escapeHtml(kind)}" data-status="${escapeHtml(p.status)}" data-clickable="false" tabindex="0">
         ${body}
         <span class="toy-coming-soon" role="status">Coming soon</span>
       </article>`;
@@ -183,7 +190,11 @@
         const next = button.getAttribute("data-toy-filter");
         filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
         cards.forEach((card) => {
-          const match = next === "all" || card.getAttribute("data-kind") === next;
+          const kind = card.getAttribute("data-kind");
+          const status = card.getAttribute("data-status");
+          const match =
+            next === "all" ||
+            (next === "testing" ? status === "Testing" : kind === next);
           card.hidden = !match;
           card.classList.toggle("is-filtered-out", !match);
         });
