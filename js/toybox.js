@@ -58,7 +58,7 @@
     const items = [...projects]
       .filter((p) => p.updateNote)
       .sort((a, b) => b.lastUpdated.localeCompare(a.lastUpdated))
-      .slice(0, 5);
+      .slice(0, 8);
 
     if (!items.length) {
       container.hidden = true;
@@ -80,12 +80,13 @@
   };
 
   const renderCards = (projects, grid) => {
-    grid.innerHTML = projects
+    const sorted = [...projects].sort((a, b) => a.name.localeCompare(b.name, "en"));
+    grid.innerHTML = sorted
       .map((p) => {
         const kind = p.category;
         const live = p.liveUrl
           ? `<a class="toy-link" href="${escapeHtml(p.liveUrl)}" target="_blank" rel="noopener noreferrer">Open live site<span class="sr-only"> (${escapeHtml(p.name)})</span></a>`
-          : `<span class="toy-link toy-link-muted">No public URL yet</span>`;
+          : `<span class="toy-coming-soon" role="status">Coming soon</span>`;
         const repo = p.githubRepo
           ? `<a class="toy-meta-link" href="https://github.com/T0PK1DK/${encodeURIComponent(p.githubRepo)}" target="_blank" rel="noopener noreferrer">GitHub</a>`
           : "";

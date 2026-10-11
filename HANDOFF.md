@@ -29,6 +29,18 @@ Each object in `projects` is one card.
 
 **Do not add** empty placeholders (RCC, APEX, CLAVE), private internal tools, or parked SLIPPS/V-L unless they gain a real `liveUrl`.
 
+The shelf is meant to list **every real project**, including private games and apps. Those cards use `githubRepo: null` so the UI never links a private repo. Use **Coming soon** (no `liveUrl`) with status `In progress` or `Early`.
+
+To rebuild the JSON from the public GitHub list plus the private catalog in code:
+
+```bash
+node scripts/write-projects-json.mjs
+npm run refresh:dates
+npm test
+```
+
+Edit the `PRIVATE` array in `scripts/write-projects-json.mjs` when adding a new private repo slug, or append directly to `data/projects.json`.
+
 ### Post an update note
 
 1. Find the project by `id` in `data/projects.json`.

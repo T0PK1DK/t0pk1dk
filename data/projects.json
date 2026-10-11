@@ -1,81 +1,334 @@
 {
   "projects": [
     {
-      "id": "slide",
-      "name": "Slide",
-      "description": "Driver-first navigation — smoothest route, posted speeds, precise timing.",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://kings-slide.pages.dev",
-      "githubRepo": "Slide",
-      "lastUpdated": "2026-10-11",
-      "updateNote": "Active pushes on the Slide repo; driver-first routing work continues."
-    },
-    {
       "id": "actually-worth-it",
       "name": "Actually Worth It",
-      "description": "Honest reviews of mid-ticket electronics — buy, skip, or wait.",
+      "description": "Actually Worth It — product reviews and Amazon affiliate funnel for actuallyworthit.com",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://actuallyworthit.com",
       "githubRepo": "actuallyworthit",
       "lastUpdated": "2026-10-04",
-      "updateNote": "Review funnel and affiliate content updates on the public repo."
+      "updateNote": "Editorial and affiliate funnel updates on the public repo."
+    },
+    {
+      "id": "bay-9",
+      "name": "Bay 9",
+      "description": "Bay 9 — private sci-fi game build.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
     },
     {
       "id": "beep",
       "name": "BEEP",
-      "description": "Product site for BEEP — shipped on its own domain.",
+      "description": "BEEP product site and brand — shipped on get-beep.com.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://get-beep.com",
       "githubRepo": null,
-      "lastUpdated": "2026-08-01",
-      "updateNote": "Live at get-beep.com (repo is private — dates are manual)."
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Live at get-beep.com; repo is private."
     },
     {
       "id": "buzzahhjitt-links",
       "name": "BuzzahhJitt Links",
-      "description": "Link hub for BuzzahhJitt — one place for socials and pages.",
+      "description": "Link hub for BuzzahhJitt — socials and pages in one place.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://buzzahhjitt-links.pages.dev",
       "githubRepo": null,
-      "lastUpdated": "2026-08-01",
-      "updateNote": "Live on Cloudflare Pages (repo is private — dates are manual)."
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Live on Cloudflare Pages; repo is private."
+    },
+    {
+      "id": "conclave",
+      "name": "CONCLAVE",
+      "description": "CONCLAVE — private strategy game in development.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "dominous",
+      "name": "Dominous",
+      "description": "Dominous — dominoes-style game prototype.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "e-sekai",
+      "name": "E-SEKAI",
+      "description": "E-SEKAI — narrative isekai-themed game project.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "euts",
+      "name": "EUTS",
+      "description": "EUTS — private utility app codebase.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "grindex",
+      "name": "Grindex",
+      "description": "Grindex — private indexing or grid app experiment.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "helios-dominion",
+      "name": "Helios Dominion",
+      "description": "3D orbital god-simulator and planetary base-builder (TypeScript).",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "hilo-game",
+      "name": "HILO",
+      "description": "Hi-Lo card game — private build.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "invert",
+      "name": "INVERT",
+      "description": "Puzzle game built around inversion — private repo.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "lajan",
+      "name": "LAJAN",
+      "description": "LAJAN — private app project.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "micasa",
+      "name": "MiCasa",
+      "description": "MiCasa — home and household helper app.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
     },
     {
       "id": "nabu",
       "name": "Nabu",
-      "description": "Local cited encyclopedia and search index — humans search the tablet; agents use the API.",
+      "description": "Local cited encyclopedia and search index. SQLite and FTS5. Humans search the tablet; an agent uses the API.",
       "category": "app",
       "status": "In progress",
       "liveUrl": null,
       "githubRepo": "nabu",
       "lastUpdated": "2026-10-11",
-      "updateNote": "SQLite + FTS5 index and agent API work on the public repo."
+      "updateNote": "SQLite + FTS5 cited encyclopedia work on the public repo."
+    },
+    {
+      "id": "nard",
+      "name": "Nard",
+      "description": "Nard — backgammon-family game build.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
     },
     {
       "id": "product-funnel",
       "name": "product-funnel",
-      "description": "Plain HTML/CSS/JS sales-funnel demo — cart in the browser, no real payments.",
+      "description": "Static GitHub Pages site for themidaslawbook.com — finance guide landing page, glossary, and chapters.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://t0pk1dk.github.io/product-funnel/",
       "githubRepo": "product-funnel",
       "lastUpdated": "2026-10-04",
-      "updateNote": "GitHub Pages demo refreshed from the public repo."
+      "updateNote": "GitHub Pages demo synced from the public repo."
+    },
+    {
+      "id": "rdf",
+      "name": "RDF",
+      "description": "RDF — linked-data or tooling project.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "respawn-hq",
+      "name": "Respawn HQ",
+      "description": "Respawn HQ — game-dev hub and ops tooling.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "slide",
+      "name": "Slide",
+      "description": "Slide — driver-first navigation. Smoothest route, posted speeds, precise timing.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": "https://kings-slide.pages.dev",
+      "githubRepo": "Slide",
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Driver-first routing and HUD work; preview live on Pages."
+    },
+    {
+      "id": "snaggit",
+      "name": "SNAGGIT",
+      "description": "SNAGGIT — arcade-style catch game prototype.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "sprain",
+      "name": "SPRAIN",
+      "description": "SPRAIN — private game prototype.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "stellar-evolution",
+      "name": "Stellar Evolution",
+      "description": "Stellar evolution simulation and game systems.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "sweet-d",
+      "name": "SWEET-D",
+      "description": "SWEET-D — private game project.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
     },
     {
       "id": "launch-kit",
       "name": "T0PK1DK Launch Kit",
-      "description": "Landing page kit for sale — HTML/CSS demo plus source.",
+      "description": "T0PK1DK landing page kit for sale (HTML/CSS demo + source)",
       "category": "site",
       "status": "Early",
       "liveUrl": null,
       "githubRepo": "t0pk1dk-launch-kit",
       "lastUpdated": "2026-08-27",
-      "updateNote": "Kit packaging and demo polish on the public repo."
+      "updateNote": "Landing kit packaging on the public repo — early sale prep."
+    },
+    {
+      "id": "tapn",
+      "name": "TAPN",
+      "description": "TAPN — tap-timing social app experiment.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "tastyhabits",
+      "name": "TastyHabits",
+      "description": "TastyHabits — habit tracking with a food-friendly angle.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "terra",
+      "name": "Terra",
+      "description": "Terra — terrain and world-building game code.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "the-wall",
+      "name": "The WALL",
+      "description": "The WALL — private app build (details on request).",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
+    },
+    {
+      "id": "zonez",
+      "name": "ZONEZ",
+      "description": "ZONEZ — private zone puzzle app.",
+      "category": "app",
+      "status": "In progress",
+      "liveUrl": null,
+      "githubRepo": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Private build — card only, no public repo link."
     }
   ]
 }

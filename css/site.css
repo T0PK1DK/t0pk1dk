@@ -1474,11 +1474,18 @@ html[data-theme="dark"] .toy-link {
   color: var(--gold);
 }
 
-.toy-link-muted {
-  text-decoration: none;
+.toy-coming-soon {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 560;
+  letter-spacing: 0.02em;
   color: var(--muted);
-  font-weight: 520;
-  cursor: default;
+  border: 1px dashed color-mix(in srgb, var(--muted) 45%, var(--line));
+  background: color-mix(in srgb, var(--card) 88%, transparent);
 }
 
 .toy-meta-link {
