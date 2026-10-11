@@ -25,13 +25,13 @@
     {
       "id": "beep",
       "name": "BEEP",
-      "description": "BEEP product site and brand — shipped on get-beep.com.",
+      "description": "BEEP product site and brand — in the works.",
       "category": "site",
-      "status": "Live",
-      "liveUrl": "https://get-beep.com",
+      "status": "In progress",
+      "liveUrl": null,
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Live at get-beep.com; repo is private."
+      "updateNote": "Coming soon — domain not pointed at the site yet."
     },
     {
       "id": "buzzahhjitt-links",
@@ -90,14 +90,14 @@
     },
     {
       "id": "grindex",
-      "name": "Grindex",
-      "description": "Grindex — private indexing or grid app experiment.",
+      "name": "GRINDEX",
+      "description": "GRINDEX — grid and index tooling on the web.",
       "category": "app",
-      "status": "In progress",
-      "liveUrl": null,
+      "status": "Live",
+      "liveUrl": "https://grindex.cc",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Live at grindex.cc; repo stays private."
     },
     {
       "id": "helios-dominion",
@@ -178,14 +178,14 @@
     },
     {
       "id": "product-funnel",
-      "name": "product-funnel",
-      "description": "Static GitHub Pages site for themidaslawbook.com — finance guide landing page, glossary, and chapters.",
+      "name": "Midas Law Book",
+      "description": "Static site for themidaslawbook.com — finance guide landing page, glossary, and chapters.",
       "category": "site",
       "status": "Live",
-      "liveUrl": "https://t0pk1dk.github.io/product-funnel/",
+      "liveUrl": "https://themidaslawbook.com",
       "githubRepo": "product-funnel",
       "lastUpdated": "2026-10-04",
-      "updateNote": "GitHub Pages demo synced from the public repo."
+      "updateNote": "Live at themidaslawbook.com; content synced from the public repo."
     },
     {
       "id": "rdf",
@@ -200,14 +200,14 @@
     },
     {
       "id": "respawn-hq",
-      "name": "Respawn HQ",
-      "description": "Respawn HQ — game-dev hub and ops tooling.",
+      "name": "RespawnHQ",
+      "description": "RespawnHQ — game-dev hub and ops on the web.",
       "category": "app",
-      "status": "In progress",
-      "liveUrl": null,
+      "status": "Live",
+      "liveUrl": "https://respawnhq.net",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Live at respawnhq.net; repo stays private."
     },
     {
       "id": "slide",
@@ -233,25 +233,25 @@
     },
     {
       "id": "sprain",
-      "name": "SPRAIN",
-      "description": "SPRAIN — private game prototype.",
+      "name": "THE BANDO",
+      "description": "THE BANDO (SPRAIN) — game site and experience at thebando.cc.",
       "category": "game",
-      "status": "In progress",
-      "liveUrl": null,
+      "status": "Live",
+      "liveUrl": "https://thebando.cc",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Live at thebando.cc; repo stays private."
     },
     {
       "id": "stellar-evolution",
       "name": "Stellar Evolution",
       "description": "Stellar evolution simulation and game systems.",
       "category": "game",
-      "status": "In progress",
-      "liveUrl": null,
+      "status": "Live",
+      "liveUrl": "https://testdasite.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Playable preview on Cloudflare Pages; repo stays private."
     },
     {
       "id": "sweet-d",
@@ -322,13 +322,13 @@
     {
       "id": "zonez",
       "name": "ZONEZ",
-      "description": "ZONEZ — private zone puzzle app.",
+      "description": "ZONEZ — zone puzzle app at zonez.net.",
       "category": "app",
-      "status": "In progress",
-      "liveUrl": null,
+      "status": "Live",
+      "liveUrl": "https://zonez.net",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Live at zonez.net; repo stays private."
     }
   ]
 }

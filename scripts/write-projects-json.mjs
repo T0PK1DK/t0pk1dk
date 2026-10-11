@@ -11,10 +11,17 @@ const OUT = join(ROOT, "data", "projects.json");
 const LIVE = {
   slide: "https://kings-slide.pages.dev",
   "actually-worth-it": "https://actuallyworthit.com",
-  beep: "https://get-beep.com",
   "buzzahhjitt-links": "https://buzzahhjitt-links.pages.dev",
-  "product-funnel": "https://t0pk1dk.github.io/product-funnel/",
+  "product-funnel": "https://themidaslawbook.com",
+  "stellar-evolution": "https://testdasite.pages.dev",
+  sprain: "https://thebando.cc",
+  zonez: "https://zonez.net",
+  grindex: "https://grindex.cc",
+  "respawn-hq": "https://respawnhq.net",
 };
+
+/** Never list on the Toy Box shelf. */
+const EXCLUDED_IDS = new Set(["kings-notebook", "king-notebook", "notebook"]);
 
 /** Private or non-GitHub-visible builds — no githubRepo on the card. */
 const PRIVATE = [
@@ -23,7 +30,7 @@ const PRIVATE = [
   { id: "dominous", name: "Dominous", category: "game", description: "Dominous — dominoes-style game prototype." },
   { id: "e-sekai", name: "E-SEKAI", category: "game", description: "E-SEKAI — narrative isekai-themed game project." },
   { id: "euts", name: "EUTS", category: "app", description: "EUTS — private utility app codebase." },
-  { id: "grindex", name: "Grindex", category: "app", description: "Grindex — private indexing or grid app experiment." },
+  { id: "grindex", name: "GRINDEX", category: "app", description: "GRINDEX — grid and index tooling on the web." },
   { id: "helios-dominion", name: "Helios Dominion", category: "game", description: "3D orbital god-simulator and planetary base-builder (TypeScript)." },
   { id: "hilo-game", name: "HILO", category: "game", description: "Hi-Lo card game — private build." },
   { id: "invert", name: "INVERT", category: "game", description: "Puzzle game built around inversion — private repo." },
@@ -31,23 +38,23 @@ const PRIVATE = [
   { id: "micasa", name: "MiCasa", category: "app", description: "MiCasa — home and household helper app." },
   { id: "nard", name: "Nard", category: "game", description: "Nard — backgammon-family game build." },
   { id: "rdf", name: "RDF", category: "app", description: "RDF — linked-data or tooling project." },
-  { id: "respawn-hq", name: "Respawn HQ", category: "app", description: "Respawn HQ — game-dev hub and ops tooling." },
+  { id: "respawn-hq", name: "RespawnHQ", category: "app", description: "RespawnHQ — game-dev hub and ops on the web." },
   { id: "snaggit", name: "SNAGGIT", category: "game", description: "SNAGGIT — arcade-style catch game prototype." },
-  { id: "sprain", name: "SPRAIN", category: "game", description: "SPRAIN — private game prototype." },
+  { id: "sprain", name: "THE BANDO", category: "game", description: "THE BANDO (SPRAIN) — game site and experience at thebando.cc." },
   { id: "stellar-evolution", name: "Stellar Evolution", category: "game", description: "Stellar evolution simulation and game systems." },
   { id: "sweet-d", name: "SWEET-D", category: "game", description: "SWEET-D — private game project." },
   { id: "tapn", name: "TAPN", category: "app", description: "TAPN — tap-timing social app experiment." },
   { id: "tastyhabits", name: "TastyHabits", category: "app", description: "TastyHabits — habit tracking with a food-friendly angle." },
   { id: "terra", name: "Terra", category: "game", description: "Terra — terrain and world-building game code." },
   { id: "the-wall", name: "The WALL", category: "app", description: "The WALL — private app build (details on request)." },
-  { id: "zonez", name: "ZONEZ", category: "app", description: "ZONEZ — private zone puzzle app." },
+  { id: "zonez", name: "ZONEZ", category: "app", description: "ZONEZ — zone puzzle app at zonez.net." },
 ];
 
 const PUBLIC_META = {
   Slide: { id: "slide", name: "Slide", category: "app" },
   actuallyworthit: { id: "actually-worth-it", name: "Actually Worth It", category: "site" },
   nabu: { id: "nabu", name: "Nabu", category: "app" },
-  "product-funnel": { id: "product-funnel", name: "product-funnel", category: "site" },
+  "product-funnel": { id: "product-funnel", name: "Midas Law Book", category: "site" },
   "t0pk1dk-launch-kit": { id: "launch-kit", name: "T0PK1DK Launch Kit", category: "site" },
 };
 
@@ -93,6 +100,7 @@ async function main() {
   }
 
   for (const row of PRIVATE) {
+    if (EXCLUDED_IDS.has(row.id)) continue;
     const liveUrl = LIVE[row.id] || null;
     projects.push({
       id: row.id,
@@ -112,13 +120,13 @@ async function main() {
   projects.push({
     id: "beep",
     name: "BEEP",
-    description: "BEEP product site and brand — shipped on get-beep.com.",
+    description: "BEEP product site and brand — in the works.",
     category: "site",
-    status: "Live",
-    liveUrl: LIVE.beep,
+    status: "In progress",
+    liveUrl: null,
     githubRepo: null,
     lastUpdated: "2026-06-01",
-    updateNote: "Live at get-beep.com; repo is private.",
+    updateNote: "Coming soon — domain not pointed at the site yet.",
   });
 
   projects.push({

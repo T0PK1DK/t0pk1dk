@@ -41,6 +41,13 @@ npm test
 
 Edit the `PRIVATE` array in `scripts/write-projects-json.mjs` when adding a new private repo slug, or append directly to `data/projects.json`.
 
+### Privacy
+
+- **Never** commit URLs containing `kingleonardjr19` (including `*.workers.dev` addresses that expose a legal name).
+- Do **not** put King's legal name in site copy; use **T0PK1DK** / **King's Toy Box** in public text.
+- **King's Notebook** (private notes) must **not** appear on the shelf.
+- `npm test` scans tracked source files for forbidden URL fragments and legal-name text.
+
 ### Post an update note
 
 1. Find the project by `id` in `data/projects.json`.
