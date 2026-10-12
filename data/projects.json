@@ -3,7 +3,7 @@
     {
       "id": "actually-worth-it",
       "name": "Actually Worth It",
-      "description": "Actually Worth It — product reviews and Amazon affiliate funnel for actuallyworthit.com",
+      "description": "Actually Worth It \u2014 product reviews and Amazon affiliate funnel for actuallyworthit.com",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://actuallyworthit.com",
@@ -14,13 +14,13 @@
     {
       "id": "bay-9",
       "name": "BAY 9",
-      "description": "Bay 9 — private sci-fi game build.",
+      "description": "Bay 9 \u2014 private sci-fi game build.",
       "category": "game",
       "status": "Live",
       "liveUrl": "https://drag.thebando.cc",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "beep",
@@ -36,7 +36,7 @@
     {
       "id": "buzzahhjitt-links",
       "name": "BuzzahhJitt Links",
-      "description": "Link hub for BuzzahhJitt — socials and pages in one place.",
+      "description": "Link hub for BuzzahhJitt \u2014 socials and pages in one place.",
       "category": "site",
       "status": "Testing",
       "liveUrl": "https://buzzahhjitt-links.pages.dev",
@@ -47,51 +47,51 @@
     {
       "id": "conclave",
       "name": "CONCLAVE",
-      "description": "CONCLAVE — private strategy game in development.",
+      "description": "CONCLAVE \u2014 private strategy game in development.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "dominous",
       "name": "Dominous",
-      "description": "Dominous — dominoes-style game prototype.",
+      "description": "Dominous \u2014 dominoes-style game prototype.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "e-sekai",
       "name": "E-SEKAI",
-      "description": "E-SEKAI — narrative isekai-themed game project.",
+      "description": "E-SEKAI \u2014 narrative isekai-themed game project.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "euts",
       "name": "EUTS",
-      "description": "EUTS — private utility app codebase.",
+      "description": "EUTS \u2014 private utility app codebase.",
       "category": "app",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "grindex",
       "name": "GRINDEX",
-      "description": "GRINDEX — grid and index tooling on the web.",
+      "description": "GRINDEX \u2014 grid and index tooling on the web.",
       "category": "app",
       "status": "Live",
       "liveUrl": "https://grindex.cc",
@@ -108,51 +108,51 @@
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "hilo-game",
       "name": "HILO",
-      "description": "Hi-Lo card game — private build.",
+      "description": "Hi-Lo card game \u2014 private build.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "invert",
       "name": "INVERT",
-      "description": "Puzzle game built around inversion — private repo.",
+      "description": "Gravity-flip arcade climber \u2014 playable preview.",
       "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
+      "status": "Testing",
+      "liveUrl": "https://invert-game.pages.dev",
       "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "lastUpdated": "2026-10-12",
+      "updateNote": "Playable preview on Cloudflare Pages (gravity-flip arcade climber)."
     },
     {
       "id": "lajan",
       "name": "LAJAN",
-      "description": "LAJAN — private app project.",
+      "description": "LAJAN \u2014 private app project.",
       "category": "app",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "micasa",
       "name": "MiCasa",
-      "description": "MiCasa — home and household helper app.",
+      "description": "MiCasa \u2014 home and household helper app.",
       "category": "app",
       "status": "Live",
       "liveUrl": "https://findmicasa.net",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "nabu",
@@ -168,18 +168,18 @@
     {
       "id": "nard",
       "name": "Nard",
-      "description": "Nard — backgammon-family game build.",
+      "description": "Nard \u2014 backgammon-family game build.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "product-funnel",
       "name": "Midas Law Book",
-      "description": "Static site for themidaslawbook.com — finance guide landing page, glossary, and chapters.",
+      "description": "Static site for themidaslawbook.com \u2014 finance guide landing page, glossary, and chapters.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://themidaslawbook.com",
@@ -190,18 +190,18 @@
     {
       "id": "rdf",
       "name": "RDF",
-      "description": "RDF — linked-data or tooling project.",
+      "description": "RDF \u2014 linked-data or tooling project.",
       "category": "app",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "respawn-hq",
       "name": "RespawnHQ",
-      "description": "RespawnHQ — game-dev hub and ops on the web.",
+      "description": "RespawnHQ \u2014 game-dev hub and ops on the web.",
       "category": "app",
       "status": "Live",
       "liveUrl": "https://respawnhq.net",
@@ -212,7 +212,7 @@
     {
       "id": "slide",
       "name": "Slide",
-      "description": "Slide — driver-first navigation. Smoothest route, posted speeds, precise timing.",
+      "description": "Slide \u2014 driver-first navigation. Smoothest route, posted speeds, precise timing.",
       "category": "app",
       "status": "Testing",
       "liveUrl": "https://kings-slide.pages.dev",
@@ -223,18 +223,18 @@
     {
       "id": "snaggit",
       "name": "SNAGGIT",
-      "description": "SNAGGIT — arcade-style catch game prototype.",
+      "description": "SNAGGIT \u2014 arcade-style catch game prototype.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "sprain",
       "name": "THE BANDO",
-      "description": "THE BANDO (SPRAIN) — game site and experience at thebando.cc.",
+      "description": "THE BANDO (SPRAIN) \u2014 game site and experience at thebando.cc.",
       "category": "game",
       "status": "Live",
       "liveUrl": "https://thebando.cc",
@@ -273,56 +273,56 @@
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": "t0pk1dk-launch-kit",
       "lastUpdated": "2026-08-27",
-      "updateNote": "Landing kit packaging on the public repo — early sale prep."
+      "updateNote": "Landing kit packaging on the public repo \u2014 early sale prep."
     },
     {
       "id": "tapn",
       "name": "TAPN",
-      "description": "TAPN — tap-timing social app experiment.",
+      "description": "TAPN \u2014 tap-timing social app experiment.",
       "category": "app",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "tastyhabits",
       "name": "TastyHabits",
-      "description": "TastyHabits — habit tracking with a food-friendly angle.",
+      "description": "TastyHabits \u2014 habit tracking with a food-friendly angle.",
       "category": "app",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "terra",
       "name": "Terra",
-      "description": "Terra — terrain and world-building game code.",
+      "description": "Terra \u2014 terrain and world-building game code.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "the-wall",
       "name": "The WALL",
-      "description": "The WALL — private app build (details on request).",
+      "description": "The WALL \u2014 private app build (details on request).",
       "category": "app",
       "status": "In progress",
       "liveUrl": "https://toybox-soon.pages.dev",
       "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build — card only, no public repo link."
+      "updateNote": "Private build \u2014 card only, no public repo link."
     },
     {
       "id": "zonez",
       "name": "ZONEZ",
-      "description": "ZONEZ — zone puzzle app at zonez.net.",
+      "description": "ZONEZ \u2014 zone puzzle app at zonez.net.",
       "category": "app",
       "status": "Live",
       "liveUrl": "https://zonez.net",
