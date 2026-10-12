@@ -190,13 +190,13 @@
     {
       "id": "rdf",
       "name": "RDF",
-      "description": "RDF \u2014 linked-data or tooling project.",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
+      "description": "3D fighter playtest \u2014 Kit, Bayan, Ren, Jae-Min.",
+      "category": "game",
+      "status": "Testing",
+      "liveUrl": "https://rdf-fight.pages.dev/?3d=1",
       "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
+      "lastUpdated": "2026-10-12",
+      "updateNote": "Playable 3D fighter playtest (Kit, Bayan, Ren, Jae-Min)."
     },
     {
       "id": "respawn-hq",
