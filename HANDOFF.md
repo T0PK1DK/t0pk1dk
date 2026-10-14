@@ -1,3 +1,13 @@
+# King's Toy Box (v3, Oct 2026)
+
+- Cards: `data/projects.json`. Fields: id, name, description, category (`game`|`site`|`tool`), status (`Live`|`In progress`|`Android app`|`In development`), liveUrl (https or null; `In development` = no link, Live/In progress need a link), lastUpdated, updateNote.
+- Preview screenshots: `assets/previews/<id>.webp` (720px wide). Missing ones fall back to `assets/previews/fallback.svg`.
+- Lockbox: edit gitignored `data/private.json` (`{projects:[{title,url,kind,note}]}`), then `PRIVATE_PASSWORD=... npm run encrypt-private && npm test`. Never commit the plaintext or passcode.
+- UI: `index.html`, `css/toybox.css`, `js/toybox.js`, `js/private-vault.js`. Bump `?v=` on CSS/JS when editing (7-day cache).
+
+---
+(older notes below)
+
 # King's Toy Box — handoff for bots and humans
 
 The homepage (`/`) is **King's Toy Box**: a shelf of projects rendered from one data file. Cloudflare Pages deploy is unchanged (static root, no build step in CI — run `npm test` locally).

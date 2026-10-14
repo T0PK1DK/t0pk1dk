@@ -1,249 +1,86 @@
 (() => {
-  const STORAGE_THEME = "toybox-theme";
-  const FORBIDDEN_URL = atob("a2luZ2xlb25hcmRqcjE5");
-  const GITHUB_USER = "T0PK1DK";
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const KIND = { game: "Game", site: "Site", tool: "Tool" };
+  const BADGE = { "Live": "b-live", "In progress": "b-prog", "Android app": "b-droid", "In development": "b-dev", "Private": "b-lock" };
+  const root = document.documentElement;
 
-  const formatDate = (iso) => {
-    try {
-      return new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        timeZone: "UTC",
-      }).format(new Date(`${iso}T12:00:00Z`));
-    } catch {
-      return iso;
+  // Theme
+  const mq = matchMedia("(prefers-color-scheme: dark)");
+  const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : mq.matches;
+  const syncTheme = () => {
+    root.toggleAttribute("data-dark", isDark());
+    const b = $("[data-theme-toggle]");
+    if (b) b.setAttribute("aria-label", isDark() ? "Switch to light mode" : "Switch to dark mode");
+  };
+  syncTheme();
+  mq.addEventListener?.("change", syncTheme);
+  $("[data-theme-toggle]")?.addEventListener("click", () => {
+    root.dataset.theme = isDark() ? "light" : "dark";
+    try { localStorage.setItem("toybox-theme", root.dataset.theme); } catch {}
+    syncTheme();
+  });
+
+  const initials = (n) => n.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  const host = (u) => { try { return new URL(u).host + (new URL(u).pathname.length > 1 ? new URL(u).pathname : ""); } catch { return ""; } };
+
+  // Sheet
+  const sheet = $("[data-sheet]");
+  const openSheet = (p) => {
+    const img = $("[data-sheet-img]");
+    img.src = p.image || "/assets/previews/fallback.svg";
+    img.alt = p.image ? `Screenshot of ${p.name}` : "";
+    img.onerror = () => { img.onerror = null; img.src = "/assets/previews/fallback.svg"; };
+    const badge = $("[data-sheet-badge]");
+    badge.textContent = p.status; badge.className = `badge ${BADGE[p.status] || ""}`;
+    $("[data-sheet-kind]").textContent = p.kind || "";
+    $("[data-sheet-title]").textContent = p.name;
+    $("[data-sheet-desc]").textContent = p.description || "";
+    $("[data-sheet-note]").textContent = p.note || "";
+    const open = $("[data-sheet-open]"), nolink = $("[data-sheet-nolink]");
+    if (p.url) {
+      open.hidden = false; open.href = p.url;
+      open.textContent = p.url.includes("github.com") ? "View on GitHub ↗" : `Open ${p.name} ↗`;
+      $("[data-sheet-host]").textContent = p.private ? "" : host(p.url);
+      nolink.hidden = true;
+    } else {
+      open.hidden = true; open.removeAttribute("href");
+      $("[data-sheet-host]").textContent = "";
+      nolink.hidden = false;
+      nolink.textContent = p.status === "Android app" ? "Android app. There's no web version to open yet." : "Still being built. A link shows up here as soon as there's something to play.";
     }
+    sheet.showModal();
+    open.hidden ? $("[data-close]").focus() : open.focus();
   };
+  $("[data-close]")?.addEventListener("click", () => sheet.close());
+  sheet?.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
 
-  const statusClass = (status) => {
-    const map = {
-      Live: "status-live",
-      "In progress": "status-progress",
-      Early: "status-early",
-      Parked: "status-parked",
-      Testing: "status-testing",
-    };
-    return map[status] || "status-progress";
+  const cardHtml = (p, i) => `
+    <button class="card" type="button" style="--i:${i}" data-idx="${i}" aria-label="${esc(p.name)}, ${esc(p.status)}. Open preview">
+      <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" width="720" height="450">` : `<div class="thumb-empty thumb">${esc(initials(p.name))}</div>`}
+        <span class="badge ${BADGE[p.status] || ""}">${esc(p.status)}</span></div>
+      <div class="card-body"><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p></div>
+    </button>`;
+
+  const renderInto = (el, list) => {
+    el.innerHTML = list.map(cardHtml).join("");
+    el.onclick = (e) => { const c = e.target.closest(".card"); if (c) openSheet(list[+c.dataset.idx]); };
   };
+  window.ToyBox = { renderInto, openSheet };
 
-  const escapeHtml = (str) =>
-    String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
+  const grid = $("[data-grid]");
+  let all = [];
+  const show = (f) => renderInto(grid, f === "all" ? all : all.filter((p) => p.category === f));
+  document.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    show(b.dataset.filter);
+  }));
+  $("[data-jump-lockbox]")?.addEventListener("click", () => { $("#lockbox").scrollIntoView({ behavior: "smooth" }); setTimeout(() => $("#lock-pass")?.focus({ preventScroll: true }), 400); });
 
-  const isAllowedUrl = (url) => url && !url.toLowerCase().includes(FORBIDDEN_URL);
-
-  const setTheme = (theme) => {
-    const next = theme === "dark" ? "dark" : "light";
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem(STORAGE_THEME, next);
-    const toggle = document.querySelector("[data-theme-toggle]");
-    if (toggle) {
-      toggle.setAttribute("aria-pressed", String(next === "dark"));
-      toggle.setAttribute(
-        "aria-label",
-        next === "dark" ? "Switch to light mode" : "Switch to dark mode",
-      );
-    }
-  };
-
-  const initTheme = () => {
-    const saved = localStorage.getItem(STORAGE_THEME);
-    if (saved === "dark" || saved === "light") {
-      setTheme(saved);
-      return;
-    }
-    setTheme(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-  };
-
-  async function fetchPublicRepoNames() {
-    try {
-      const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`, {
-        headers: { Accept: "application/vnd.github+json" },
-      });
-      if (!res.ok) return new Set();
-      const repos = await res.json();
-      return new Set(
-        repos.filter((r) => !r.private && !r.fork).map((r) => r.name),
-      );
-    } catch {
-      return new Set();
-    }
-  }
-
-  function resolveCardHref(project, publicRepos) {
-    if (isAllowedUrl(project.liveUrl)) return project.liveUrl;
-    if (project.githubRepo && publicRepos.has(project.githubRepo)) {
-      return `https://github.com/${GITHUB_USER}/${encodeURIComponent(project.githubRepo)}`;
-    }
-    return null;
-  }
-
-  const arrowIcon = `<svg class="toy-arrow" width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12L12 4M6 4h6v6" stroke="currentColor" stroke-width="1.7"/></svg>`;
-
-  const renderUpdates = (projects, container) => {
-    const items = [...projects]
-      .filter((p) => p.updateNote)
-      .sort((a, b) => b.lastUpdated.localeCompare(a.lastUpdated))
-      .slice(0, 8);
-
-    if (!items.length) {
-      container.hidden = true;
-      return;
-    }
-
-    container.innerHTML = items
-      .map(
-        (p) => `
-      <article class="update-item">
-        <time class="update-date" datetime="${escapeHtml(p.lastUpdated)}">${escapeHtml(formatDate(p.lastUpdated))}</time>
-        <div class="update-body">
-          <strong class="update-project">${escapeHtml(p.name)}</strong>
-          <p>${escapeHtml(p.updateNote)}</p>
-        </div>
-      </article>`,
-      )
-      .join("");
-  };
-
-  const renderCards = (projects, grid, publicRepos) => {
-    const sorted = [...projects].sort((a, b) => a.name.localeCompare(b.name, "en"));
-    let clickable = 0;
-
-    grid.innerHTML = sorted
-      .map((p) => {
-        const kind = p.category;
-        const href = resolveCardHref(p, publicRepos);
-        if (href) clickable += 1;
-
-        const showGithubChip =
-          isAllowedUrl(p.liveUrl) &&
-          p.githubRepo &&
-          publicRepos.has(p.githubRepo);
-
-        const githubFoot = showGithubChip
-          ? `<div class="toy-card-foot">
-          <a class="toy-meta-link" href="https://github.com/${GITHUB_USER}/${encodeURIComponent(p.githubRepo)}" target="_blank" rel="noopener noreferrer">GitHub repo</a>
-        </div>`
-          : "";
-
-        const isSoon =
-          p.liveUrl && p.liveUrl.replace(/\/$/, "") === "https://toybox-soon.pages.dev";
-        const goLabel = isSoon
-          ? "In progress — details"
-          : p.liveUrl && isAllowedUrl(p.liveUrl)
-            ? p.status === "Testing"
-              ? "Open testing site"
-              : "Open live site"
-            : href
-              ? "Open on GitHub"
-              : "";
-
-        const body = `
-        <div class="toy-card-top">
-          <span class="toy-status ${statusClass(p.status)}">${escapeHtml(p.status)}</span>
-          <span class="toy-kind">${escapeHtml(kind)}</span>
-        </div>
-        <h3 class="toy-name">${escapeHtml(p.name)}</h3>
-        <p class="toy-desc">${escapeHtml(p.description)}</p>
-        <div class="toy-update">
-          <span class="toy-updated-label">Last updated</span>
-          <time datetime="${escapeHtml(p.lastUpdated)}">${escapeHtml(formatDate(p.lastUpdated))}</time>
-          <p class="toy-note">${escapeHtml(p.updateNote)}</p>
-        </div>`;
-
-        if (href) {
-          return `
-      <article class="toy-card toy-card--linked" data-kind="${escapeHtml(kind)}" data-status="${escapeHtml(p.status)}" data-clickable="true">
-        <a class="toy-card-link" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">
-          <span class="sr-only">${escapeHtml(p.name)} — ${escapeHtml(goLabel)}</span>
-          ${body}
-          <span class="toy-card-go">
-            <span class="toy-card-go-text">${escapeHtml(goLabel)}</span>
-            ${arrowIcon}
-          </span>
-        </a>
-        ${githubFoot}
-      </article>`;
-        }
-
-        return `
-      <article class="toy-card toy-card--static" data-kind="${escapeHtml(kind)}" data-status="${escapeHtml(p.status)}" data-clickable="false" tabindex="0">
-        ${body}
-        <span class="toy-coming-soon" role="status">Coming soon</span>
-      </article>`;
-      })
-      .join("");
-
-    return clickable;
-  };
-
-  const bindFilters = () => {
-    const filters = document.querySelectorAll("[data-toy-filter]");
-    const cards = document.querySelectorAll(".toy-card[data-kind]");
-
-    filters.forEach((button) => {
-      button.addEventListener("click", () => {
-        const next = button.getAttribute("data-toy-filter");
-        filters.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
-        cards.forEach((card) => {
-          const kind = card.getAttribute("data-kind");
-          const status = card.getAttribute("data-status");
-          const match =
-            next === "all" ||
-            (next === "testing" ? status === "Testing" : kind === next);
-          card.hidden = !match;
-          card.classList.toggle("is-filtered-out", !match);
-        });
-      });
-    });
-  };
-
-  const load = async () => {
-    const grid = document.querySelector("[data-toy-grid]");
-    const updates = document.querySelector("[data-updates-feed]");
-    const statusEl = document.querySelector("[data-toy-status]");
-
-    if (!grid) return;
-
-    try {
-      const [projectRes, publicRepos] = await Promise.all([
-        fetch("/data/projects.json", { cache: "no-cache" }),
-        fetchPublicRepoNames(),
-      ]);
-      if (!projectRes.ok) throw new Error(`HTTP ${projectRes.status}`);
-      const doc = await projectRes.json();
-      const projects = doc.projects || [];
-
-      renderUpdates(projects, updates);
-      const clickable = renderCards(projects, grid, publicRepos);
-      bindFilters();
-
-      if (statusEl) {
-        statusEl.textContent = `${projects.length} projects in the box · ${clickable} clickable`;
-      }
-      grid.dataset.clickableCount = String(clickable);
-    } catch (err) {
-      grid.innerHTML = `<p class="toy-error" role="alert">Could not load projects. ${escapeHtml(err.message)}</p>`;
-      if (statusEl) statusEl.textContent = "Load failed";
-    }
-  };
-
-  initTheme();
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const isDark = document.documentElement.dataset.theme === "dark";
-      setTheme(isDark ? "light" : "dark");
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", load);
-  } else {
-    load();
-  }
+  fetch("/data/projects.json", { cache: "no-cache" }).then((r) => r.json()).then((doc) => {
+    all = doc.projects.map((p) => ({ ...p, url: p.liveUrl, kind: KIND[p.category], note: p.updateNote, image: p.liveUrl ? `/assets/previews/${p.id}.webp` : null }));
+    const live = all.filter((p) => p.status === "Live").length, prog = all.filter((p) => p.status === "In progress" || p.status === "Android app").length;
+    $("[data-stats]").innerHTML = `<b>${all.length}</b> projects · <b>${live}</b> live · <b>${prog}</b> in progress`;
+    show("all");
+  }).catch(() => { grid.innerHTML = `<p class="muted">Couldn't load projects. Refresh to try again.</p>`; });
 })();

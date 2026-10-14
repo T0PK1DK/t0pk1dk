@@ -3,343 +3,292 @@
     {
       "id": "actually-worth-it",
       "name": "Actually Worth It",
-      "description": "Actually Worth It \u2014 product reviews and Amazon affiliate funnel for actuallyworthit.com",
+      "description": "Honest product reviews. Is it actually worth it? Earbuds, headphones, speakers and GPS.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://actuallyworthit.com",
-      "githubRepo": "actuallyworthit",
       "lastUpdated": "2026-10-04",
-      "updateNote": "Editorial and affiliate funnel updates on the public repo."
+      "updateNote": "Live now."
     },
     {
-      "id": "bay-9",
-      "name": "BAY 9",
-      "description": "Bay 9 \u2014 private sci-fi game build.",
+      "id": "sprain-games",
+      "name": "Bando Games",
+      "description": "The Bando's game collection.",
       "category": "game",
       "status": "Live",
-      "liveUrl": "https://drag.thebando.cc",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
+      "liveUrl": "https://games.thebando.cc",
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Live now."
     },
     {
       "id": "beep",
       "name": "BEEP",
-      "description": "BEEP product site and brand.",
+      "description": "BEEP brand and product site.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://get-beep.com",
-      "githubRepo": null,
       "lastUpdated": "2026-10-11",
-      "updateNote": "Live at get-beep.com."
+      "updateNote": "Live now."
     },
     {
       "id": "buzzahhjitt-links",
       "name": "BuzzahhJitt Links",
-      "description": "Link hub for BuzzahhJitt \u2014 socials and pages in one place.",
+      "description": "BuzzahhJitt's link page: socials, videos and the tip jar in one place.",
       "category": "site",
-      "status": "Testing",
+      "status": "Live",
       "liveUrl": "https://buzzahhjitt-links.pages.dev",
-      "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Live on Cloudflare Pages; repo is private."
-    },
-    {
-      "id": "conclave",
-      "name": "CONCLAVE",
-      "description": "CONCLAVE \u2014 private strategy game in development.",
-      "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "dominous",
-      "name": "Dominous",
-      "description": "Dominous \u2014 dominoes-style game prototype.",
-      "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "e-sekai",
-      "name": "E-SEKAI",
-      "description": "E-SEKAI \u2014 narrative isekai-themed game project.",
-      "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "euts",
-      "name": "EUTS",
-      "description": "EUTS \u2014 private utility app codebase.",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
+      "updateNote": "Live now."
     },
     {
       "id": "grindex",
       "name": "GRINDEX",
-      "description": "GRINDEX \u2014 grid and index tooling on the web.",
-      "category": "app",
+      "description": "GRINDEX on the web.",
+      "category": "tool",
       "status": "Live",
       "liveUrl": "https://grindex.cc",
-      "githubRepo": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Live at grindex.cc; repo stays private."
+      "updateNote": "Live now."
+    },
+    {
+      "id": "respawn-hq",
+      "name": "Respawn HQ",
+      "description": "Game-dev hub and ops on the web.",
+      "category": "tool",
+      "status": "Live",
+      "liveUrl": "https://respawnhq.net",
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Live now."
+    },
+    {
+      "id": "sprain",
+      "name": "SPRAIN",
+      "description": "SPRAIN, a browser game on The Bando. How-to-play page and launch.",
+      "category": "game",
+      "status": "Live",
+      "liveUrl": "https://www.thebando.cc/games/sprain/",
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Live now."
+    },
+    {
+      "id": "product-funnel",
+      "name": "The Midas Law Book",
+      "description": "Finance guide: landing page, glossary and chapters.",
+      "category": "site",
+      "status": "Live",
+      "liveUrl": "https://themidaslawbook.com",
+      "lastUpdated": "2026-10-04",
+      "updateNote": "Live now."
+    },
+    {
+      "id": "zonez",
+      "name": "ZONEZ",
+      "description": "ZONEZ zone puzzles at zonez.net.",
+      "category": "tool",
+      "status": "Live",
+      "liveUrl": "https://zonez.net",
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Live now."
+    },
+    {
+      "id": "bay-9",
+      "name": "BAY 9",
+      "description": "Street drag racing. Build your car, tune it, and launch on the green.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": "https://drag.thebando.cc",
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Playable now and still getting updates."
+    },
+    {
+      "id": "invert",
+      "name": "INVERT",
+      "description": "Gravity-flip arcade climber. Tap to flip and keep climbing.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": "https://invert-game.pages.dev",
+      "lastUpdated": "2026-10-12",
+      "updateNote": "Playable now and still getting updates."
+    },
+    {
+      "id": "nabu",
+      "name": "Nabu",
+      "description": "Local cited encyclopedia and search index. Open-source code on GitHub.",
+      "category": "tool",
+      "status": "In progress",
+      "liveUrl": "https://github.com/T0PK1DK/nabu",
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Code is public on GitHub and still getting updates."
+    },
+    {
+      "id": "rdf",
+      "name": "RDF",
+      "description": "3D fighting game. Pick Kit, Bayan, Ren or Jae-Min and go best of 3.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": "https://rdf-fight.pages.dev/?3d=1",
+      "lastUpdated": "2026-10-12",
+      "updateNote": "Playable now and still getting updates."
+    },
+    {
+      "id": "shotbyzb",
+      "name": "SHOTBYZB",
+      "description": "Photography portfolio site for shotbyzb. Preview build.",
+      "category": "site",
+      "status": "In progress",
+      "liveUrl": "https://shotbyzb.testdasite.pages.dev",
+      "lastUpdated": "2026-10-14",
+      "updateNote": "Preview link while the site is finished."
+    },
+    {
+      "id": "stellar-evolution",
+      "name": "Stellar Evolution",
+      "description": "Grow from a speck of dust to a galaxy. Build a fleet and raid.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": "https://testdasite.pages.dev",
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Playable now and still getting updates."
+    },
+    {
+      "id": "sweet-d",
+      "name": "SWEET-D",
+      "description": "Sweet-D's diner. Run the counter and keep the orders flowing.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": "https://diner.thebando.cc",
+      "lastUpdated": "2026-10-11",
+      "updateNote": "Playable now and still getting updates."
+    },
+    {
+      "id": "launch-kit",
+      "name": "T0PK1DK Launch Kit",
+      "description": "Landing page kit: HTML/CSS demo plus source. Code on GitHub.",
+      "category": "site",
+      "status": "In progress",
+      "liveUrl": "https://github.com/T0PK1DK/t0pk1dk-launch-kit",
+      "lastUpdated": "2026-08-27",
+      "updateNote": "Code is public on GitHub and still getting updates."
+    },
+    {
+      "id": "terra",
+      "name": "Terra",
+      "description": "Plant game: grow and shape a living little world.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": "https://terra-game.pages.dev",
+      "lastUpdated": "2026-10-14",
+      "updateNote": "Playable now and still getting updates."
+    },
+    {
+      "id": "hilo-game",
+      "name": "HILO",
+      "description": "Higher or lower card game for Android. Count, peek and beat the deck.",
+      "category": "game",
+      "status": "Android app",
+      "liveUrl": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Android app in progress. No web version yet."
+    },
+    {
+      "id": "conclave",
+      "name": "CONCLAVE",
+      "description": "CONCLAVE — strategy game in development.",
+      "category": "game",
+      "status": "In development",
+      "liveUrl": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Still being built. No public link yet."
+    },
+    {
+      "id": "dominous",
+      "name": "Dominous",
+      "description": "Dominous — dominoes-style game prototype.",
+      "category": "game",
+      "status": "In development",
+      "liveUrl": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Still being built. No public link yet."
+    },
+    {
+      "id": "e-sekai",
+      "name": "E-SEKAI",
+      "description": "E-SEKAI — narrative isekai-themed game project.",
+      "category": "game",
+      "status": "In development",
+      "liveUrl": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Still being built. No public link yet."
+    },
+    {
+      "id": "euts",
+      "name": "EUTS",
+      "description": "EUTS — utility app codebase.",
+      "category": "tool",
+      "status": "In development",
+      "liveUrl": null,
+      "lastUpdated": "2026-06-01",
+      "updateNote": "Still being built. No public link yet."
     },
     {
       "id": "helios-dominion",
       "name": "Helios Dominion",
       "description": "3D orbital god-simulator and planetary base-builder (TypeScript).",
       "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
+      "status": "In development",
+      "liveUrl": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "hilo-game",
-      "name": "HILO",
-      "description": "Hi-Lo card game \u2014 private build.",
-      "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "invert",
-      "name": "INVERT",
-      "description": "Gravity-flip arcade climber \u2014 playable preview.",
-      "category": "game",
-      "status": "Testing",
-      "liveUrl": "https://invert-game.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-10-12",
-      "updateNote": "Playable preview on Cloudflare Pages (gravity-flip arcade climber)."
+      "updateNote": "Still being built. No public link yet."
     },
     {
       "id": "lajan",
       "name": "LAJAN",
-      "description": "LAJAN \u2014 private app project.",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
+      "description": "LAJAN — app project.",
+      "category": "tool",
+      "status": "In development",
+      "liveUrl": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
+      "updateNote": "Still being built. No public link yet."
     },
     {
       "id": "micasa",
       "name": "MiCasa",
-      "description": "MiCasa \u2014 home and household helper app.",
-      "category": "app",
-      "status": "Live",
-      "liveUrl": "https://findmicasa.net",
-      "githubRepo": null,
+      "description": "MiCasa, a home and household helper.",
+      "category": "tool",
+      "status": "In development",
+      "liveUrl": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "nabu",
-      "name": "Nabu",
-      "description": "Local cited encyclopedia and search index. SQLite and FTS5. Humans search the tablet; an agent uses the API.",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": "nabu",
-      "lastUpdated": "2026-10-11",
-      "updateNote": "SQLite + FTS5 cited encyclopedia work on the public repo."
-    },
-    {
-      "id": "nard",
-      "name": "Nard",
-      "description": "Nard \u2014 backgammon-family game build.",
-      "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "product-funnel",
-      "name": "Midas Law Book",
-      "description": "Static site for themidaslawbook.com \u2014 finance guide landing page, glossary, and chapters.",
-      "category": "site",
-      "status": "Live",
-      "liveUrl": "https://themidaslawbook.com",
-      "githubRepo": "product-funnel",
-      "lastUpdated": "2026-10-04",
-      "updateNote": "Live at themidaslawbook.com; content synced from the public repo."
-    },
-    {
-      "id": "rdf",
-      "name": "RDF",
-      "description": "3D fighter playtest \u2014 Kit, Bayan, Ren, Jae-Min.",
-      "category": "game",
-      "status": "Testing",
-      "liveUrl": "https://rdf-fight.pages.dev/?3d=1",
-      "githubRepo": null,
-      "lastUpdated": "2026-10-12",
-      "updateNote": "Playable 3D fighter playtest (Kit, Bayan, Ren, Jae-Min)."
-    },
-    {
-      "id": "respawn-hq",
-      "name": "RespawnHQ",
-      "description": "RespawnHQ \u2014 game-dev hub and ops on the web.",
-      "category": "app",
-      "status": "Live",
-      "liveUrl": "https://respawnhq.net",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Live at respawnhq.net; repo stays private."
-    },
-    {
-      "id": "slide",
-      "name": "Slide",
-      "description": "Slide \u2014 driver-first navigation. Smoothest route, posted speeds, precise timing.",
-      "category": "app",
-      "status": "Testing",
-      "liveUrl": "https://kings-slide.pages.dev",
-      "githubRepo": "Slide",
-      "lastUpdated": "2026-10-11",
-      "updateNote": "Driver-first routing and HUD work; preview live on Pages."
+      "updateNote": "Still being built. No public link yet."
     },
     {
       "id": "snaggit",
       "name": "SNAGGIT",
-      "description": "SNAGGIT \u2014 arcade-style catch game prototype.",
+      "description": "SNAGGIT — arcade-style catch game prototype.",
       "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
+      "status": "In development",
+      "liveUrl": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "sprain",
-      "name": "THE BANDO",
-      "description": "THE BANDO (SPRAIN) \u2014 game site and experience at thebando.cc.",
-      "category": "game",
-      "status": "Live",
-      "liveUrl": "https://thebando.cc",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Live at thebando.cc; repo stays private."
-    },
-    {
-      "id": "stellar-evolution",
-      "name": "Stellar Evolution",
-      "description": "Stellar evolution simulation and game systems.",
-      "category": "game",
-      "status": "Testing",
-      "liveUrl": "https://testdasite.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Playable preview on Cloudflare Pages; repo stays private."
-    },
-    {
-      "id": "sweet-d",
-      "name": "SWEET-D",
-      "description": "SWEET-D diner experience on the web.",
-      "category": "game",
-      "status": "Live",
-      "liveUrl": "https://diner.thebando.cc",
-      "githubRepo": null,
-      "lastUpdated": "2026-10-11",
-      "updateNote": "Live at diner.thebando.cc."
-    },
-    {
-      "id": "launch-kit",
-      "name": "T0PK1DK Launch Kit",
-      "description": "T0PK1DK landing page kit for sale (HTML/CSS demo + source)",
-      "category": "site",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": "t0pk1dk-launch-kit",
-      "lastUpdated": "2026-08-27",
-      "updateNote": "Landing kit packaging on the public repo \u2014 early sale prep."
+      "updateNote": "Still being built. No public link yet."
     },
     {
       "id": "tapn",
       "name": "TAPN",
-      "description": "TAPN \u2014 tap-timing social app experiment.",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
+      "description": "TAPN — tap-timing social app experiment.",
+      "category": "tool",
+      "status": "In development",
+      "liveUrl": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "tastyhabits",
-      "name": "TastyHabits",
-      "description": "TastyHabits \u2014 habit tracking with a food-friendly angle.",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "terra",
-      "name": "Terra",
-      "description": "Terra \u2014 terrain and world-building game code.",
-      "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
+      "updateNote": "Still being built. No public link yet."
     },
     {
       "id": "the-wall",
       "name": "The WALL",
-      "description": "The WALL \u2014 private app build (details on request).",
-      "category": "app",
-      "status": "In progress",
-      "liveUrl": "https://toybox-soon.pages.dev",
-      "githubRepo": null,
+      "description": "The WALL — app build (details on request).",
+      "category": "tool",
+      "status": "In development",
+      "liveUrl": null,
       "lastUpdated": "2026-06-01",
-      "updateNote": "Private build \u2014 card only, no public repo link."
-    },
-    {
-      "id": "zonez",
-      "name": "ZONEZ",
-      "description": "ZONEZ \u2014 zone puzzle app at zonez.net.",
-      "category": "app",
-      "status": "Live",
-      "liveUrl": "https://zonez.net",
-      "githubRepo": null,
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Live at zonez.net; repo stays private."
-    },
-    {
-      "id": "sprain-games",
-      "name": "SPRAIN Games",
-      "description": "THE BANDO games collection at games.thebando.cc.",
-      "category": "game",
-      "status": "Live",
-      "liveUrl": "https://games.thebando.cc",
-      "githubRepo": null,
-      "lastUpdated": "2026-10-11",
-      "updateNote": "Live games hub on the BANDO stack."
+      "updateNote": "Still being built. No public link yet."
     }
   ]
 }

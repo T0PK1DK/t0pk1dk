@@ -9,8 +9,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DATA_PATH = join(ROOT, "data", "projects.json");
 const ENC_PATH = join(ROOT, "data", "private.enc.json");
 
-const STATUSES = new Set(["Live", "In progress", "Early", "Parked", "Testing"]);
-const CATEGORIES = new Set(["game", "app", "site"]);
+const STATUSES = new Set(["Live", "In progress", "Android app", "In development"]);
+const CATEGORIES = new Set(["game", "tool", "site"]);
 const MIN_PROJECTS = 24;
 const FORBIDDEN_TEXT = [/king\s+leonard/i, /leonard\s+jr\.?/i];
 const SECRET_FRAGMENTS = [Buffer.from("a2luZ2xlb25hcmRqcjE5", "base64").toString(), Buffer.from("a2luZ3Nub3Rlcw==", "base64").toString()];
@@ -88,8 +88,11 @@ async function main() {
       fail(`${p.id}: githubRepo must be string or null`);
     }
     if (p.githubRepo) githubLinks.add(p.githubRepo);
-    if (!p.liveUrl && (p.status === "Live" || p.status === "Testing")) {
-      fail(`${p.id}: Live/Testing status requires liveUrl`);
+    if (!p.liveUrl && (p.status === "Live" || p.status === "In progress")) {
+      fail(`${p.id}: Live/In progress status requires liveUrl`);
+    }
+    if (p.liveUrl && p.status === "In development") {
+      fail(`${p.id}: In development cards have no link; use In progress`);
     }
     if (EXCLUDED_PROJECT_IDS.has(p.id)) {
       fail(`${p.id}: must not appear on the Toy Box shelf`);
@@ -104,6 +107,7 @@ async function main() {
     }
   }
 
+    for (const p of doc.projects) if (p.liveUrl && !existsSync(join(ROOT, "assets/previews", `${p.id}.webp`))) console.warn(`validate: ${p.id} has no preview screenshot (fallback used)`);
   const required = ["index.html", "js/toybox.js", "js/private-vault.js", "css/site.css", "HANDOFF.md"];
   for (const rel of required) {
     if (!existsSync(join(ROOT, rel))) fail(`missing ${rel}`);
