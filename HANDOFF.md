@@ -125,6 +125,10 @@ npm run build
 
 Night mode preference is stored in `localStorage` under `toybox-theme`.
 
+## Recently updated (Oct 15)
+
+Cards show "Updated <date>" from `lastUpdated` (green dot when within 7 days), and the sheet note ends with the same date. The **Recently updated** chip sorts every card newest first. Keep `lastUpdated` honest: many cards still carry the `2026-06-01` placeholder, so bump the date whenever a project ships. Previews for `bay-9` (night strip) and `invert` (gameplay) refreshed Oct 15.
+
 ## Deploy
 
 Same as `README.md`: Cloudflare Pages, output directory repo root, domain `t0pk1dk.com`. No merge or deploy from this doc alone — push and let Pages build.
