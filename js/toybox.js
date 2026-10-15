@@ -81,7 +81,7 @@
   $("[data-jump-lockbox]")?.addEventListener("click", () => { $("#lockbox").scrollIntoView({ behavior: "smooth" }); setTimeout(() => $("#lock-pass")?.focus({ preventScroll: true }), 400); });
 
   fetch("/data/projects.json", { cache: "no-cache" }).then((r) => r.json()).then((doc) => {
-    all = doc.projects.map((p) => ({ ...p, url: p.liveUrl, kind: KIND[p.category], note: p.updateNote, image: p.liveUrl ? `/assets/previews/${p.id}.webp` : null }));
+    all = doc.projects.map((p) => ({ ...p, url: p.liveUrl, kind: KIND[p.category], note: p.updateNote, image: p.liveUrl ? `/assets/previews/${p.id}.webp?v=${encodeURIComponent(p.lastUpdated)}` : null }));
     const live = all.filter((p) => p.status === "Live").length, prog = all.filter((p) => p.status === "In progress" || p.status === "Android app").length;
     $("[data-stats]").innerHTML = `<b>${all.length}</b> projects · <b>${live}</b> live · <b>${prog}</b> in progress`;
     show("all");
