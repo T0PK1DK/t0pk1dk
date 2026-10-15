@@ -97,8 +97,8 @@
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://drag.thebando.cc",
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Playable now and still getting updates."
+      "lastUpdated": "2026-10-15",
+      "updateNote": "Night city drag strip, 4 new cars, a cleaner race screen and real 3D cars in the lot and garage."
     },
     {
       "id": "invert",
@@ -107,7 +107,7 @@
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://invert-game.pages.dev",
-      "lastUpdated": "2026-10-12",
+      "lastUpdated": "2026-10-15",
       "updateNote": "Playable now and still getting updates."
     },
     {
@@ -187,7 +187,7 @@
       "category": "game",
       "status": "Android app",
       "liveUrl": null,
-      "lastUpdated": "2026-06-01",
+      "lastUpdated": "2026-10-14",
       "updateNote": "Android app in progress. No web version yet."
     },
     {

@@ -22,6 +22,8 @@
   });
 
   const initials = (n) => n.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  const fmtDate = (d) => { const t = new Date(`${d}T12:00:00`); return isNaN(t) ? "" : t.toLocaleDateString("en-US", { month: "short", day: "numeric", ...(t.getFullYear() !== new Date().getFullYear() ? { year: "numeric" } : {}) }); };
+  const isFresh = (d) => { const t = new Date(`${d}T12:00:00`); return !isNaN(t) && Date.now() - t < 7 * 864e5; };
   const host = (u) => { try { return new URL(u).host + (new URL(u).pathname.length > 1 ? new URL(u).pathname : ""); } catch { return ""; } };
 
   // Sheet
@@ -36,7 +38,7 @@
     $("[data-sheet-kind]").textContent = p.kind || "";
     $("[data-sheet-title]").textContent = p.name;
     $("[data-sheet-desc]").textContent = p.description || "";
-    $("[data-sheet-note]").textContent = p.note || "";
+    $("[data-sheet-note]").textContent = [p.note, p.lastUpdated && `Updated ${fmtDate(p.lastUpdated)}`].filter(Boolean).join(" · ");
     const open = $("[data-sheet-open]"), nolink = $("[data-sheet-nolink]");
     if (p.url) {
       open.hidden = false; open.href = p.url;
@@ -59,7 +61,7 @@
     <button class="card" type="button" style="--i:${i}" data-idx="${i}" aria-label="${esc(p.name)}, ${esc(p.status)}. Open preview">
       <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="" loading="lazy" decoding="async" width="720" height="450">` : `<div class="thumb-empty thumb">${esc(initials(p.name))}</div>`}
         <span class="badge ${BADGE[p.status] || ""}">${esc(p.status)}</span></div>
-      <div class="card-body"><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p></div>
+      <div class="card-body"><h3>${esc(p.name)}</h3>${p.lastUpdated ? `<span class="upd${isFresh(p.lastUpdated) ? " fresh" : ""}">Updated ${esc(fmtDate(p.lastUpdated))}</span>` : ""}<p>${esc(p.description)}</p></div>
     </button>`;
 
   const renderInto = (el, list) => {
@@ -70,7 +72,8 @@
 
   const grid = $("[data-grid]");
   let all = [];
-  const show = (f) => renderInto(grid, f === "all" ? all : all.filter((p) => p.category === f));
+  const byRecent = (a, b) => String(b.lastUpdated).localeCompare(String(a.lastUpdated));
+  const show = (f) => renderInto(grid, f === "all" ? all : f === "recent" ? [...all].sort(byRecent) : all.filter((p) => p.category === f));
   document.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
     document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     show(b.dataset.filter);
