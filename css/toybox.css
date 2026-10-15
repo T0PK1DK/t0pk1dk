@@ -25,6 +25,7 @@ h1{font-size:clamp(30px,6vw,48px);line-height:1.08;margin:0 0 12px;letter-spacin
 .stats b{color:var(--ink)}
 .chips{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow-x:auto;padding:12px 0;margin-bottom:6px;background:linear-gradient(var(--bg) 70%,transparent);scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
+@media (max-width:540px){.chips{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent);padding-right:28px}.chip{padding:8px 13px;font-size:13.5px}}
 .chip{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 16px;border-radius:999px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s,color .2s,transform .15s}
 .chip:active{transform:scale(.95)}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
