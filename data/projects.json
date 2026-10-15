@@ -185,10 +185,10 @@
       "name": "HILO",
       "description": "Higher or lower card game for Android. Count, peek and beat the deck.",
       "category": "game",
-      "status": "Android app",
-      "liveUrl": null,
-      "lastUpdated": "2026-10-14",
-      "updateNote": "Android app in progress. No web version yet."
+      "status": "In progress",
+      "liveUrl": "https://hilo-game-dnh.pages.dev",
+      "lastUpdated": "2026-10-15",
+      "updateNote": "Playable in your phone browser now. Android app still coming."
     },
     {
       "id": "conclave",
