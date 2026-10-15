@@ -15,7 +15,7 @@
     root.innerHTML = `
       <form class="lock-form" data-form autocomplete="off">
         <label class="sr-only" for="lock-pass" style="position:absolute;left:-999px">Lockbox passcode</label>
-        <input id="lock-pass" type="password" placeholder="Passcode" autocomplete="current-password" required>
+        <input id="lock-pass" type="password" inputmode="numeric" enterkeyhint="go" placeholder="Passcode" autocomplete="current-password" required>
         <button class="btn" type="submit">Unlock</button>
         <p class="lock-err" data-err hidden role="alert">That passcode didn't work.</p>
       </form>
