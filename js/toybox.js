@@ -70,7 +70,7 @@
   const cardHtml = (p, i) => {
     const eager = i < 6;
     const img = p.image
-      ? `<img src="${esc(p.image)}" alt="" ${eager ? `loading="eager" fetchpriority="${i < 2 ? "high" : "low"}"` : `loading="lazy"`} decoding="async" width="720" height="450" sizes="(max-width:400px) 100vw,(max-width:720px) 50vw,280px">
+      ? `<img src="${esc(p.image)}" alt="" ${eager ? `loading="eager" fetchpriority="${i < 2 ? "high" : "low"}"` : `loading="lazy"`} decoding="async" width="720" height="450" sizes="(max-width:400px) 100vw,(max-width:720px) 50vw,280px">`
       : `<div class="thumb-empty thumb"><span class="thumb-mark">${esc(initials(p.name))}</span><span class="thumb-soon">Soon</span></div>`;
     return `
     <button class="card" type="button" style="--i:${Math.min(i, 8)}" data-idx="${i}" aria-label="${esc(p.name)}, ${esc(p.status)}. Open preview">

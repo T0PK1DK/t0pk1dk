@@ -33,7 +33,7 @@ Do not redo this work. Build on it.
 - Recaptured **BEEP** (was almost black; now the pad) and **RDF** (roster with Kit / Ren / Bayan / Jae-Min). Other 17 previews were already honest 720×450 shots of the live pages. Nabu and Launch Kit still show their GitHub repos because that is the `liveUrl`.
 - Copy fixes from the live sites: GRINDEX is Roblox codes (not “on the web”), Respawn HQ is a news desk (not “ops”), ZONEZ is community/chat (not “zone puzzles”), Bando Games / SWEET-D / BEEP match what the pages actually say. Dates were not invented except BEEP + RDF `lastUpdated` to today so the new webps bust the 7-day asset cache.
 - Speed: preload CSS, JS, `projects.json`, and the first three previews; `sizes` on card images; `content-visibility` with a taller intrinsic size.
-- Cache-bust is `?v=8` on toybox CSS/JS.
+- Cache-bust is `?v=8` on toybox CSS and `?v=9` on `toybox.js`.
 
 ## Hard rules (do not break)
 
