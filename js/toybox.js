@@ -114,6 +114,15 @@
     renderInto(grid, list);
     const status = $("[data-filter-status]");
     if (status) status.textContent = labelFor(f, list.length);
+    const first = grid.querySelector(".card");
+    if (first) {
+      const chipsH = $(".chips")?.getBoundingClientRect().height || 0;
+      const top = first.getBoundingClientRect().top;
+      if (top < chipsH + 8 || top > innerHeight * 0.65) {
+        const y = window.scrollY + grid.getBoundingClientRect().top - chipsH - 4;
+        window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
+      }
+    }
   };
   document.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
     document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));

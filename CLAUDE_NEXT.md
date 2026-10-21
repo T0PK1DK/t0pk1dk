@@ -20,7 +20,8 @@ Do not redo this work. Build on it.
 - Card blurbs stay visible on phones. Two-column grid from 401–720px; one column under 400px.
 - Hover lift only on fine pointers so taps don’t stick. Focus-visible lift + image zoom. Images fade in and fall back to `assets/previews/fallback.svg` if a preview 404s.
 - Skip link, 44px tap targets, filter count announced in a live region, sheet restores focus to the card that opened it, theme-color updates with dark mode.
-- First six card images load eager; CSS + `projects.json` + the first two previews are preloaded. Cache-bust is `?v=6` on toybox CSS/JS.
+- First six card images load eager; CSS + `projects.json` + the first two previews are preloaded. Cache-bust is `?v=6` on toybox CSS and `?v=7` on `toybox.js`.
+- Changing a filter chip scrolls the shelf back into view if you were halfway down the page (so Games no longer drops you on the Lockbox).
 - Lockbox: label is a real `.sr-only`, wrong passcode sets `aria-invalid`, Lock button is focused after unlock. **Crypto is unchanged.**
 - HILO card copy now says it is playable in the browser (Android app still coming). All 19 public `liveUrl`s were 200 when last checked.
 - Hash shortcuts: `#games`, `#sites`, `#tools`, `#recent`, `#lockbox`.
