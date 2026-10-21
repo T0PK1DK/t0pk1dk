@@ -12,19 +12,28 @@ A soft, warm project-card hub. The homepage (`index.html` + `css/toybox.css` + `
 
 The older freelance pages (`/work/`, `/about/`, `/contact/`, `css/site.css`) still exist. Do not restyle them unless a Toy Box change breaks a shared link. Keep the homepage as the pretty shelf.
 
-## What the last overnight pass already did
+## What the last two overnight passes already did
 
 Do not redo this work. Build on it.
 
-- Work / About / Contact are reachable on phones (header wraps; footer has the same links). They used to vanish under 560px.
+### Pass 1 (mobile / a11y / nav)
+
+- Work / About / Contact are reachable on phones (header wraps; footer has the same links).
 - Card blurbs stay visible on phones. Two-column grid from 401–720px; one column under 400px.
-- Hover lift only on fine pointers so taps don’t stick. Focus-visible lift + image zoom. Images fade in and fall back to `assets/previews/fallback.svg` if a preview 404s.
-- Skip link, 44px tap targets, filter count announced in a live region, sheet restores focus to the card that opened it, theme-color updates with dark mode.
-- First six card images load eager; CSS + `projects.json` + the first two previews are preloaded. Cache-bust is `?v=6` on toybox CSS and `?v=7` on `toybox.js`.
-- Changing a filter chip scrolls the shelf back into view if you were halfway down the page (so Games no longer drops you on the Lockbox).
-- Lockbox: label is a real `.sr-only`, wrong passcode sets `aria-invalid`, Lock button is focused after unlock. **Crypto is unchanged.**
-- HILO card copy now says it is playable in the browser (Android app still coming). All 19 public `liveUrl`s were 200 when last checked.
+- Hover lift only on fine pointers. Skip link, 44px targets, filter count announced, sheet restores focus, theme-color follows dark mode.
+- Filter chips snap the shelf back into view if you were scrolled down.
 - Hash shortcuts: `#games`, `#sites`, `#tools`, `#recent`, `#lockbox`.
+- Lockbox labels / `aria-invalid` only. **Crypto is unchanged.**
+
+### Pass 2 (cards / copy / speed) — stacked on the same PR
+
+- Card motion: capped stagger (first 8), warmer hover lift + border, image zoom, light fade on the thumb.
+- In-development thumbs are initials + a quiet **Soon** label, not giant type.
+- Preview sheet: grabber on phones, stronger backdrop blur, slightly warmer radius.
+- Recaptured **BEEP** (was almost black; now the pad) and **RDF** (roster with Kit / Ren / Bayan / Jae-Min). Other 17 previews were already honest 720×450 shots of the live pages. Nabu and Launch Kit still show their GitHub repos because that is the `liveUrl`.
+- Copy fixes from the live sites: GRINDEX is Roblox codes (not “on the web”), Respawn HQ is a news desk (not “ops”), ZONEZ is community/chat (not “zone puzzles”), Bando Games / SWEET-D / BEEP match what the pages actually say. Dates were not invented except BEEP + RDF `lastUpdated` to today so the new webps bust the 7-day asset cache.
+- Speed: preload CSS, JS, `projects.json`, and the first three previews; `sizes` on card images; `content-visibility` with a taller intrinsic size.
+- Cache-bust is `?v=8` on toybox CSS/JS.
 
 ## Hard rules (do not break)
 
@@ -33,28 +42,28 @@ Do not redo this work. Build on it.
 - **Never commit** `data/private.json`, the vault password, the numeric PIN, or King's legal name. Public copy is **T0PK1DK** / **King's Toy Box** only. `npm test` scans for forbidden name fragments.
 - **Do not invent URLs.** If a link is dead and you cannot confirm a replacement, leave `liveUrl` as-is or set it `null` and drop status to `In development` — never guess a host.
 - Additive only. No framework, no rewrite of the card renderer, no new build step. `npm test` / `npm run build` must stay green (`scripts/validate.mjs`).
-- Bump `?v=` on `/css/toybox.css` and `/js/toybox.js` (and lockbox JS if you touch it) when you edit them. Cache is 7 days.
+- Bump `?v=` on `/css/toybox.css` and `/js/toybox.js` (and lockbox JS if you touch it) when you edit them. Cache is 7 days. Card images cache-bust with `lastUpdated`.
 - Keep the feeling: **soft, warm, uncluttered**, cream paper in light mode, cocoa dark mode. No neon, no dense dashboards, no stock-SaaS chrome.
 
 ## Design brief for this round
 
-Make the shelf feel more like a toy box and less like a grid of screenshots. Stay quiet.
+The shelf is cleaner. What is still open is **preview honesty** and a little more toy-box, a little less screenshot grid.
 
 Ideas, pick a few — do not do all of them:
 
-1. **Preview quality.** Several `assets/previews/<id>.webp` still look like generic captures or early builds (Stellar Evolution, Launch Kit / GitHub cards, older “Live now.” notes). Recapture only if you can open the live URL and crop a 720px-wide webp. Missing shots already fall back. Do not add stock photos.
-2. **In-development cards.** Initials on the peach/rose gradient are honest but samey. A quieter empty-shelf treatment (same gradient, smaller type, no fake screenshot) would help them sit next to live cards without looking broken.
-3. **Sheet.** The preview dialog works. It could feel more like a physical card pulled off the shelf: slightly warmer radius, a clearer “still being built” state, maybe a swipe-down hint on phones. Keep it one card, one action.
-4. **Type and voice.** System rounded is fine. If you add a font, it must be local or a single system stack — no render-blocking Google Fonts on the homepage. Card titles could use a hair more weight; the hero can stay short.
-5. **Recently updated.** The chip sorts newest first. Dates like `2026-06-01` are placeholders — do not invent fresher dates. If you add an Updates strip, keep it to five honest notes already in `updateNote`.
-6. **Motion.** Stagger + lift is enough. If you add anything, respect `prefers-reduced-motion` (already kills animation/transition). No particle backgrounds.
-7. **Dark mode polish.** Check badge contrast on bright screenshots, sticky chip bar over scrolling cards, and the sheet backdrop. Theme toggle should stay a single icon button.
+1. **BEEP is a dark UI.** The pad crop is readable; the rest of the product is still near-black. A tighter crop of just the pad card (or a lit theme if the site has one) would help the shelf.
+2. **GitHub cards.** Nabu and Launch Kit show github.com chrome. If either gains a Pages demo, recapture that. Do not invent a host.
+3. **Stellar Evolution / RDF / ZONEZ** are menu or login shots. Recapture gameplay or an inside view only if you can click there and the URL stays public.
+4. **In-development empty state.** Initials + Soon is quieter than before. A tiny per-card tint (still the same peach/rose family) would stop ten cards looking identical. No fake screenshots.
+5. **Updates strip.** Five honest `updateNote`s, newest first. Do not invent dates. Many cards still say `2026-06-01`.
+6. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
+7. **Motion.** Stagger + lift is enough. Respect `prefers-reduced-motion`. No particles.
 
 ## Done means
 
 - `npm test` passes.
 - Phone (~390px) and desktop (~1280px) screenshots of the homepage in **light and dark**.
-- A PR with a plain-English list of what changed (and what you left alone).
-- Update this file (`CLAUDE_NEXT.md`) with what you shipped and what is still open, plus a fresh ready-to-paste prompt for the round after you.
+- Push to the open PR if one is already waiting (do not open a second PR for the same shelf pass).
+- Update this file with what you shipped and a fresh ready-to-paste prompt for the round after you.
 
-If you only have time for one thing: **better in-development card empty state + a warmer preview sheet on phones.** Leave the lockbox locked.
+If you only have time for one thing: **tighter BEEP crop + a little color variety on Soon cards.** Leave the lockbox locked.
