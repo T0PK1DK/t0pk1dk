@@ -3,6 +3,6 @@
   "short_name": "Toy Box",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#F3EEE4",
-  "theme_color": "#1C3A2E"
+  "background_color": "#fbf3ea",
+  "theme_color": "#e3743f"
 }

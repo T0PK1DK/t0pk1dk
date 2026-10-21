@@ -14,10 +14,10 @@
   function showLocked(count) {
     root.innerHTML = `
       <form class="lock-form" data-form autocomplete="off">
-        <label class="sr-only" for="lock-pass" style="position:absolute;left:-999px">Lockbox passcode</label>
-        <input id="lock-pass" type="password" inputmode="numeric" enterkeyhint="go" placeholder="Passcode" autocomplete="current-password" required>
+        <label class="sr-only" for="lock-pass">Lockbox passcode</label>
+        <input id="lock-pass" type="password" inputmode="numeric" enterkeyhint="go" placeholder="Passcode" autocomplete="current-password" required aria-describedby="lock-err" aria-invalid="false">
         <button class="btn" type="submit">Unlock</button>
-        <p class="lock-err" data-err hidden role="alert">That passcode didn't work.</p>
+        <p class="lock-err" id="lock-err" data-err hidden role="alert">That passcode didn't work.</p>
       </form>
       <p class="muted small" style="margin:12px 0 0">${count ? `${count} private projects inside.` : ""}</p>`;
     const form = root.querySelector("[data-form]");
@@ -27,7 +27,13 @@
       const env = await fetch("/data/private.enc.json", { cache: "no-cache" }).then((r) => r.json());
       const data = await decrypt(form.querySelector("input").value, env);
       btn.disabled = false; btn.textContent = "Unlock";
-      if (!data) { form.querySelector("[data-err]").hidden = false; return; }
+      if (!data) {
+        form.querySelector("[data-err]").hidden = false;
+        const input = form.querySelector("input");
+        input.setAttribute("aria-invalid", "true");
+        input.focus();
+        return;
+      }
       try { sessionStorage.setItem(KEY, JSON.stringify(data)); } catch {}
       showOpen(data);
     });
@@ -37,7 +43,9 @@
     root.innerHTML = `<div class="lock-bar"><span class="muted small">Unlocked for this tab.</span><button class="chip" type="button" data-relock>Lock</button></div><div class="grid" data-lgrid></div>`;
     const list = data.projects.map((p) => ({ name: p.title, url: p.url, description: p.note, status: "Private", kind: p.kind || "Private", private: true, image: null }));
     window.ToyBox.renderInto(root.querySelector("[data-lgrid]"), list);
-    root.querySelector("[data-relock]").addEventListener("click", () => { sessionStorage.removeItem(KEY); init(); });
+    const relock = root.querySelector("[data-relock]");
+    relock.addEventListener("click", () => { sessionStorage.removeItem(KEY); init(); });
+    relock.focus({ preventScroll: true });
   }
 
   async function init() {

@@ -183,7 +183,7 @@
     {
       "id": "hilo-game",
       "name": "HILO",
-      "description": "Higher or lower card game for Android. Count, peek and beat the deck.",
+      "description": "Higher or lower card game. Play in the browser now — Android app still coming.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://hilo-game-dnh.pages.dev",
