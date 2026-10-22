@@ -40,8 +40,8 @@ Do not redo this work. Build on it.
 
 ### Pass 5 (perf / a11y / what's new) — stacked on the same PR
 
-- **AVIF + WebP** `<picture>` on cards, What's new thumbs, and the preview sheet. First two shelf cards eager; the rest `loading="lazy"`. Dropped unused image preloads. Cache-bust is `?v=14`.
-- **Alt text** on every preview (`Screenshot of…` / `Coming soon art for…`). Keyboard `:focus-visible` rings use `--focus` (#c45a28 light / #f29a63 dark) on cards, chips, news items, brand, skip, inputs, and buttons.
+- **AVIF + WebP** `<picture>` on cards, What's new thumbs, and the preview sheet. First two shelf cards eager; the rest `loading="lazy"`. Dropped unused image preloads. Cache-bust is `?v=15`.
+- **Alt text** on preview sheets (`Screenshot of…` / `Coming soon art for…`). Card and What's new thumbs are decorative (`alt=""`) so the button’s visible name stays the accessible name. Keyboard `:focus-visible` rings use `--focus` (#c45a28 light / #f29a63 dark) on cards, chips, news items, brand, skip, inputs, and buttons.
 - **Contrast.** Light muted `#7a5c4e`, accent text `#9a3f18`, live dates `#1e7a4e` so body copy and the eyebrow pass WCAG AA. Decorative orange on buttons stays `--accent`.
 - **What's new** strip under the hero: the 3 most recently updated public projects (stable date sort — BEEP, Chamber Arcade, Cluck Life). Hash `#new`. Compact rows at 390px.
 - `validate.mjs` also warns when an AVIF is missing. Tests were not weakened. Lockbox crypto was not touched.

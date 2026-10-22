@@ -90,13 +90,12 @@
   sheet?.addEventListener("close", () => { lastCard?.focus?.({ preventScroll: true }); lastCard = null; });
 
   const tintOf = (id) => [...String(id)].reduce((n, c) => n + c.charCodeAt(0), 0) % 4;
-  const thumbAlt = (p) => p.url ? `Screenshot of ${p.name}` : `Coming soon art for ${p.name}`;
   const pictureHtml = (p, { eager = false, high = false, sizes, width = 720, height = 450 } = {}) => {
     if (!p.image) {
       return `<div class="thumb-empty thumb"><span class="thumb-mark">${esc(initials(p.name))}</span><span class="thumb-soon">Soon</span></div>`;
     }
     const load = eager ? `loading="eager"${high ? ` fetchpriority="high"` : ""}` : `loading="lazy"`;
-    const src = `<img src="${esc(p.image)}" alt="${esc(thumbAlt(p))}" ${load} decoding="async" width="${width}" height="${height}" sizes="${esc(sizes)}">`;
+    const src = `<img src="${esc(p.image)}" alt="" ${load} decoding="async" width="${width}" height="${height}" sizes="${esc(sizes)}">`;
     return p.avif
       ? `<picture><source type="image/avif" srcset="${esc(p.avif)}">${src}</picture>`
       : src;
@@ -106,7 +105,7 @@
     const img = pictureHtml(p, { eager, high: i === 0, sizes: "(max-width:400px) 100vw,(max-width:720px) 50vw,280px" });
     const vt = `card-${String(p.id || i).replace(/[^a-z0-9-]/gi, "")}`;
     return `
-    <button class="card" type="button" data-tint="${tintOf(p.id || i)}" style="--i:${Math.min(i, 8)};--vt:${vt}" data-idx="${i}" aria-label="${esc(p.name)}, ${esc(p.status)}. Open preview">
+    <button class="card" type="button" data-tint="${tintOf(p.id || i)}" style="--i:${Math.min(i, 8)};--vt:${vt}" data-idx="${i}">
       <div class="thumb">${img}
         <span class="badge ${BADGE[p.status] || ""}">${esc(p.status)}</span></div>
       <div class="card-body"><h3>${esc(p.name)}</h3>${p.lastUpdated ? `<span class="upd${isFresh(p.lastUpdated) ? " fresh" : ""}">Updated ${esc(fmtDate(p.lastUpdated))}</span>` : ""}<p>${esc(p.description)}</p></div>
@@ -214,7 +213,7 @@
     if (!host || !all.length) return;
     const newest = [...all].sort(byRecent).slice(0, 3);
     host.innerHTML = newest.map((p, i) => `
-      <button class="news-item" type="button" data-news-idx="${i}" aria-label="${esc(p.name)}, updated ${esc(fmtDate(p.lastUpdated))}. Open preview">
+      <button class="news-item" type="button" data-news-idx="${i}">
         <span class="news-thumb">${pictureHtml(p, { eager: true, high: i === 0, sizes: "72px", width: 144, height: 90 })}</span>
         <span class="news-body"><h3>${esc(p.name)}</h3><p>${esc(p.note || `Updated ${fmtDate(p.lastUpdated)}`)}</p></span>
       </button>`).join("");
