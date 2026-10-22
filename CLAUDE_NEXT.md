@@ -80,7 +80,7 @@ Do not redo this work. Build on it.
 - **Image sizes.** Each card now has 360w and 144w WebP + AVIF next to the 720w files. Shelf cards use `360w, 720w` srcset. What's new uses `144w, 360w` into the 64–72px slot instead of a full 720.
 - **Layout shift / first paint.** Hero stats reserve `min-height` and ship the current `32 · 11 live · 11 in progress` counts in HTML so the first paint does not jump. Card pop animation runs only after a filter reshuffle, not on first paint. Only the first What's new thumb is eager.
 - **Share cards.** Static `/p/<id>/` pages for every public project, with `og:` / Twitter tags and JSON-LD from the existing name, description, and preview. Homepage adds `twitter:title` / `twitter:image` / `og:image` size, CollectionPage JSON-LD, and `?p=<id>` to open that sheet. `sitemap.xml` lists the 32 share URLs. Work / About / Contact got the same style of tags from their existing titles and descriptions. Regenerator: `node scripts/write-share-pages.mjs` (not a required build step).
-- **390px whole site.** Work filters, freelance footer links, and the freelance skip link are 44px. Cache-bust is `?v=18` on Toy Box CSS/JS and `?v=2` on `site.css`. Tests were not weakened. Lockbox crypto was not touched.
+- **390px whole site.** Work filters, freelance footer links, and the freelance skip link are 44px. Cache-bust is `?v=19` on Toy Box CSS/JS and `?v=2` on `site.css`. Tests were not weakened. Lockbox crypto was not touched.
 
 ## Hard rules (do not break)
 

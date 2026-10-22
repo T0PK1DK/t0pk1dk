@@ -163,10 +163,10 @@
   $("[data-sheet-dismiss]")?.addEventListener("click", () => sheet.close());
   sheet?.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
   sheet?.addEventListener("close", () => {
-    lastCard?.focus?.({ preventScroll: true });
-    lastCard = null;
     shareMeta(null);
     setProjectParam("");
+    try { lastCard?.focus?.({ preventScroll: true }); } catch {}
+    lastCard = null;
   });
 
   const tintOf = (id) => [...String(id)].reduce((n, c) => n + c.charCodeAt(0), 0) % 4;
