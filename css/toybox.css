@@ -55,11 +55,15 @@ h1{font-size:clamp(30px,6vw,48px);line-height:1.08;margin:0 0 12px;letter-spacin
   .shelf-bar{margin-bottom:6px;padding-top:6px;padding-bottom:6px}
   .search{margin-bottom:6px}
   .chips{gap:6px;padding-bottom:6px}
+  .chips-status{padding-right:0}
+  .chips-status .chip{padding:8px 10px;font-size:13px}
   .chip-full{display:none}
   .chip-short{display:inline}
   .grid{grid-template-columns:1fr;gap:10px}
   .card-body{padding:11px 12px 12px}
   .lockbox{margin-top:26px;padding:16px}
+  .lock-form{flex-wrap:nowrap;gap:8px}
+  .lock-form input{flex:1 1 auto;min-width:0}
   .foot{padding-top:16px}
 }
 .card{appearance:none;text-align:left;font:inherit;color:inherit;border:1px solid var(--line);background:var(--card);border-radius:var(--r);overflow:hidden;padding:0;cursor:pointer;box-shadow:var(--shadow);transition:transform .38s var(--ease),box-shadow .38s var(--ease),border-color .3s var(--ease),background-color .45s;display:flex;flex-direction:column;animation:pop .55s var(--ease) both;animation-delay:calc(min(var(--i,0),8)*20ms);content-visibility:auto;contain-intrinsic-size:0 320px;touch-action:manipulation;view-transition-name:var(--vt,none)}
