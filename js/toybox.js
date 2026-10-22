@@ -162,13 +162,13 @@
     if (state.recent) list = [...list].sort(byRecent);
     return list;
   };
-  const paint = () => {
+  const paint = (snap) => {
     const list = filtered();
     renderInto(grid, list);
     const status = $("[data-filter-status]");
     if (status) status.textContent = list.length ? labelFor(list.length) : "No projects match.";
     const first = grid.querySelector(".card");
-    if (first) {
+    if (snap && first) {
       const barH = $(".shelf-bar")?.getBoundingClientRect().height || 0;
       const top = first.getBoundingClientRect().top;
       if (top < barH + 8 || top > innerHeight * 0.65) {
@@ -178,8 +178,9 @@
     }
   };
   const show = (useVt) => {
-    if (painted && useVt) withTransition(paint);
-    else { paint(); painted = true; }
+    const snap = painted;
+    if (painted && useVt) withTransition(() => paint(true));
+    else { paint(snap); painted = true; }
   };
   document.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
     state.cat = b.dataset.filter;
