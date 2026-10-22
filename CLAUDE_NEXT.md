@@ -66,9 +66,9 @@ Do not redo this work. Build on it.
 ### Pass 7 (polish / edge cases) — stacked on the same PR
 
 - **Image placeholders.** Card, What's new, and sheet thumbs keep the warm wash while the image loads, with a reduced-motion-safe shimmer. Images fade in when ready.
-- **Empty search.** A centered empty sheet (existing copy) plus a “Clear search or filters” button. Escape in the search box clears the query.
+- **Empty search.** A centered empty sheet (existing copy) plus a “Clear search or filters” button. Escape in the search box clears the query. The empty panel scrolls under the sticky chips so the button is on screen at 390px.
 - **Broken images.** Error handlers strip the AVIF `<source>` before swapping in `fallback.svg`. A second failure shows the bear mark. What's new thumbs now use the same loader/fallback as cards.
-- **Keyboard / focus.** Skip goes to search. Header DOM matches the 390px visual order (brand, theme, nav). No-link sheets focus the Close preview button; live sheets still focus Open. Focus returns to the card that opened the sheet.
+- **Keyboard / focus.** Skip focuses the search box. Header DOM matches the 390px visual order (brand, theme, nav). No-link sheets focus the Close preview button; live sheets still focus Open. Focus returns to the card that opened the sheet.
 - **390px targets.** Footer links, skip, brand, Unlock, What's new rows, and sheet Close are 44px or taller. Status chips keep `min-height: 44px`.
 - **Dark contrast.** Hairline `--line` bumped so chips/search/sheet chrome read on cocoa. Sheet close sits on a solid card fill. Coming-soon and empty panels use a stronger dashed edge. Body muted already passed AA; left the token.
 - **No-link sheet.** Open stays hidden. Coming soon flag + dashed note stay. A full-width Close preview button is the action. Empty host/note lines are hidden.

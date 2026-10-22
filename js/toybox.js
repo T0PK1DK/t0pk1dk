@@ -154,7 +154,7 @@
 
   const renderInto = (el, list) => {
     if (!list.length) {
-      const q = state.q ? ` matching “${esc(state.q)}”` : "";
+      const q = state.q ? ` “${esc(state.q)}”` : "";
       el.innerHTML = `<div class="empty" role="status">
         <p class="empty-mark" aria-hidden="true">🧸</p>
         <p class="empty-title">Nothing in this shelf matches${q}.</p>
@@ -200,12 +200,12 @@
     renderInto(grid, list);
     const status = $("[data-filter-status]");
     if (status) status.textContent = list.length ? labelFor(list.length) : "No projects match.";
-    const first = grid.querySelector(".card");
-    if (snap && first) {
+    const first = grid.querySelector(".card") || grid.querySelector(".empty");
+    if ((snap || !list.length) && first) {
       const barH = $(".shelf-bar")?.getBoundingClientRect().height || 0;
       const top = first.getBoundingClientRect().top;
       if (top < barH + 8 || top > innerHeight * 0.65) {
-        const y = window.scrollY + grid.getBoundingClientRect().top - barH - 4;
+        const y = window.scrollY + first.getBoundingClientRect().top - barH - 8;
         window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
       }
     }
@@ -248,6 +248,13 @@
     state.q = String(e.target.value || "").trim().toLowerCase();
     clearTimeout(searchTick);
     searchTick = setTimeout(() => show(false), 120);
+  });
+  $(".skip")?.addEventListener("click", (e) => {
+    const input = $("[data-search]");
+    if (!input) return;
+    e.preventDefault();
+    input.focus();
+    input.scrollIntoView({ block: "center", behavior: reduceMotion() ? "auto" : "smooth" });
   });
   $("[data-search]")?.addEventListener("keydown", (e) => {
     if (e.key !== "Escape" || !state.q) return;
