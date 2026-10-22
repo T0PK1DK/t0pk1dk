@@ -124,8 +124,20 @@ async function main() {
       if (!html.includes(`property="og:image"`) || !html.includes(`/assets/previews/${p.id}.webp`)) {
         fail(`${p.id}: share page must include og:image for its preview`);
       }
+      if (p.liveUrl && !html.includes(p.liveUrl)) {
+        fail(`${p.id}: share page must include its liveUrl`);
+      }
+      if (!p.liveUrl && html.includes('target="_blank"')) {
+        fail(`${p.id}: coming-soon share page must not have an external Open link`);
+      }
       if (!sitemap.includes(`https://t0pk1dk.com/p/${p.id}/`)) {
         fail(`${p.id}: sitemap.xml must list the share page`);
+      }
+    }
+    const home = readFileSync(join(ROOT, "index.html"), "utf8");
+    for (const p of doc.projects) {
+      if (!home.includes(`https://t0pk1dk.com/p/${p.id}/`)) {
+        fail(`index.html is missing the share URL for ${p.id}`);
       }
     }
   const required = ["index.html", "js/toybox.js", "js/private-vault.js", "css/site.css", "HANDOFF.md"];

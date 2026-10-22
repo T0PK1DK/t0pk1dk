@@ -12,7 +12,7 @@ A soft, warm project-card hub. The homepage (`index.html` + `css/toybox.css` + `
 
 The older freelance pages (`/work/`, `/about/`, `/contact/`, `css/site.css`) still exist. Do not restyle them unless a Toy Box change breaks a shared link. Keep the homepage as the pretty shelf.
 
-## What the last eight overnight passes already did
+## What the last nine overnight passes already did
 
 Do not redo this work. Build on it.
 

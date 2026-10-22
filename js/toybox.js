@@ -154,8 +154,10 @@
       }
     }
     sheet.showModal();
-    shareMeta(p);
-    setProjectParam(p.id);
+    if (p.id) {
+      shareMeta(p);
+      setProjectParam(p.id);
+    }
     if (p.url) open.focus();
     else (dismiss || $("[data-close]")).focus();
   };
@@ -250,8 +252,9 @@
     return list;
   };
   const paint = (snap) => {
+    if (!grid) return;
     const list = filtered();
-    if (grid) grid.classList.toggle("reshuffle", Boolean(snap));
+    grid.classList.toggle("reshuffle", Boolean(snap));
     renderInto(grid, list);
     const status = $("[data-filter-status]");
     if (status) status.textContent = list.length ? labelFor(list.length) : "No projects match.";
