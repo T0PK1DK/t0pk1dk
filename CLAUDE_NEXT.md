@@ -12,7 +12,7 @@ A soft, warm project-card hub. The homepage (`index.html` + `css/toybox.css` + `
 
 The older freelance pages (`/work/`, `/about/`, `/contact/`, `css/site.css`) still exist. Do not restyle them unless a Toy Box change breaks a shared link. Keep the homepage as the pretty shelf.
 
-## What the last five overnight passes already did
+## What the last six overnight passes already did
 
 Do not redo this work. Build on it.
 
@@ -38,13 +38,30 @@ Do not redo this work. Build on it.
 - Ten In-development cards have labeled coming-soon key art. Sheets have no Open button.
 - Search, status chips, Recently updated / Newest sort.
 
-### Pass 5 (perf / a11y / what's new) — stacked on the same PR
+### Pass 5 (perf / a11y / what's new)
 
 - **AVIF + WebP** `<picture>` on cards, What's new thumbs, and the preview sheet. First two shelf cards eager; the rest `loading="lazy"`. Dropped unused image preloads. First paint no longer snaps the shelf over What's new. Cache-bust is `?v=16`.
 - **Alt text** on preview sheets (`Screenshot of…` / `Coming soon art for…`). Card and What's new thumbs are decorative (`alt=""`) so the button’s visible name stays the accessible name. Keyboard `:focus-visible` rings use `--focus` (#c45a28 light / #f29a63 dark) on cards, chips, news items, brand, skip, inputs, and buttons.
 - **Contrast.** Light muted `#7a5c4e`, accent text `#9a3f18`, live dates `#1e7a4e` so body copy and the eyebrow pass WCAG AA. Decorative orange on buttons stays `--accent`.
 - **What's new** strip under the hero: the 3 most recently updated public projects (stable date sort — BEEP, Chamber Arcade, Cluck Life). Hash `#new`. Compact rows at 390px.
 - `validate.mjs` also warns when an AVIF is missing. Tests were not weakened. Lockbox crypto was not touched.
+
+### Pass 6 (live URL recheck / stale previews / sourced blurbs) — stacked on the same PR
+
+- Re-checked all **22** public `liveUrl`s. Every one still returns HTTP 200. Did not add Iron Command, `workers.dev`, or private hosts. Nabu and Launch Kit stay on GitHub (no Pages demo). Coming-soon cards still have no public README or live page — no invented screenshots or copy.
+- Recaptured stale 720×450 WebP + AVIF previews from the live page (overlays dismissed so the card shows the product):
+  - Chamber Arcade — full Fair / Classic / VS HOUSE table
+  - Cluck Life — farm plus train panel
+  - BEEP — desk pad (not the tour tooltip crop)
+  - Slide — HUD after dismissing sign-in
+  - RDF — roster after Skip
+  - BAY 9 — Career control on the strip
+  - Terra — living shelf after Begin
+  - Stellar Evolution — live world after Begin
+  - HILO — current HI-LO trainer home (not a higher-or-lower table)
+- Invert Play is canvas-drawn and the stored gameplay shot still matches; left it. Sweet-D, SHOTBYZB, ZONEZ, GRINDEX, Midas, BuzzahhJitt, Bando Games, Respawn, and GitHub chrome were current enough to keep.
+- Added or corrected 1–2 line "what it is" blurbs from the live page, repo README, or `/work/` only. HILO was wrong (it is a HI-LO card-counting trainer). Midas names the guide/workbook and says the web app is still coming. Coming-soon cards without a public source were left as-is. The WALL now uses the `/work/` line.
+- `lastUpdated` bumped only on recaptured images for cache-bust. What's new stays BEEP, Chamber Arcade, Cluck Life (same 2026-10-22 date, JSON order). 390px rules untouched. `?v=` still 16 (CSS/JS not edited). Tests were not weakened. Lockbox crypto was not touched.
 
 ## Hard rules (do not break)
 
@@ -58,14 +75,15 @@ Do not redo this work. Build on it.
 
 ## Design brief for this round
 
-What's new and the image pipeline are in. What is still open is **missing live hosts**.
+Live URLs and blurbs were just rechecked. What is still open is **missing live hosts**.
 
 Ideas, pick a few — do not do all of them:
 
 1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s.
 2. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
-3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode both AVIF and WebP.
-4. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
+3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode both AVIF and WebP. Do not invent blurbs for CONCLAVE, Dominous, E-SEKAI, EUTS, LAJAN, MiCasa, SNAGGIT, or TAPN until a README or live page exists.
+4. **Invert.** Play is drawn on a canvas. If you recapture, click the canvas Play control — a DOM button locator will miss.
+5. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
 
 ## Done means
 

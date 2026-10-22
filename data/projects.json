@@ -3,7 +3,7 @@
     {
       "id": "actually-worth-it",
       "name": "Actually Worth It",
-      "description": "Honest product reviews. Is it actually worth it? Earbuds, headphones, speakers and GPS.",
+      "description": "Honest reviews of phones, watches, earbuds, headphones, speakers and GPS. Not a store.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://actuallyworthit.com",
@@ -33,7 +33,7 @@
     {
       "id": "buzzahhjitt-links",
       "name": "BuzzahhJitt Links",
-      "description": "BuzzahhJitt's link page: socials, videos and the tip jar in one place.",
+      "description": "Florida jitt puzzles and petty jokes. Socials, videos, and the tip jar in one place.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://buzzahhjitt-links.pages.dev",
@@ -63,7 +63,7 @@
     {
       "id": "sprain",
       "name": "SPRAIN",
-      "description": "SPRAIN, a browser game on The Bando. How-to-play page and launch.",
+      "description": "Card football on the CALIBRO sim. Call a play, set coverage, and watch the match run.",
       "category": "game",
       "status": "Live",
       "liveUrl": "https://www.thebando.cc/games/sprain/",
@@ -93,7 +93,7 @@
     {
       "id": "product-funnel",
       "name": "The Midas Law Book",
-      "description": "Finance guide: landing page, glossary and chapters.",
+      "description": "A plain-English money guide and workbook for first-gen wealth builders. Free chapters and a glossary; the web app is still coming.",
       "category": "site",
       "status": "Live",
       "liveUrl": "https://themidaslawbook.com",
@@ -103,7 +103,7 @@
     {
       "id": "zonez",
       "name": "ZONEZ",
-      "description": "Community, chat and culture. Login or browse anonymously.",
+      "description": "A community forum and live-chat hybrid. Login or browse anonymously, earn XP, and rank up.",
       "category": "tool",
       "status": "Live",
       "liveUrl": "https://zonez.net",
@@ -113,11 +113,11 @@
     {
       "id": "bay-9",
       "name": "BAY 9",
-      "description": "Street drag racing. Build your car, tune it, and launch on the green.",
+      "description": "Pixel garage. Custom liveries. Forza-style build sheets — prove it on the tree.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://drag.thebando.cc",
-      "lastUpdated": "2026-10-15",
+      "lastUpdated": "2026-10-22",
       "updateNote": "Night city drag strip, 4 new cars, a cleaner race screen and real 3D cars in the lot and garage."
     },
     {
@@ -133,7 +133,7 @@
     {
       "id": "nabu",
       "name": "Nabu",
-      "description": "Local cited encyclopedia and search index. Open-source code on GitHub.",
+      "description": "A local cited encyclopedia. Humans search the tablet; an agent uses the same SQLite file through the API.",
       "category": "tool",
       "status": "In progress",
       "liveUrl": "https://github.com/T0PK1DK/nabu",
@@ -147,7 +147,7 @@
       "category": "tool",
       "status": "In progress",
       "liveUrl": "https://kings-slide.pages.dev",
-      "lastUpdated": "2026-10-21",
+      "lastUpdated": "2026-10-22",
       "updateNote": "Playable preview — set From / To and drop the line."
     },
     {
@@ -157,13 +157,13 @@
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://rdf-fight.pages.dev/?3d=1",
-      "lastUpdated": "2026-10-21",
+      "lastUpdated": "2026-10-22",
       "updateNote": "Playable now — roster preview on the card."
     },
     {
       "id": "shotbyzb",
       "name": "SHOTBYZB",
-      "description": "Photography portfolio site for shotbyzb. Preview build.",
+      "description": "South Florida photographer. Lifestyle, Events, Schools, Sports. Fast turnaround.",
       "category": "site",
       "status": "In progress",
       "liveUrl": "https://shotbyzb.testdasite.pages.dev",
@@ -183,7 +183,7 @@
     {
       "id": "sweet-d",
       "name": "SWEET-D",
-      "description": "Tiny Kitchen diner. Run the dinner rush and keep the orders flowing.",
+      "description": "An 8-bit top-down cooking game. Drag the chef, sear the patty, feed the room.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://diner.thebando.cc",
@@ -193,7 +193,7 @@
     {
       "id": "launch-kit",
       "name": "T0PK1DK Launch Kit",
-      "description": "Landing page kit: HTML/CSS demo plus source. Code on GitHub.",
+      "description": "A mobile-first landing page kit for indie products and small studios. Static HTML + CSS.",
       "category": "site",
       "status": "In progress",
       "liveUrl": "https://github.com/T0PK1DK/t0pk1dk-launch-kit",
@@ -203,21 +203,21 @@
     {
       "id": "terra",
       "name": "Terra",
-      "description": "Plant game: grow and shape a living little world.",
+      "description": "A cozy little living shelf. Care for plants and fish.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://terra-game.pages.dev",
-      "lastUpdated": "2026-10-14",
+      "lastUpdated": "2026-10-22",
       "updateNote": "Playable now and still getting updates."
     },
     {
       "id": "hilo-game",
       "name": "HILO",
-      "description": "Higher or lower card game. Play in the browser now — Android app still coming.",
+      "description": "A HI-LO card-counting trainer. Play in the browser — Android app still coming.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://hilo-game-dnh.pages.dev",
-      "lastUpdated": "2026-10-15",
+      "lastUpdated": "2026-10-22",
       "updateNote": "Playable in your phone browser now. Android app still coming."
     },
     {
@@ -313,7 +313,7 @@
     {
       "id": "the-wall",
       "name": "The WALL",
-      "description": "The WALL — app build (details on request).",
+      "description": "A private app. Happy to walk through it on a call.",
       "category": "tool",
       "status": "In development",
       "liveUrl": null,
