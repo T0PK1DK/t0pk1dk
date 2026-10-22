@@ -55,10 +55,13 @@
     $("[data-sheet-kind]").textContent = p.kind || "";
     $("[data-sheet-title]").textContent = p.name;
     $("[data-sheet-desc]").textContent = p.description || "";
-    $("[data-sheet-note]").textContent = [p.note, p.lastUpdated && `Updated ${fmtDate(p.lastUpdated)}`].filter(Boolean).join(" · ");
+    $("[data-sheet-note]").textContent = p.url
+      ? [p.note, p.lastUpdated && `Updated ${fmtDate(p.lastUpdated)}`].filter(Boolean).join(" · ")
+      : (p.lastUpdated ? `Updated ${fmtDate(p.lastUpdated)}` : "");
     const soon = $("[data-sheet-soon]");
     if (soon) soon.hidden = Boolean(p.url);
     const open = $("[data-sheet-open]"), nolink = $("[data-sheet-nolink]");
+    const nolinkCopy = $("[data-sheet-nolink-copy]");
     if (p.url) {
       open.hidden = false; open.href = p.url;
       open.textContent = p.url.includes("github.com") ? "View on GitHub ↗" : `Open ${p.name} ↗`;
@@ -68,7 +71,11 @@
       open.hidden = true; open.removeAttribute("href");
       $("[data-sheet-host]").textContent = "";
       nolink.hidden = false;
-      nolink.textContent = p.status === "Android app" ? "Android app. There's no web version to open yet." : "Still being built. This is the coming-soon art — a link shows up here as soon as there's something to open.";
+      if (nolinkCopy) {
+        nolinkCopy.textContent = p.status === "Android app"
+          ? "Android app. There's no web version to open yet."
+          : "Still being built. A link shows up here as soon as there's something to open.";
+      }
     }
     sheet.showModal();
     open.hidden ? $("[data-close]").focus() : open.focus();

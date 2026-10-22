@@ -35,10 +35,10 @@ Do not redo this work. Build on it.
 
 ### Pass 4 (coming-soon art / search / status / 390px) — stacked on the same PR
 
-- All ten In-development cards now have honest **coming-soon key art** (720×450 webp), not empty initials and not fake gameplay. No public repo or live page exists for those ten; the art is labeled Coming soon. Preview sheets show the art plus a Coming soon flag. No invented URLs.
+- All ten In-development cards now have honest **coming-soon key art** (720×450 webp), not empty initials and not fake gameplay. No public repo or live page exists for those ten; the art is labeled Coming soon. Preview sheets show the art, a Coming soon flag, and a dashed notice — **no Open button** (`.btn { display:flex }` no longer overrides `[hidden]`). No invented URLs.
 - **Search** the shelf. **Status chips** (Live / In progress / Coming soon) stack with kind filters. **Recently updated** is a sort toggle (newest first), not a separate shelf. Hashes: `#live`, `#progress`, `#soon`, `#recent`.
-- **390px spacing:** tighter hero, 14px gutters, 10px card gap, compact search + chip bar, smaller lockbox padding.
-- Cache-bust is `?v=11` on toybox CSS and JS.
+- **390px spacing:** tighter hero, 14px gutters, 10px card gap, compact search + chip bar, sort chip shortens to “Newest” so the status row stays one line, smaller lockbox padding.
+- Cache-bust is `?v=12` on toybox CSS and JS.
 
 ## Hard rules (do not break)
 

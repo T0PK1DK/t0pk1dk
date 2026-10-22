@@ -15,13 +15,13 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="preload" href="/css/toybox.css?v=11" as="style">
-  <link rel="preload" href="/js/toybox.js?v=11" as="script">
+  <link rel="preload" href="/css/toybox.css?v=12" as="style">
+  <link rel="preload" href="/js/toybox.js?v=12" as="script">
   <link rel="preload" href="/data/projects.json" as="fetch" crossorigin>
   <link rel="preload" href="/assets/previews/actually-worth-it.webp" as="image">
   <link rel="preload" href="/assets/previews/sprain-games.webp" as="image">
   <link rel="preload" href="/assets/previews/beep.webp" as="image">
-  <link rel="stylesheet" href="/css/toybox.css?v=11">
+  <link rel="stylesheet" href="/css/toybox.css?v=12">
   <script>
     try {
       var t = localStorage.getItem("toybox-theme");
@@ -69,7 +69,7 @@
         <button class="chip" type="button" data-status="Live" aria-pressed="false">Live</button>
         <button class="chip" type="button" data-status="In progress" aria-pressed="false">In progress</button>
         <button class="chip" type="button" data-status="In development" aria-pressed="false">Coming soon</button>
-        <button class="chip" type="button" data-sort="recent" aria-pressed="false">Recently updated</button>
+        <button class="chip" type="button" data-sort="recent" aria-pressed="false" aria-label="Sort by recently updated"><span class="chip-full">Recently updated</span><span class="chip-short">Newest</span></button>
       </div>
     </div>
     <p class="sr-only" data-filter-status aria-live="polite"></p>
@@ -106,12 +106,15 @@
         <p class="muted small" data-sheet-note></p>
         <p class="host small" data-sheet-host></p>
         <a class="btn" data-sheet-open target="_blank" rel="noopener noreferrer">Open ↗</a>
-        <p class="muted small" data-sheet-nolink hidden></p>
+        <p class="soon-note" data-sheet-nolink hidden>
+          <strong>Coming soon</strong>
+          <span data-sheet-nolink-copy></span>
+        </p>
       </div>
     </div>
   </dialog>
 
-  <script src="/js/toybox.js?v=11" defer></script>
+  <script src="/js/toybox.js?v=12" defer></script>
   <script src="/js/private-vault.js?v=6" defer></script>
 </body>
 </html>
