@@ -107,7 +107,7 @@ async function main() {
     }
   }
 
-    for (const p of doc.projects) if (p.liveUrl && !existsSync(join(ROOT, "assets/previews", `${p.id}.webp`))) console.warn(`validate: ${p.id} has no preview screenshot (fallback used)`);
+    for (const p of doc.projects) if (!existsSync(join(ROOT, "assets/previews", `${p.id}.webp`))) console.warn(`validate: ${p.id} has no preview art (fallback used)`);
   const required = ["index.html", "js/toybox.js", "js/private-vault.js", "css/site.css", "HANDOFF.md"];
   for (const rel of required) {
     if (!existsSync(join(ROOT, rel))) fail(`missing ${rel}`);

@@ -48,7 +48,7 @@
     lastCard = opener || document.activeElement;
     const img = $("[data-sheet-img]");
     img.src = p.image || FALLBACK;
-    img.alt = p.image ? `Screenshot of ${p.name}` : "";
+    img.alt = p.url ? `Screenshot of ${p.name}` : `Coming soon art for ${p.name}`;
     img.onerror = () => { img.onerror = null; img.src = FALLBACK; };
     const badge = $("[data-sheet-badge]");
     badge.textContent = p.status; badge.className = `badge ${BADGE[p.status] || ""}`;
@@ -56,6 +56,8 @@
     $("[data-sheet-title]").textContent = p.name;
     $("[data-sheet-desc]").textContent = p.description || "";
     $("[data-sheet-note]").textContent = [p.note, p.lastUpdated && `Updated ${fmtDate(p.lastUpdated)}`].filter(Boolean).join(" · ");
+    const soon = $("[data-sheet-soon]");
+    if (soon) soon.hidden = Boolean(p.url);
     const open = $("[data-sheet-open]"), nolink = $("[data-sheet-nolink]");
     if (p.url) {
       open.hidden = false; open.href = p.url;
@@ -66,7 +68,7 @@
       open.hidden = true; open.removeAttribute("href");
       $("[data-sheet-host]").textContent = "";
       nolink.hidden = false;
-      nolink.textContent = p.status === "Android app" ? "Android app. There's no web version to open yet." : "Still being built. A link shows up here as soon as there's something to play.";
+      nolink.textContent = p.status === "Android app" ? "Android app. There's no web version to open yet." : "Still being built. This is the coming-soon art — a link shows up here as soon as there's something to open.";
     }
     sheet.showModal();
     open.hidden ? $("[data-close]").focus() : open.focus();
@@ -105,7 +107,7 @@
 
   const renderInto = (el, list) => {
     if (!list.length) {
-      el.innerHTML = `<p class="muted">Nothing in this shelf yet.</p>`;
+      el.innerHTML = `<p class="muted">Nothing in this shelf matches. Clear search or filters to see everything.</p>`;
       el.onclick = null;
       return;
     }
@@ -118,31 +120,68 @@
   const grid = $("[data-grid]");
   let all = [];
   let painted = false;
+  const state = { cat: "all", status: "", recent: false, q: "" };
   const byRecent = (a, b) => String(b.lastUpdated).localeCompare(String(a.lastUpdated));
-  const labelFor = (f, n) => f === "all" ? `${n} projects` : f === "recent" ? `${n} recently updated` : `${n} ${f === "game" ? "games" : f === "site" ? "sites" : "tools"}`;
-  const paint = (f) => {
-    const list = f === "all" ? all : f === "recent" ? [...all].sort(byRecent) : all.filter((p) => p.category === f);
+  const matchesQ = (p, q) => {
+    if (!q) return true;
+    const hay = `${p.name} ${p.description} ${p.status} ${p.kind} ${p.note || ""}`.toLowerCase();
+    return hay.includes(q);
+  };
+  const labelFor = (n) => {
+    const bits = [`${n} ${n === 1 ? "project" : "projects"}`];
+    if (state.cat === "game") bits[0] = `${n} ${n === 1 ? "game" : "games"}`;
+    if (state.cat === "site") bits[0] = `${n} ${n === 1 ? "site" : "sites"}`;
+    if (state.cat === "tool") bits[0] = `${n} ${n === 1 ? "tool" : "tools"}`;
+    if (state.status) bits.push(state.status === "In development" ? "coming soon" : state.status.toLowerCase());
+    if (state.recent) bits.push("newest first");
+    if (state.q) bits.push(`matching “${state.q}”`);
+    return bits.join(", ");
+  };
+  const filtered = () => {
+    let list = all.filter((p) => (state.cat === "all" || p.category === state.cat) && (!state.status || p.status === state.status) && matchesQ(p, state.q));
+    if (state.recent) list = [...list].sort(byRecent);
+    return list;
+  };
+  const paint = () => {
+    const list = filtered();
     renderInto(grid, list);
     const status = $("[data-filter-status]");
-    if (status) status.textContent = labelFor(f, list.length);
+    if (status) status.textContent = list.length ? labelFor(list.length) : "No projects match.";
     const first = grid.querySelector(".card");
     if (first) {
-      const chipsH = $(".chips")?.getBoundingClientRect().height || 0;
+      const barH = $(".shelf-bar")?.getBoundingClientRect().height || 0;
       const top = first.getBoundingClientRect().top;
-      if (top < chipsH + 8 || top > innerHeight * 0.65) {
-        const y = window.scrollY + grid.getBoundingClientRect().top - chipsH - 4;
+      if (top < barH + 8 || top > innerHeight * 0.65) {
+        const y = window.scrollY + grid.getBoundingClientRect().top - barH - 4;
         window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
       }
     }
   };
-  const show = (f) => {
-    if (painted) withTransition(() => paint(f));
-    else { paint(f); painted = true; }
+  const show = (useVt) => {
+    if (painted && useVt) withTransition(paint);
+    else { paint(); painted = true; }
   };
   document.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
+    state.cat = b.dataset.filter;
     document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-    show(b.dataset.filter);
+    show(true);
   }));
+  document.querySelectorAll("[data-status]").forEach((b) => b.addEventListener("click", () => {
+    state.status = state.status === b.dataset.status ? "" : b.dataset.status;
+    document.querySelectorAll("[data-status]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.status === state.status)));
+    show(true);
+  }));
+  $("[data-sort=recent]")?.addEventListener("click", () => {
+    state.recent = !state.recent;
+    $("[data-sort=recent]").setAttribute("aria-pressed", String(state.recent));
+    show(true);
+  });
+  let searchTick = 0;
+  $("[data-search]")?.addEventListener("input", (e) => {
+    state.q = String(e.target.value || "").trim().toLowerCase();
+    clearTimeout(searchTick);
+    searchTick = setTimeout(() => show(false), 120);
+  });
   const jumpLockbox = () => {
     $("#lockbox")?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
     setTimeout(() => $("#lock-pass")?.focus({ preventScroll: true }), 400);
@@ -150,19 +189,27 @@
   $("[data-jump-lockbox]")?.addEventListener("click", jumpLockbox);
 
   fetch("/data/projects.json", { cache: "no-cache" }).then((r) => r.json()).then((doc) => {
-    all = doc.projects.map((p) => ({ ...p, url: p.liveUrl, kind: KIND[p.category], note: p.updateNote, image: p.liveUrl ? `/assets/previews/${p.id}.webp?v=${encodeURIComponent(p.lastUpdated)}` : null }));
+    all = doc.projects.map((p) => ({ ...p, url: p.liveUrl, kind: KIND[p.category], note: p.updateNote, image: `/assets/previews/${p.id}.webp?v=${encodeURIComponent(p.lastUpdated)}` }));
     const live = all.filter((p) => p.status === "Live").length, prog = all.filter((p) => p.status === "In progress" || p.status === "Android app").length;
     $("[data-stats]").innerHTML = `<b>${all.length}</b> projects · <b>${live}</b> live · <b>${prog}</b> in progress`;
     const hash = (location.hash || "").slice(1);
-    const hashFilter = { games: "game", game: "game", sites: "site", site: "site", tools: "tool", tool: "tool", recent: "recent", all: "all" }[hash];
-    if (hash === "lockbox") show("all");
+    const hashFilter = { games: "game", game: "game", sites: "site", site: "site", tools: "tool", tool: "tool", all: "all" }[hash];
+    const hashStatus = { live: "Live", progress: "In progress", soon: "In development", "coming-soon": "In development" }[hash];
+    if (hash === "recent") {
+      state.recent = true;
+      $("[data-sort=recent]")?.setAttribute("aria-pressed", "true");
+    }
+    if (hashStatus) {
+      state.status = hashStatus;
+      document.querySelectorAll("[data-status]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.status === hashStatus)));
+    }
+    if (hash === "lockbox") show(false);
     else if (hashFilter) {
+      state.cat = hashFilter;
       const btn = document.querySelector(`[data-filter="${hashFilter}"]`);
-      if (btn) {
-        document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
-        show(hashFilter);
-      } else show("all");
-    } else show("all");
+      if (btn) document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
+      show(false);
+    } else show(false);
     if (hash === "lockbox") jumpLockbox();
   }).catch(() => { grid.innerHTML = `<p class="muted">Couldn't load projects. Refresh to try again.</p>`; });
 })();

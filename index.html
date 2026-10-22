@@ -15,13 +15,13 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="preload" href="/css/toybox.css?v=10" as="style">
-  <link rel="preload" href="/js/toybox.js?v=10" as="script">
+  <link rel="preload" href="/css/toybox.css?v=11" as="style">
+  <link rel="preload" href="/js/toybox.js?v=11" as="script">
   <link rel="preload" href="/data/projects.json" as="fetch" crossorigin>
   <link rel="preload" href="/assets/previews/actually-worth-it.webp" as="image">
   <link rel="preload" href="/assets/previews/sprain-games.webp" as="image">
   <link rel="preload" href="/assets/previews/beep.webp" as="image">
-  <link rel="stylesheet" href="/css/toybox.css?v=10">
+  <link rel="stylesheet" href="/css/toybox.css?v=11">
   <script>
     try {
       var t = localStorage.getItem("toybox-theme");
@@ -53,13 +53,24 @@
       <p class="stats" data-stats aria-live="polite"></p>
     </section>
 
-    <div class="chips" role="group" aria-label="Filter projects">
-      <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
-      <button class="chip" type="button" data-filter="recent" aria-pressed="false">Recently updated</button>
-      <button class="chip" type="button" data-filter="game" aria-pressed="false">Games</button>
-      <button class="chip" type="button" data-filter="site" aria-pressed="false">Sites</button>
-      <button class="chip" type="button" data-filter="tool" aria-pressed="false">Tools</button>
-      <button class="chip chip-lock" type="button" data-jump-lockbox aria-label="Jump to Lockbox">🔒 Lockbox</button>
+    <div class="shelf-bar">
+      <label class="search">
+        <span class="sr-only">Search projects</span>
+        <input type="search" data-search placeholder="Search the shelf" autocomplete="off" enterkeyhint="search">
+      </label>
+      <div class="chips" role="group" aria-label="Filter by kind">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="game" aria-pressed="false">Games</button>
+        <button class="chip" type="button" data-filter="site" aria-pressed="false">Sites</button>
+        <button class="chip" type="button" data-filter="tool" aria-pressed="false">Tools</button>
+        <button class="chip chip-lock" type="button" data-jump-lockbox aria-label="Jump to Lockbox">🔒 Lockbox</button>
+      </div>
+      <div class="chips chips-status" role="group" aria-label="Filter by status or sort">
+        <button class="chip" type="button" data-status="Live" aria-pressed="false">Live</button>
+        <button class="chip" type="button" data-status="In progress" aria-pressed="false">In progress</button>
+        <button class="chip" type="button" data-status="In development" aria-pressed="false">Coming soon</button>
+        <button class="chip" type="button" data-sort="recent" aria-pressed="false">Recently updated</button>
+      </div>
     </div>
     <p class="sr-only" data-filter-status aria-live="polite"></p>
 
@@ -87,7 +98,7 @@
   <dialog class="sheet" data-sheet aria-labelledby="sheet-title" aria-describedby="sheet-desc">
     <div class="sheet-inner">
       <button class="sheet-close icon-btn" type="button" data-close aria-label="Close preview">✕</button>
-      <div class="sheet-shot"><img data-sheet-img alt=""></div>
+      <div class="sheet-shot"><img data-sheet-img alt=""><span class="soon-flag" data-sheet-soon hidden>Coming soon</span></div>
       <div class="sheet-body">
         <div class="sheet-meta"><span class="badge" data-sheet-badge></span><span class="kind" data-sheet-kind></span></div>
         <h2 id="sheet-title" data-sheet-title></h2>
@@ -100,7 +111,7 @@
     </div>
   </dialog>
 
-  <script src="/js/toybox.js?v=10" defer></script>
+  <script src="/js/toybox.js?v=11" defer></script>
   <script src="/js/private-vault.js?v=6" defer></script>
 </body>
 </html>
