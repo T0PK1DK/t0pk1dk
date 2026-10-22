@@ -15,13 +15,10 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="preload" href="/css/toybox.css?v=13" as="style">
-  <link rel="preload" href="/js/toybox.js?v=13" as="script">
+  <link rel="preload" href="/css/toybox.css?v=14" as="style">
+  <link rel="preload" href="/js/toybox.js?v=14" as="script">
   <link rel="preload" href="/data/projects.json" as="fetch" crossorigin>
-  <link rel="preload" href="/assets/previews/actually-worth-it.webp" as="image">
-  <link rel="preload" href="/assets/previews/sprain-games.webp" as="image">
-  <link rel="preload" href="/assets/previews/beep.webp" as="image">
-  <link rel="stylesheet" href="/css/toybox.css?v=13">
+  <link rel="stylesheet" href="/css/toybox.css?v=14">
   <script>
     try {
       var t = localStorage.getItem("toybox-theme");
@@ -51,6 +48,11 @@
       <h1>Everything I'm building, in one box.</h1>
       <p class="lede">Tap any card to peek inside. Live ones open right away, in-progress ones get updated as I go.</p>
       <p class="stats" data-stats aria-live="polite"></p>
+    </section>
+
+    <section class="news" id="whats-new" aria-labelledby="whats-new-h">
+      <h2 id="whats-new-h">What's new</h2>
+      <div class="news-list" data-news></div>
     </section>
 
     <div class="shelf-bar">
@@ -98,7 +100,13 @@
   <dialog class="sheet" data-sheet aria-labelledby="sheet-title" aria-describedby="sheet-desc">
     <div class="sheet-inner">
       <button class="sheet-close icon-btn" type="button" data-close aria-label="Close preview">✕</button>
-      <div class="sheet-shot"><img data-sheet-img alt=""><span class="soon-flag" data-sheet-soon hidden>Coming soon</span></div>
+      <div class="sheet-shot">
+        <picture>
+          <source data-sheet-avif type="image/avif">
+          <img data-sheet-img alt="">
+        </picture>
+        <span class="soon-flag" data-sheet-soon hidden>Coming soon</span>
+      </div>
       <div class="sheet-body">
         <div class="sheet-meta"><span class="badge" data-sheet-badge></span><span class="kind" data-sheet-kind></span></div>
         <h2 id="sheet-title" data-sheet-title></h2>
@@ -114,7 +122,7 @@
     </div>
   </dialog>
 
-  <script src="/js/toybox.js?v=13" defer></script>
+  <script src="/js/toybox.js?v=14" defer></script>
   <script src="/js/private-vault.js?v=6" defer></script>
 </body>
 </html>

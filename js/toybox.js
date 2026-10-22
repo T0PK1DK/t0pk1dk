@@ -47,9 +47,14 @@
   const openSheet = (p, opener) => {
     lastCard = opener || document.activeElement;
     const img = $("[data-sheet-img]");
+    const avif = $("[data-sheet-avif]");
     img.src = p.image || FALLBACK;
     img.alt = p.url ? `Screenshot of ${p.name}` : `Coming soon art for ${p.name}`;
-    img.onerror = () => { img.onerror = null; img.src = FALLBACK; };
+    if (avif) {
+      if (p.avif) avif.srcset = p.avif;
+      else avif.removeAttribute("srcset");
+    }
+    img.onerror = () => { img.onerror = null; if (avif) avif.removeAttribute("srcset"); img.src = FALLBACK; };
     const badge = $("[data-sheet-badge]");
     badge.textContent = p.status; badge.className = `badge ${BADGE[p.status] || ""}`;
     $("[data-sheet-kind]").textContent = p.kind || "";
@@ -85,11 +90,20 @@
   sheet?.addEventListener("close", () => { lastCard?.focus?.({ preventScroll: true }); lastCard = null; });
 
   const tintOf = (id) => [...String(id)].reduce((n, c) => n + c.charCodeAt(0), 0) % 4;
+  const thumbAlt = (p) => p.url ? `Screenshot of ${p.name}` : `Coming soon art for ${p.name}`;
+  const pictureHtml = (p, { eager = false, high = false, sizes, width = 720, height = 450 } = {}) => {
+    if (!p.image) {
+      return `<div class="thumb-empty thumb"><span class="thumb-mark">${esc(initials(p.name))}</span><span class="thumb-soon">Soon</span></div>`;
+    }
+    const load = eager ? `loading="eager"${high ? ` fetchpriority="high"` : ""}` : `loading="lazy"`;
+    const src = `<img src="${esc(p.image)}" alt="${esc(thumbAlt(p))}" ${load} decoding="async" width="${width}" height="${height}" sizes="${esc(sizes)}">`;
+    return p.avif
+      ? `<picture><source type="image/avif" srcset="${esc(p.avif)}">${src}</picture>`
+      : src;
+  };
   const cardHtml = (p, i) => {
-    const eager = i < 6;
-    const img = p.image
-      ? `<img src="${esc(p.image)}" alt="" ${eager ? `loading="eager" fetchpriority="${i < 2 ? "high" : "low"}"` : `loading="lazy"`} decoding="async" width="720" height="450" sizes="(max-width:400px) 100vw,(max-width:720px) 50vw,280px">`
-      : `<div class="thumb-empty thumb"><span class="thumb-mark">${esc(initials(p.name))}</span><span class="thumb-soon">Soon</span></div>`;
+    const eager = i < 2;
+    const img = pictureHtml(p, { eager, high: i === 0, sizes: "(max-width:400px) 100vw,(max-width:720px) 50vw,280px" });
     const vt = `card-${String(p.id || i).replace(/[^a-z0-9-]/gi, "")}`;
     return `
     <button class="card" type="button" data-tint="${tintOf(p.id || i)}" style="--i:${Math.min(i, 8)};--vt:${vt}" data-idx="${i}" aria-label="${esc(p.name)}, ${esc(p.status)}. Open preview">
@@ -195,10 +209,33 @@
   };
   $("[data-jump-lockbox]")?.addEventListener("click", jumpLockbox);
 
+  const paintNews = () => {
+    const host = $("[data-news]");
+    if (!host || !all.length) return;
+    const newest = [...all].sort(byRecent).slice(0, 3);
+    host.innerHTML = newest.map((p, i) => `
+      <button class="news-item" type="button" data-news-idx="${i}" aria-label="${esc(p.name)}, updated ${esc(fmtDate(p.lastUpdated))}. Open preview">
+        <span class="news-thumb">${pictureHtml(p, { eager: true, high: i === 0, sizes: "72px", width: 144, height: 90 })}</span>
+        <span class="news-body"><h3>${esc(p.name)}</h3><p>${esc(p.note || `Updated ${fmtDate(p.lastUpdated)}`)}</p></span>
+      </button>`).join("");
+    host.onclick = (e) => {
+      const b = e.target.closest(".news-item");
+      if (b) openSheet(newest[+b.dataset.newsIdx], b);
+    };
+  };
+
   fetch("/data/projects.json", { cache: "no-cache" }).then((r) => r.json()).then((doc) => {
-    all = doc.projects.map((p) => ({ ...p, url: p.liveUrl, kind: KIND[p.category], note: p.updateNote, image: `/assets/previews/${p.id}.webp?v=${encodeURIComponent(p.lastUpdated)}` }));
+    all = doc.projects.map((p) => ({
+      ...p,
+      url: p.liveUrl,
+      kind: KIND[p.category],
+      note: p.updateNote,
+      image: `/assets/previews/${p.id}.webp?v=${encodeURIComponent(p.lastUpdated)}`,
+      avif: `/assets/previews/${p.id}.avif?v=${encodeURIComponent(p.lastUpdated)}`,
+    }));
     const live = all.filter((p) => p.status === "Live").length, prog = all.filter((p) => p.status === "In progress" || p.status === "Android app").length;
     $("[data-stats]").innerHTML = `<b>${all.length}</b> projects · <b>${live}</b> live · <b>${prog}</b> in progress`;
+    paintNews();
     const hash = (location.hash || "").slice(1);
     const hashFilter = { games: "game", game: "game", sites: "site", site: "site", tools: "tool", tool: "tool", all: "all" }[hash];
     const hashStatus = { live: "Live", progress: "In progress", soon: "In development", "coming-soon": "In development" }[hash];
@@ -210,7 +247,10 @@
       state.status = hashStatus;
       document.querySelectorAll("[data-status]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.status === hashStatus)));
     }
-    if (hash === "lockbox") show(false);
+    if (hash === "new" || hash === "whats-new") {
+      show(false);
+      $("#whats-new")?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
+    } else if (hash === "lockbox") show(false);
     else if (hashFilter) {
       state.cat = hashFilter;
       const btn = document.querySelector(`[data-filter="${hashFilter}"]`);

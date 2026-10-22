@@ -12,7 +12,7 @@ A soft, warm project-card hub. The homepage (`index.html` + `css/toybox.css` + `
 
 The older freelance pages (`/work/`, `/about/`, `/contact/`, `css/site.css`) still exist. Do not restyle them unless a Toy Box change breaks a shared link. Keep the homepage as the pretty shelf.
 
-## What the last four overnight passes already did
+## What the last five overnight passes already did
 
 Do not redo this work. Build on it.
 
@@ -33,12 +33,18 @@ Do not redo this work. Build on it.
 - Added Chamber Arcade, Cluck Life, Slide with live-page webps. Stellar → `stellar.testdasite.com`. BEEP recaptured.
 - Did not add Iron Command, `workers.dev`, or invented hosts.
 
-### Pass 4 (coming-soon art / search / status / 390px) — stacked on the same PR
+### Pass 4 (coming-soon art / search / status / 390px)
 
-- All ten In-development cards now have honest **coming-soon key art** (720×450 webp), not empty initials and not fake gameplay. No public repo or live page exists for those ten; the art is labeled Coming soon. Preview sheets show the art, a Coming soon flag, and a dashed notice — **no Open button** (`.btn { display:flex }` no longer overrides `[hidden]`). No invented URLs.
-- **Search** the shelf. **Status chips** (Live / In progress / Coming soon) stack with kind filters. **Recently updated** is a sort toggle (newest first), not a separate shelf. Hashes: `#live`, `#progress`, `#soon`, `#recent`.
-- **390px spacing:** tighter hero, 14px gutters, 10px card gap, compact search + chip bar, sort chip shortens to “Newest”, tighter status-chip padding so the sort stays on screen, lockbox passcode + Unlock stay on one row.
-- Cache-bust is `?v=13` on toybox CSS and JS.
+- Ten In-development cards have labeled coming-soon key art. Sheets have no Open button.
+- Search, status chips, Recently updated / Newest sort.
+
+### Pass 5 (perf / a11y / what's new) — stacked on the same PR
+
+- **AVIF + WebP** `<picture>` on cards, What's new thumbs, and the preview sheet. First two shelf cards eager; the rest `loading="lazy"`. Dropped unused image preloads. Cache-bust is `?v=14`.
+- **Alt text** on every preview (`Screenshot of…` / `Coming soon art for…`). Keyboard `:focus-visible` rings use `--focus` (#c45a28 light / #f29a63 dark) on cards, chips, news items, brand, skip, inputs, and buttons.
+- **Contrast.** Light muted `#7a5c4e`, accent text `#9a3f18`, live dates `#1e7a4e` so body copy and the eyebrow pass WCAG AA. Decorative orange on buttons stays `--accent`.
+- **What's new** strip under the hero: the 3 most recently updated public projects (stable date sort — BEEP, Chamber Arcade, Cluck Life). Hash `#new`. Compact rows at 390px.
+- `validate.mjs` also warns when an AVIF is missing. Tests were not weakened. Lockbox crypto was not touched.
 
 ## Hard rules (do not break)
 
@@ -52,20 +58,19 @@ Do not redo this work. Build on it.
 
 ## Design brief for this round
 
-The shelf searches and the Soon cards have art. What is still open is **missing live hosts**.
+What's new and the image pipeline are in. What is still open is **missing live hosts**.
 
 Ideas, pick a few — do not do all of them:
 
 1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s.
 2. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
-3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in.
-4. **Updates strip.** Five honest `updateNote`s, newest first. Do not invent dates.
-5. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
+3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode both AVIF and WebP.
+4. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
 
 ## Done means
 
 - `npm test` passes. Do not weaken tests.
-- Phone (~390px) and desktop (~1280px) screenshots of the homepage in **light and dark**.
+- Phone (~390px) and desktop (~1280px) screenshots of the homepage in **light and dark**, including What's new.
 - Push to the open PR if one is already waiting (do not open a second PR for the same shelf pass).
 - Update this file with what you shipped and a fresh ready-to-paste prompt for the round after you.
 
