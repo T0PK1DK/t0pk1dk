@@ -17,14 +17,22 @@
       b.setAttribute("aria-pressed", String(dark));
     }
     const meta = $("[data-theme-color]");
-    if (meta) meta.setAttribute("content", dark ? "#1a1412" : "#fbf3ea");
+    if (meta) meta.setAttribute("content", dark ? "#17110e" : "#fbf3ea");
+  };
+  const reduceMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const withTransition = (fn) => {
+    if (!reduceMotion() && document.startViewTransition) return document.startViewTransition(fn);
+    fn();
   };
   syncTheme();
   mq.addEventListener?.("change", syncTheme);
   $("[data-theme-toggle]")?.addEventListener("click", () => {
-    root.dataset.theme = isDark() ? "light" : "dark";
-    try { localStorage.setItem("toybox-theme", root.dataset.theme); } catch {}
-    syncTheme();
+    const flip = () => {
+      root.dataset.theme = isDark() ? "light" : "dark";
+      try { localStorage.setItem("toybox-theme", root.dataset.theme); } catch {}
+      syncTheme();
+    };
+    withTransition(flip);
   });
 
   const initials = (n) => n.replace(/[^A-Za-z0-9 ]/g, "").split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
@@ -67,13 +75,15 @@
   sheet?.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
   sheet?.addEventListener("close", () => { lastCard?.focus?.({ preventScroll: true }); lastCard = null; });
 
+  const tintOf = (id) => [...String(id)].reduce((n, c) => n + c.charCodeAt(0), 0) % 4;
   const cardHtml = (p, i) => {
     const eager = i < 6;
     const img = p.image
       ? `<img src="${esc(p.image)}" alt="" ${eager ? `loading="eager" fetchpriority="${i < 2 ? "high" : "low"}"` : `loading="lazy"`} decoding="async" width="720" height="450" sizes="(max-width:400px) 100vw,(max-width:720px) 50vw,280px">`
       : `<div class="thumb-empty thumb"><span class="thumb-mark">${esc(initials(p.name))}</span><span class="thumb-soon">Soon</span></div>`;
+    const vt = `card-${String(p.id || i).replace(/[^a-z0-9-]/gi, "")}`;
     return `
-    <button class="card" type="button" style="--i:${Math.min(i, 8)}" data-idx="${i}" aria-label="${esc(p.name)}, ${esc(p.status)}. Open preview">
+    <button class="card" type="button" data-tint="${tintOf(p.id || i)}" style="--i:${Math.min(i, 8)};--vt:${vt}" data-idx="${i}" aria-label="${esc(p.name)}, ${esc(p.status)}. Open preview">
       <div class="thumb">${img}
         <span class="badge ${BADGE[p.status] || ""}">${esc(p.status)}</span></div>
       <div class="card-body"><h3>${esc(p.name)}</h3>${p.lastUpdated ? `<span class="upd${isFresh(p.lastUpdated) ? " fresh" : ""}">Updated ${esc(fmtDate(p.lastUpdated))}</span>` : ""}<p>${esc(p.description)}</p></div>
@@ -107,9 +117,10 @@
 
   const grid = $("[data-grid]");
   let all = [];
+  let painted = false;
   const byRecent = (a, b) => String(b.lastUpdated).localeCompare(String(a.lastUpdated));
   const labelFor = (f, n) => f === "all" ? `${n} projects` : f === "recent" ? `${n} recently updated` : `${n} ${f === "game" ? "games" : f === "site" ? "sites" : "tools"}`;
-  const show = (f) => {
+  const paint = (f) => {
     const list = f === "all" ? all : f === "recent" ? [...all].sort(byRecent) : all.filter((p) => p.category === f);
     renderInto(grid, list);
     const status = $("[data-filter-status]");
@@ -124,12 +135,16 @@
       }
     }
   };
+  const show = (f) => {
+    if (painted) withTransition(() => paint(f));
+    else { paint(f); painted = true; }
+  };
   document.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => {
     document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
     show(b.dataset.filter);
   }));
   const jumpLockbox = () => {
-    $("#lockbox")?.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    $("#lockbox")?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
     setTimeout(() => $("#lock-pass")?.focus({ preventScroll: true }), 400);
   };
   $("[data-jump-lockbox]")?.addEventListener("click", jumpLockbox);

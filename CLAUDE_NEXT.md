@@ -12,7 +12,7 @@ A soft, warm project-card hub. The homepage (`index.html` + `css/toybox.css` + `
 
 The older freelance pages (`/work/`, `/about/`, `/contact/`, `css/site.css`) still exist. Do not restyle them unless a Toy Box change breaks a shared link. Keep the homepage as the pretty shelf.
 
-## What the last two overnight passes already did
+## What the last three overnight passes already did
 
 Do not redo this work. Build on it.
 
@@ -25,39 +25,46 @@ Do not redo this work. Build on it.
 - Hash shortcuts: `#games`, `#sites`, `#tools`, `#recent`, `#lockbox`.
 - Lockbox labels / `aria-invalid` only. **Crypto is unchanged.**
 
-### Pass 2 (cards / copy / speed) — stacked on the same PR
+### Pass 2 (cards / copy / speed)
 
 - Card motion: capped stagger (first 8), warmer hover lift + border, image zoom, light fade on the thumb.
 - In-development thumbs are initials + a quiet **Soon** label, not giant type.
-- Preview sheet: grabber on phones, stronger backdrop blur, slightly warmer radius.
-- Recaptured **BEEP** (was almost black; now the pad) and **RDF** (roster with Kit / Ren / Bayan / Jae-Min). Other 17 previews were already honest 720×450 shots of the live pages. Nabu and Launch Kit still show their GitHub repos because that is the `liveUrl`.
-- Copy fixes from the live sites: GRINDEX is Roblox codes (not “on the web”), Respawn HQ is a news desk (not “ops”), ZONEZ is community/chat (not “zone puzzles”), Bando Games / SWEET-D / BEEP match what the pages actually say. Dates were not invented except BEEP + RDF `lastUpdated` to today so the new webps bust the 7-day asset cache.
-- Speed: preload CSS, JS, `projects.json`, and the first three previews; `sizes` on card images; `content-visibility` with a taller intrinsic size.
-- Cache-bust is `?v=8` on toybox CSS and `?v=9` on `toybox.js`.
+- Recaptured **BEEP** and **RDF**. Copy fixes from live sites (GRINDEX, Respawn HQ, ZONEZ, Bando Games, SWEET-D, BEEP).
+- Speed: preload CSS/JS/`projects.json`/first three previews; `sizes` on card images; `content-visibility`.
+
+### Pass 3 (motion / night / newer public cards) — stacked on the same PR
+
+- Motion: stronger hover (`translateY(-6px) scale(1.012)`), tap (`scale(.97)`), View Transitions on theme flip and filter paint, `@view-transition { navigation: auto }` on Toy Box and the older pages. `prefers-reduced-motion` still wins.
+- Night mode is warmer cocoa (`#17110e` paper, cream ink). Theme-color meta follows it.
+- Soon cards get a quiet peach/rose tint (`data-tint` 0–3) so ten empties do not look identical. No fake screenshots.
+- Recaptured **BEEP** (pad crop) and **Stellar Evolution** (live world after Begin). Stellar's public URL is now `stellar.testdasite.com` (same playable page, dedicated host).
+- Added public cards that have a working live page: **Chamber Arcade** (`chamber-arcade.pages.dev`), **Cluck Life** (`cluck-life.pages.dev`), **Slide** (`kings-slide.pages.dev`). Honest 720×450 webps from those pages.
+- Visited every older `liveUrl`. All 19 previous public links still 200. Nabu stays GitHub — the tablet is local, no public host. Launch Kit stays GitHub.
+- **Did not add** Iron Command (going private). **Did not add** any `workers.dev` host. **Did not invent** links for E-SEKAI, Terminal Trader, NOMI, Learn Spanish / Habla, Miami AI Weather, or Porch Market — no working public page found that is actually those products. `*.pages.dev` names that belong to other people were not used.
+- Cache-bust is `?v=10` on toybox CSS and JS.
 
 ## Hard rules (do not break)
 
 - **Do not remove any project** from `data/projects.json`.
 - **Do not change Lockbox protection.** Leave `js/private-vault.js` decrypt (`PBKDF2` + `AES-GCM`), `sessionStorage` key, `data/private.enc.json`, and the encrypt scripts alone unless you are only touching labels / focus / layout around the form.
 - **Never commit** `data/private.json`, the vault password, the numeric PIN, or King's legal name. Public copy is **T0PK1DK** / **King's Toy Box** only. `npm test` scans for forbidden name fragments.
-- **Do not invent URLs.** If a link is dead and you cannot confirm a replacement, leave `liveUrl` as-is or set it `null` and drop status to `In development` — never guess a host.
+- **Do not invent URLs.** If a link is dead and you cannot confirm a replacement, leave `liveUrl` as-is or set it `null` and drop status to `In development` — never guess a host. Do not list Iron Command. Do not list `workers.dev` links.
 - Additive only. No framework, no rewrite of the card renderer, no new build step. `npm test` / `npm run build` must stay green (`scripts/validate.mjs`).
 - Bump `?v=` on `/css/toybox.css` and `/js/toybox.js` (and lockbox JS if you touch it) when you edit them. Cache is 7 days. Card images cache-bust with `lastUpdated`.
 - Keep the feeling: **soft, warm, uncluttered**, cream paper in light mode, cocoa dark mode. No neon, no dense dashboards, no stock-SaaS chrome.
 
 ## Design brief for this round
 
-The shelf is cleaner. What is still open is **preview honesty** and a little more toy-box, a little less screenshot grid.
+The shelf now has the newer public games. What is still open is **missing live hosts** and a little more toy-box.
 
 Ideas, pick a few — do not do all of them:
 
-1. **BEEP is a dark UI.** The pad crop is readable; the rest of the product is still near-black. A tighter crop of just the pad card (or a lit theme if the site has one) would help the shelf.
-2. **GitHub cards.** Nabu and Launch Kit show github.com chrome. If either gains a Pages demo, recapture that. Do not invent a host.
-3. **Stellar Evolution / RDF / ZONEZ** are menu or login shots. Recapture gameplay or an inside view only if you can click there and the URL stays public.
-4. **In-development empty state.** Initials + Soon is quieter than before. A tiny per-card tint (still the same peach/rose family) would stop ten cards looking identical. No fake screenshots.
-5. **Updates strip.** Five honest `updateNote`s, newest first. Do not invent dates. Many cards still say `2026-06-01`.
-6. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
-7. **Motion.** Stagger + lift is enough. Respect `prefers-reduced-motion`. No particles.
+1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s.
+2. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
+3. **Slide** is a dark map HUD. If a brighter route view is one tap away and stays public, recapture that.
+4. **Updates strip.** Five honest `updateNote`s, newest first. Do not invent dates. Many cards still say `2026-06-01`.
+5. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
+6. **Motion is enough.** Hover, tap, and view transitions already ship. Respect `prefers-reduced-motion`. No particles.
 
 ## Done means
 
@@ -66,4 +73,4 @@ Ideas, pick a few — do not do all of them:
 - Push to the open PR if one is already waiting (do not open a second PR for the same shelf pass).
 - Update this file with what you shipped and a fresh ready-to-paste prompt for the round after you.
 
-If you only have time for one thing: **tighter BEEP crop + a little color variety on Soon cards.** Leave the lockbox locked.
+If you only have time for one thing: **wire a live URL the moment one of the missing public projects actually ships.** Leave the lockbox locked.

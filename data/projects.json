@@ -27,7 +27,7 @@
       "category": "site",
       "status": "Live",
       "liveUrl": "https://get-beep.com",
-      "lastUpdated": "2026-10-21",
+      "lastUpdated": "2026-10-22",
       "updateNote": "Live now — desk pad for the building."
     },
     {
@@ -69,6 +69,26 @@
       "liveUrl": "https://www.thebando.cc/games/sprain/",
       "lastUpdated": "2026-06-01",
       "updateNote": "Live now."
+    },
+    {
+      "id": "chamber-arcade",
+      "name": "Chamber Arcade",
+      "description": "CRT-green table game. Fair, Classic, or VS HOUSE. Toy drum — simulation only.",
+      "category": "game",
+      "status": "Live",
+      "liveUrl": "https://chamber-arcade.pages.dev",
+      "lastUpdated": "2026-10-22",
+      "updateNote": "Live now — 3D table, Fair / Classic / VS HOUSE."
+    },
+    {
+      "id": "cluck-life",
+      "name": "Cluck Life",
+      "description": "Raise a chicken on a cozy 3D farm, train, and climb a ladder of eight rivals.",
+      "category": "game",
+      "status": "Live",
+      "liveUrl": "https://cluck-life.pages.dev",
+      "lastUpdated": "2026-10-22",
+      "updateNote": "Live now — train, fight, and climb to King Comb."
     },
     {
       "id": "product-funnel",
@@ -117,8 +137,18 @@
       "category": "tool",
       "status": "In progress",
       "liveUrl": "https://github.com/T0PK1DK/nabu",
-      "lastUpdated": "2026-10-11",
-      "updateNote": "Code is public on GitHub and still getting updates."
+      "lastUpdated": "2026-10-22",
+      "updateNote": "Code is public on GitHub. The tablet still runs locally — no public web host yet."
+    },
+    {
+      "id": "slide",
+      "name": "Slide",
+      "description": "Driver-first navigation. Smoothest route, posted speeds, precise timing.",
+      "category": "tool",
+      "status": "In progress",
+      "liveUrl": "https://kings-slide.pages.dev",
+      "lastUpdated": "2026-10-21",
+      "updateNote": "Playable preview — set From / To and drop the line."
     },
     {
       "id": "rdf",
@@ -146,9 +176,9 @@
       "description": "Grow from a speck of dust to a galaxy. Build a fleet and raid.",
       "category": "game",
       "status": "In progress",
-      "liveUrl": "https://testdasite.pages.dev",
-      "lastUpdated": "2026-06-01",
-      "updateNote": "Playable now and still getting updates."
+      "liveUrl": "https://stellar.testdasite.com",
+      "lastUpdated": "2026-10-22",
+      "updateNote": "Playable now — the card shows the live world, not just the title."
     },
     {
       "id": "sweet-d",
