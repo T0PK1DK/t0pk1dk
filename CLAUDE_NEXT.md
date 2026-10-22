@@ -82,6 +82,12 @@ Do not redo this work. Build on it.
 - **Share cards.** Static `/p/<id>/` pages for every public project, with `og:` / Twitter tags and JSON-LD from the existing name, description, and preview. Homepage adds `twitter:title` / `twitter:image` / `og:image` size, CollectionPage JSON-LD, and `?p=<id>` to open that sheet. `sitemap.xml` lists the 32 share URLs. Work / About / Contact got the same style of tags from their existing titles and descriptions. Regenerator: `node scripts/write-share-pages.mjs` (not a required build step).
 - **390px whole site.** Work filters, freelance footer links, and the freelance skip link are 44px. Cache-bust is `?v=19` on Toy Box CSS/JS and `?v=2` on `site.css`. Tests were not weakened. Lockbox crypto was not touched.
 
+### Pass 9 (final review) — stacked on the same PR
+
+- Re-read the stacked diff. Lockbox crypto is still labels / `aria-invalid` / focus only.
+- Every `/p/<id>/` page: local hrefs, CSS, favicon, manifest, and 720/360/144 WebP+AVIF all 200. All 22 public `liveUrl`s still 200. Coming-soon share pages have no external Open. JSON-LD ids match `projects.json`.
+- Opening a Lockbox card no longer writes `/p/undefined/` into the tab title or share tags. `validate.mjs` now requires each share page to carry its `liveUrl` (or no `target="_blank"` if there isn't one) and each id in the homepage list. Cache-bust is `?v=20`. No new cards. No invented URLs.
+
 ## Hard rules (do not break)
 
 - **Do not remove any project** from `data/projects.json`.
