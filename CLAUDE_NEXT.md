@@ -12,7 +12,7 @@ A soft, warm project-card hub. The homepage (`index.html` + `css/toybox.css` + `
 
 The older freelance pages (`/work/`, `/about/`, `/contact/`, `css/site.css`) still exist. Do not restyle them unless a Toy Box change breaks a shared link. Keep the homepage as the pretty shelf.
 
-## What the last six overnight passes already did
+## What the last seven overnight passes already did
 
 Do not redo this work. Build on it.
 
@@ -62,6 +62,17 @@ Do not redo this work. Build on it.
 - Invert Play is canvas-drawn and the stored gameplay shot still matches; left it. Sweet-D, SHOTBYZB, ZONEZ, GRINDEX, Midas, BuzzahhJitt, Bando Games, Respawn, and GitHub chrome were current enough to keep.
 - Added or corrected 1–2 line "what it is" blurbs from the live page, repo README, or `/work/` only. HILO was wrong (it is a HI-LO card-counting trainer). Midas names the guide/workbook and says the web app is still coming. Coming-soon cards without a public source were left as-is. The WALL now uses the `/work/` line.
 - `lastUpdated` bumped only on recaptured images for cache-bust. What's new stays BEEP, Chamber Arcade, Cluck Life (same 2026-10-22 date, JSON order). 390px rules untouched. `?v=` still 16 (CSS/JS not edited). Tests were not weakened. Lockbox crypto was not touched.
+
+### Pass 7 (polish / edge cases) — stacked on the same PR
+
+- **Image placeholders.** Card, What's new, and sheet thumbs keep the warm wash while the image loads, with a reduced-motion-safe shimmer. Images fade in when ready.
+- **Empty search.** A centered empty sheet (existing copy) plus a “Clear search or filters” button. Escape in the search box clears the query.
+- **Broken images.** Error handlers strip the AVIF `<source>` before swapping in `fallback.svg`. A second failure shows the bear mark. What's new thumbs now use the same loader/fallback as cards.
+- **Keyboard / focus.** Skip goes to search. Header DOM matches the 390px visual order (brand, theme, nav). No-link sheets focus the Close preview button; live sheets still focus Open. Focus returns to the card that opened the sheet.
+- **390px targets.** Footer links, skip, brand, Unlock, What's new rows, and sheet Close are 44px or taller. Status chips keep `min-height: 44px`.
+- **Dark contrast.** Hairline `--line` bumped so chips/search/sheet chrome read on cocoa. Sheet close sits on a solid card fill. Coming-soon and empty panels use a stronger dashed edge. Body muted already passed AA; left the token.
+- **No-link sheet.** Open stays hidden. Coming soon flag + dashed note stay. A full-width Close preview button is the action. Empty host/note lines are hidden.
+- Cache-bust is `?v=17`. Tests were not weakened. Lockbox crypto was not touched.
 
 ## Hard rules (do not break)
 

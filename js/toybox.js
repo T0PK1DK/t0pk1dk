@@ -44,17 +44,43 @@
   const sheet = $("[data-sheet]");
   let lastCard = null;
   const FALLBACK = "/assets/previews/fallback.svg";
+  const stripSources = (img) => img.closest("picture")?.querySelectorAll("source")?.forEach((s) => s.removeAttribute("srcset"));
+  const revealThumb = (img) => img.classList.add("ready");
+  const fallbackThumb = (img) => {
+    stripSources(img);
+    if (img.dataset.fallback === "1") {
+      const box = img.closest(".thumb, .news-thumb, .sheet-shot");
+      if (box && !box.querySelector(".thumb-empty")) {
+        const mark = document.createElement("div");
+        mark.className = "thumb-empty";
+        mark.innerHTML = `<span class="thumb-mark" aria-hidden="true">🧸</span>`;
+        img.replaceWith(mark);
+      }
+      return;
+    }
+    img.dataset.fallback = "1";
+    img.src = FALLBACK;
+    revealThumb(img);
+  };
+  const watchSheetImg = (img) => {
+    img.classList.remove("ready");
+    delete img.dataset.fallback;
+    const ready = () => revealThumb(img);
+    img.onload = ready;
+    img.onerror = () => fallbackThumb(img);
+    if (img.complete && img.naturalWidth) ready();
+  };
   const openSheet = (p, opener) => {
     lastCard = opener || document.activeElement;
     const img = $("[data-sheet-img]");
     const avif = $("[data-sheet-avif]");
-    img.src = p.image || FALLBACK;
-    img.alt = p.url ? `Screenshot of ${p.name}` : `Coming soon art for ${p.name}`;
     if (avif) {
       if (p.avif) avif.srcset = p.avif;
       else avif.removeAttribute("srcset");
     }
-    img.onerror = () => { img.onerror = null; if (avif) avif.removeAttribute("srcset"); img.src = FALLBACK; };
+    img.src = p.image || FALLBACK;
+    img.alt = p.url ? `Screenshot of ${p.name}` : `Coming soon art for ${p.name}`;
+    watchSheetImg(img);
     const badge = $("[data-sheet-badge]");
     badge.textContent = p.status; badge.className = `badge ${BADGE[p.status] || ""}`;
     $("[data-sheet-kind]").textContent = p.kind || "";
@@ -66,16 +92,19 @@
     const soon = $("[data-sheet-soon]");
     if (soon) soon.hidden = Boolean(p.url);
     const open = $("[data-sheet-open]"), nolink = $("[data-sheet-nolink]");
+    const dismiss = $("[data-sheet-dismiss]");
     const nolinkCopy = $("[data-sheet-nolink-copy]");
     if (p.url) {
       open.hidden = false; open.href = p.url;
       open.textContent = p.url.includes("github.com") ? "View on GitHub ↗" : `Open ${p.name} ↗`;
       $("[data-sheet-host]").textContent = p.private ? "" : host(p.url);
       nolink.hidden = true;
+      if (dismiss) dismiss.hidden = true;
     } else {
       open.hidden = true; open.removeAttribute("href");
       $("[data-sheet-host]").textContent = "";
       nolink.hidden = false;
+      if (dismiss) dismiss.hidden = false;
       if (nolinkCopy) {
         nolinkCopy.textContent = p.status === "Android app"
           ? "Android app. There's no web version to open yet."
@@ -83,9 +112,11 @@
       }
     }
     sheet.showModal();
-    open.hidden ? $("[data-close]").focus() : open.focus();
+    if (p.url) open.focus();
+    else (dismiss || $("[data-close]")).focus();
   };
   $("[data-close]")?.addEventListener("click", () => sheet.close());
+  $("[data-sheet-dismiss]")?.addEventListener("click", () => sheet.close());
   sheet?.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
   sheet?.addEventListener("close", () => { lastCard?.focus?.({ preventScroll: true }); lastCard = null; });
 
@@ -113,22 +144,24 @@
   };
 
   const bindThumbs = (el) => {
-    el.querySelectorAll(".thumb img").forEach((img) => {
-      const ready = () => img.classList.add("ready");
+    el.querySelectorAll(".thumb img, .news-thumb img").forEach((img) => {
+      const ready = () => revealThumb(img);
       if (img.complete && img.naturalWidth) ready();
       else img.addEventListener("load", ready, { once: true });
-      img.addEventListener("error", () => {
-        img.onerror = null;
-        img.src = FALLBACK;
-        ready();
-      }, { once: true });
+      img.addEventListener("error", () => fallbackThumb(img), { once: true });
     });
   };
 
   const renderInto = (el, list) => {
     if (!list.length) {
-      el.innerHTML = `<p class="muted">Nothing in this shelf matches. Clear search or filters to see everything.</p>`;
-      el.onclick = null;
+      const q = state.q ? ` matching “${esc(state.q)}”` : "";
+      el.innerHTML = `<div class="empty" role="status">
+        <p class="empty-mark" aria-hidden="true">🧸</p>
+        <p class="empty-title">Nothing in this shelf matches${q}.</p>
+        <p>Clear search or filters to see everything.</p>
+        <button class="chip" type="button" data-clear>Clear search or filters</button>
+      </div>`;
+      el.onclick = (e) => { if (e.target.closest("[data-clear]")) clearShelf(); };
       return;
     }
     el.innerHTML = list.map(cardHtml).join("");
@@ -197,11 +230,30 @@
     $("[data-sort=recent]").setAttribute("aria-pressed", String(state.recent));
     show(true);
   });
+  const clearShelf = () => {
+    state.cat = "all";
+    state.status = "";
+    state.recent = false;
+    state.q = "";
+    const input = $("[data-search]");
+    if (input) input.value = "";
+    document.querySelectorAll("[data-filter]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.filter === "all")));
+    document.querySelectorAll("[data-status]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+    $("[data-sort=recent]")?.setAttribute("aria-pressed", "false");
+    show(false);
+    input?.focus();
+  };
   let searchTick = 0;
   $("[data-search]")?.addEventListener("input", (e) => {
     state.q = String(e.target.value || "").trim().toLowerCase();
     clearTimeout(searchTick);
     searchTick = setTimeout(() => show(false), 120);
+  });
+  $("[data-search]")?.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !state.q) return;
+    e.target.value = "";
+    state.q = "";
+    show(false);
   });
   const jumpLockbox = () => {
     $("#lockbox")?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
@@ -218,6 +270,7 @@
         <span class="news-thumb">${pictureHtml(p, { eager: true, high: i === 0, sizes: "72px", width: 144, height: 90 })}</span>
         <span class="news-body"><h3>${esc(p.name)}</h3><p>${esc(p.note || `Updated ${fmtDate(p.lastUpdated)}`)}</p></span>
       </button>`).join("");
+    bindThumbs(host);
     host.onclick = (e) => {
       const b = e.target.closest(".news-item");
       if (b) openSheet(newest[+b.dataset.newsIdx], b);
