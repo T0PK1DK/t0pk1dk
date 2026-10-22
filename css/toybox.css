@@ -27,7 +27,7 @@ main{max-width:1180px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-right
 .eyebrow{margin:0 0 8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
 h1{font-size:clamp(30px,6vw,48px);line-height:1.08;margin:0 0 12px;letter-spacing:-.02em}
 .lede{color:var(--muted);margin:0 0 10px;font-size:17px}
-.stats{margin:0;font-size:14px;color:var(--muted)}
+.stats{margin:0;font-size:14px;color:var(--muted);min-height:1.5em}
 .stats b{color:var(--ink)}
 .news{margin:0 0 18px}
 .news h2{margin:0 0 10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
@@ -88,7 +88,8 @@ h1{font-size:clamp(30px,6vw,48px);line-height:1.08;margin:0 0 12px;letter-spacin
   .empty-mark{font-size:26px}
   .empty-title{font-size:16px}
 }
-.card{appearance:none;text-align:left;font:inherit;color:inherit;border:1px solid var(--line);background:var(--card);border-radius:var(--r);overflow:hidden;padding:0;cursor:pointer;box-shadow:var(--shadow);transition:transform .38s var(--ease),box-shadow .38s var(--ease),border-color .3s var(--ease),background-color .45s;display:flex;flex-direction:column;animation:pop .55s var(--ease) both;animation-delay:calc(min(var(--i,0),8)*20ms);content-visibility:auto;contain-intrinsic-size:0 320px;touch-action:manipulation;view-transition-name:var(--vt,none)}
+.card{appearance:none;text-align:left;font:inherit;color:inherit;border:1px solid var(--line);background:var(--card);border-radius:var(--r);overflow:hidden;padding:0;cursor:pointer;box-shadow:var(--shadow);transition:transform .38s var(--ease),box-shadow .38s var(--ease),border-color .3s var(--ease),background-color .45s;display:flex;flex-direction:column;content-visibility:auto;contain-intrinsic-size:0 320px;touch-action:manipulation;view-transition-name:var(--vt,none)}
+.grid.reshuffle .card{animation:pop .55s var(--ease) both;animation-delay:calc(min(var(--i,0),8)*20ms)}
 .card:active{transform:translateY(1px) scale(.97);transition-duration:.12s}
 .card:focus-visible,.chip:focus-visible,.btn:focus-visible,.icon-btn:focus-visible,.top-nav a:focus-visible,.foot-links a:focus-visible,.search input:focus-visible,.brand:focus-visible,.news-item:focus-visible,.skip:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 @media (hover:hover) and (pointer:fine){.card:hover{transform:translateY(-6px) scale(1.012);border-color:color-mix(in srgb,var(--accent) 32%,var(--line));box-shadow:0 14px 36px color-mix(in srgb,var(--accent) 18%,transparent),var(--shadow)}.card:hover .thumb img{transform:scale(1.055)}.card:focus-visible{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 32%,var(--line))}}
@@ -171,3 +172,12 @@ h1{font-size:clamp(30px,6vw,48px);line-height:1.08;margin:0 0 12px;letter-spacin
 @keyframes ph{to{transform:translateX(120%)}}
 .news-thumb{position:relative;overflow:hidden}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.thumb img,.thumb img.ready,.news-thumb img,.news-thumb img.ready,.sheet-shot img,.sheet-shot img.ready{opacity:1}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+.share-page .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center}
+.share-page .top-nav{grid-column:auto}
+.share-page .sheet-shot img{opacity:1}
+.share-page .sheet-shot::before{display:none}
+.share-card{border:1px solid var(--line);background:var(--card);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin:8px 0 28px}
+.share-card .sheet-shot{border-radius:0}
+.share-card h1{font-size:clamp(26px,7vw,36px);line-height:1.12;margin:10px 0 8px;letter-spacing:-.02em}
+.share-actions{display:grid;gap:10px;margin-top:8px}
+@media (max-width:400px){.share-card h1{font-size:26px}.share-card .sheet-body{padding:16px 14px 20px}}

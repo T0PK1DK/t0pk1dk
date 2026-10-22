@@ -118,6 +118,9 @@ p {
   background: var(--forest);
   color: var(--white);
   border-radius: 999px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .skip-link:focus {
@@ -774,7 +777,7 @@ p {
 
 .filter-btn {
   flex: 0 0 auto;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 14px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -1054,6 +1057,12 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+}
+
+.footer-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .footer-links a:hover {

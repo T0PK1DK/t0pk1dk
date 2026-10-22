@@ -39,6 +39,48 @@
   const fmtDate = (d) => { const t = new Date(`${d}T12:00:00`); return isNaN(t) ? "" : t.toLocaleDateString("en-US", { month: "short", day: "numeric", ...(t.getFullYear() !== new Date().getFullYear() ? { year: "numeric" } : {}) }); };
   const isFresh = (d) => { const t = new Date(`${d}T12:00:00`); return !isNaN(t) && Date.now() - t < 7 * 864e5; };
   const host = (u) => { try { return new URL(u).host + (new URL(u).pathname.length > 1 ? new URL(u).pathname : ""); } catch { return ""; } };
+  const HOME_TITLE = document.title;
+  const HOME_OG = {
+    title: "King's Toy Box",
+    desc: "Every game, site and tool T0PK1DK is building, live and in progress.",
+    url: "https://t0pk1dk.com/",
+    image: "https://t0pk1dk.com/assets/previews/rdf.webp",
+  };
+  const setMeta = (sel, val, attr = "content") => {
+    const el = $(sel);
+    if (el && val != null) el.setAttribute(attr, val);
+  };
+  const shareMeta = (p) => {
+    if (!p) {
+      document.title = HOME_TITLE;
+      setMeta('meta[property="og:title"]', HOME_OG.title);
+      setMeta('meta[property="og:description"]', HOME_OG.desc);
+      setMeta('meta[property="og:url"]', HOME_OG.url);
+      setMeta('meta[property="og:image"]', HOME_OG.image);
+      setMeta('meta[name="twitter:title"]', HOME_OG.title);
+      setMeta('meta[name="twitter:description"]', HOME_OG.desc);
+      setMeta('meta[name="twitter:image"]', HOME_OG.image);
+      setMeta('link[rel="canonical"]', HOME_OG.url, "href");
+      return;
+    }
+    const img = `https://t0pk1dk.com/assets/previews/${p.id}.webp`;
+    document.title = `${p.name} · King's Toy Box`;
+    setMeta('meta[property="og:title"]', p.name);
+    setMeta('meta[property="og:description"]', p.description || "");
+    setMeta('meta[property="og:url"]', `https://t0pk1dk.com/p/${p.id}/`);
+    setMeta('meta[property="og:image"]', img);
+    setMeta('meta[name="twitter:title"]', p.name);
+    setMeta('meta[name="twitter:description"]', p.description || "");
+    setMeta('meta[name="twitter:image"]', img);
+    setMeta('link[rel="canonical"]', `https://t0pk1dk.com/p/${p.id}/`, "href");
+  };
+  const setProjectParam = (id) => {
+    const url = new URL(location.href);
+    if (id) url.searchParams.set("p", id);
+    else url.searchParams.delete("p");
+    const next = `${url.pathname}${url.search}${url.hash}`;
+    history.replaceState(null, "", next);
+  };
 
   // Sheet
   const sheet = $("[data-sheet]");
@@ -112,24 +154,36 @@
       }
     }
     sheet.showModal();
+    shareMeta(p);
+    setProjectParam(p.id);
     if (p.url) open.focus();
     else (dismiss || $("[data-close]")).focus();
   };
   $("[data-close]")?.addEventListener("click", () => sheet.close());
   $("[data-sheet-dismiss]")?.addEventListener("click", () => sheet.close());
   sheet?.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
-  sheet?.addEventListener("close", () => { lastCard?.focus?.({ preventScroll: true }); lastCard = null; });
+  sheet?.addEventListener("close", () => {
+    lastCard?.focus?.({ preventScroll: true });
+    lastCard = null;
+    shareMeta(null);
+    setProjectParam("");
+  });
 
   const tintOf = (id) => [...String(id)].reduce((n, c) => n + c.charCodeAt(0), 0) % 4;
-  const pictureHtml = (p, { eager = false, high = false, sizes, width = 720, height = 450 } = {}) => {
+  const pictureHtml = (p, { eager = false, high = false, sizes, width = 720, height = 450, thumb = false } = {}) => {
     if (!p.image) {
       return `<div class="thumb-empty thumb"><span class="thumb-mark">${esc(initials(p.name))}</span><span class="thumb-soon">Soon</span></div>`;
     }
     const load = eager ? `loading="eager"${high ? ` fetchpriority="high"` : ""}` : `loading="lazy"`;
-    const src = `<img src="${esc(p.image)}" alt="" ${load} decoding="async" width="${width}" height="${height}" sizes="${esc(sizes)}">`;
-    return p.avif
-      ? `<picture><source type="image/avif" srcset="${esc(p.avif)}">${src}</picture>`
-      : src;
+    const webp = thumb
+      ? `${esc(p.image144)} 144w, ${esc(p.image360)} 360w`
+      : `${esc(p.image360)} 360w, ${esc(p.image)} 720w`;
+    const avif = thumb
+      ? `${esc(p.avif144)} 144w, ${esc(p.avif360)} 360w`
+      : `${esc(p.avif360)} 360w, ${esc(p.avif)} 720w`;
+    const fallback = thumb ? p.image144 : p.image;
+    const src = `<img src="${esc(fallback)}" srcset="${webp}" alt="" ${load} decoding="async" width="${width}" height="${height}" sizes="${esc(sizes)}">`;
+    return `<picture><source type="image/avif" srcset="${avif}" sizes="${esc(sizes)}">${src}</picture>`;
   };
   const cardHtml = (p, i) => {
     const eager = i < 2;
@@ -197,6 +251,7 @@
   };
   const paint = (snap) => {
     const list = filtered();
+    if (grid) grid.classList.toggle("reshuffle", Boolean(snap));
     renderInto(grid, list);
     const status = $("[data-filter-status]");
     if (status) status.textContent = list.length ? labelFor(list.length) : "No projects match.";
@@ -274,7 +329,7 @@
     const newest = [...all].sort(byRecent).slice(0, 3);
     host.innerHTML = newest.map((p, i) => `
       <button class="news-item" type="button" data-news-idx="${i}">
-        <span class="news-thumb">${pictureHtml(p, { eager: true, high: i === 0, sizes: "72px", width: 144, height: 90 })}</span>
+        <span class="news-thumb">${pictureHtml(p, { eager: i === 0, high: i === 0, sizes: "(max-width:400px) 64px, 72px", width: 144, height: 90, thumb: true })}</span>
         <span class="news-body"><h3>${esc(p.name)}</h3><p>${esc(p.note || `Updated ${fmtDate(p.lastUpdated)}`)}</p></span>
       </button>`).join("");
     bindThumbs(host);
@@ -285,14 +340,22 @@
   };
 
   fetch("/data/projects.json", { cache: "no-cache" }).then((r) => r.json()).then((doc) => {
-    all = doc.projects.map((p) => ({
-      ...p,
-      url: p.liveUrl,
-      kind: KIND[p.category],
-      note: p.updateNote,
-      image: `/assets/previews/${p.id}.webp?v=${encodeURIComponent(p.lastUpdated)}`,
-      avif: `/assets/previews/${p.id}.avif?v=${encodeURIComponent(p.lastUpdated)}`,
-    }));
+    all = doc.projects.map((p) => {
+      const v = encodeURIComponent(p.lastUpdated);
+      const base = `/assets/previews/${p.id}`;
+      return {
+        ...p,
+        url: p.liveUrl,
+        kind: KIND[p.category],
+        note: p.updateNote,
+        image: `${base}.webp?v=${v}`,
+        avif: `${base}.avif?v=${v}`,
+        image360: `${base}-360.webp?v=${v}`,
+        avif360: `${base}-360.avif?v=${v}`,
+        image144: `${base}-144.webp?v=${v}`,
+        avif144: `${base}-144.avif?v=${v}`,
+      };
+    });
     const live = all.filter((p) => p.status === "Live").length, prog = all.filter((p) => p.status === "In progress" || p.status === "Android app").length;
     $("[data-stats]").innerHTML = `<b>${all.length}</b> projects · <b>${live}</b> live · <b>${prog}</b> in progress`;
     paintNews();
@@ -318,5 +381,10 @@
       show(false);
     } else show(false);
     if (hash === "lockbox") jumpLockbox();
+    const qid = new URLSearchParams(location.search).get("p");
+    if (qid) {
+      const hit = all.find((p) => p.id === qid);
+      if (hit) openSheet(hit);
+    }
   }).catch(() => { grid.innerHTML = `<p class="muted">Couldn't load projects. Refresh to try again.</p>`; });
 })();

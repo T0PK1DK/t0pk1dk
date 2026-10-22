@@ -12,7 +12,7 @@ A soft, warm project-card hub. The homepage (`index.html` + `css/toybox.css` + `
 
 The older freelance pages (`/work/`, `/about/`, `/contact/`, `css/site.css`) still exist. Do not restyle them unless a Toy Box change breaks a shared link. Keep the homepage as the pretty shelf.
 
-## What the last seven overnight passes already did
+## What the last eight overnight passes already did
 
 Do not redo this work. Build on it.
 
@@ -74,6 +74,14 @@ Do not redo this work. Build on it.
 - **No-link sheet.** Open stays hidden. Coming soon flag + dashed note stay. A full-width Close preview button is the action. Empty host/note lines are hidden.
 - Cache-bust is `?v=17`. Tests were not weakened. Lockbox crypto was not touched.
 
+### Pass 8 (missing hosts / perf / share cards / whole-site 390) — stacked on the same PR
+
+- **Missing live hosts (top brief item).** Rechecked Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, and Porch Market. Public GitHub repos exist for all except E-SEKAI. None have GitHub Pages. Habla's README still points at `https://t0pk1dk.github.io/learn-spanish/` and that URL still 404s. Terminal Trader's README still has `PLAY-LINK-PLACEHOLDER`. NOMI / Miami AI Weather / Porch Market READMEs have no public host. Lookalike `*.pages.dev` hosts that return 200 are **not King's** (Bulgarian Spanish lessons, a Russian Español app, Miami weather SEO spam, a Flutter `nomi`, a Paris video studio named Esekai). Did not add cards, GitHub chrome, or invented URLs. Iron Command and `workers.dev` stayed off the shelf.
+- **Image sizes.** Each card now has 360w and 144w WebP + AVIF next to the 720w files. Shelf cards use `360w, 720w` srcset. What's new uses `144w, 360w` into the 64–72px slot instead of a full 720.
+- **Layout shift / first paint.** Hero stats reserve `min-height` and ship the current `32 · 11 live · 11 in progress` counts in HTML so the first paint does not jump. Card pop animation runs only after a filter reshuffle, not on first paint. Only the first What's new thumb is eager.
+- **Share cards.** Static `/p/<id>/` pages for every public project, with `og:` / Twitter tags and JSON-LD from the existing name, description, and preview. Homepage adds `twitter:title` / `twitter:image` / `og:image` size, CollectionPage JSON-LD, and `?p=<id>` to open that sheet. `sitemap.xml` lists the 32 share URLs. Work / About / Contact got the same style of tags from their existing titles and descriptions. Regenerator: `node scripts/write-share-pages.mjs` (not a required build step).
+- **390px whole site.** Work filters, freelance footer links, and the freelance skip link are 44px. Cache-bust is `?v=18` on Toy Box CSS/JS and `?v=2` on `site.css`. Tests were not weakened. Lockbox crypto was not touched.
+
 ## Hard rules (do not break)
 
 - **Do not remove any project** from `data/projects.json`.
@@ -86,13 +94,13 @@ Do not redo this work. Build on it.
 
 ## Design brief for this round
 
-Live URLs and blurbs were just rechecked. What is still open is **missing live hosts**.
+Share cards and srcset are in. What is still open is **missing live hosts**.
 
 Ideas, pick a few — do not do all of them:
 
-1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s.
+1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s. Do not use lookalike `pages.dev` hosts that are not King's.
 2. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
-3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode both AVIF and WebP. Do not invent blurbs for CONCLAVE, Dominous, E-SEKAI, EUTS, LAJAN, MiCasa, SNAGGIT, or TAPN until a README or live page exists.
+3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode 144, 360, and 720 WebP + AVIF. Do not invent blurbs for CONCLAVE, Dominous, E-SEKAI, EUTS, LAJAN, MiCasa, SNAGGIT, or TAPN until a README or live page exists.
 4. **Invert.** Play is drawn on a canvas. If you recapture, click the canvas Play control — a DOM button locator will miss.
 5. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
 

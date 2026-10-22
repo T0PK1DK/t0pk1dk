@@ -107,9 +107,26 @@ async function main() {
     }
   }
 
+    const sitemap = existsSync(join(ROOT, "sitemap.xml")) ? readFileSync(join(ROOT, "sitemap.xml"), "utf8") : "";
     for (const p of doc.projects) {
       if (!existsSync(join(ROOT, "assets/previews", `${p.id}.webp`))) console.warn(`validate: ${p.id} has no preview art (fallback used)`);
       if (!existsSync(join(ROOT, "assets/previews", `${p.id}.avif`))) console.warn(`validate: ${p.id} has no AVIF preview`);
+      for (const size of ["360", "144"]) {
+        if (!existsSync(join(ROOT, "assets/previews", `${p.id}-${size}.webp`))) console.warn(`validate: ${p.id} has no ${size}w WebP`);
+        if (!existsSync(join(ROOT, "assets/previews", `${p.id}-${size}.avif`))) console.warn(`validate: ${p.id} has no ${size}w AVIF`);
+      }
+      const share = join(ROOT, "p", p.id, "index.html");
+      if (!existsSync(share)) fail(`${p.id}: missing share page p/${p.id}/index.html`);
+      const html = readFileSync(share, "utf8");
+      if (!html.includes(`property="og:title"`) || !html.includes(p.name)) {
+        fail(`${p.id}: share page must include og:title with the project name`);
+      }
+      if (!html.includes(`property="og:image"`) || !html.includes(`/assets/previews/${p.id}.webp`)) {
+        fail(`${p.id}: share page must include og:image for its preview`);
+      }
+      if (!sitemap.includes(`https://t0pk1dk.com/p/${p.id}/`)) {
+        fail(`${p.id}: sitemap.xml must list the share page`);
+      }
     }
   const required = ["index.html", "js/toybox.js", "js/private-vault.js", "css/site.css", "HANDOFF.md"];
   for (const rel of required) {
