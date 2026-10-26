@@ -2,188 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>IRON COMMAND</title>
-  <meta name="description" content="Turn-based hex tactical war game. Move, face, and fight on the map.">
-  <meta name="theme-color" content="#0b1220">
-  <link rel="canonical" href="https://t0pk1dk.com/iron-command/">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <script type="module" crossorigin src="./assets/main-D7SUtkMO.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/models-DsY3ivuK.js">
-  <link rel="stylesheet" crossorigin href="./assets/main-C8lx3bQA.css">
-  <style>
-    .toybox-back{display:inline-flex;align-items:center;min-height:40px;padding:8px 11px;border-radius:8px;border:1px solid #2a364d;background:#1a2436;color:#e8eef6;font-size:.82rem;text-decoration:none}
-    .toybox-back:hover{border-color:#7ec8e3}
-    .toybox-back:focus-visible{outline:2px solid #7ec8e3;outline-offset:2px}
-    @media(max-width:720px){.toybox-back{flex:1;min-height:34px;padding:4px 6px;font-size:.74rem;justify-content:center}}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>IRON COMMAND · Auto-General</title>
+  <meta name="description" content="Auto-battle war game: build your base, deploy troops, lead as the general." />
+  <link rel="canonical" href="https://t0pk1dk.com/iron-command/" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <script type="module" crossorigin src="./assets/main-D5dIfSng.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-BTn-X1SE.js">
+  <link rel="modulepreload" crossorigin href="./assets/juice-BCBvM2tZ.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-CcZWTyeK.css">
 </head>
 <body>
-  <canvas id="board"></canvas>
-
-  <header class="topbar">
-    <div class="brand">
-      <h1>IRON COMMAND</h1>
-      <p class="sub">Hex tactics · GDD v0.2</p>
-    </div>
-    <div id="status" class="status"></div>
-    <div class="top-actions">
-      <a class="toybox-back" href="/">Toy Box</a>
-      <button type="button" id="btn-key" aria-controls="legend">Key</button>
-      <button type="button" id="btn-map" aria-controls="minimap" hidden>Map</button>
-      <button type="button" id="btn-recenter">Recenter</button>
-      <button type="button" id="coach-help">Help</button>
-      <button type="button" id="btn-new">New match</button>
-    </div>
-  </header>
-
-  <aside id="inspect" class="panel inspect"></aside>
-  <aside id="log" class="panel log" aria-live="polite"></aside>
-  <canvas id="minimap" class="minimap" aria-label="Minimap: tap to move the camera" hidden></canvas>
-  <aside id="legend" class="panel legend" aria-label="Map key" hidden>
-      <ul class="legend-list">
-        <li><span class="sw t-plains"></span>Plains · 1 AP</li>
-        <li><span class="sw t-ore"></span>Ore · pays Phytane</li>
-        <li><span class="sw t-ruins"></span>Ruins · 2 AP, cover</li>
-        <li><span class="sw t-mountain"></span>Mountain · blocked</li>
-        <li><span class="sw t-forest"></span>Forest · 2 AP, hides</li>
-        <li><span class="sw t-hills"></span>Hills · 2 AP, vantage</li>
-        <li><span class="sw t-water"></span>Water · ships only</li>
-        <li><span class="sw t-road"></span>Road · 1 AP</li>
-        <li><span class="sw t-plateau"></span>Plateau · high ground</li>
-        <li><span class="sw t-pit"></span>Spike pit · jump it</li>
-        <li><span class="sw t-link"></span>Stairs / ladder</li>
-        <li><span class="sw t-pad"></span>Jump pad</li>
-        <li><span class="sw t-turret"></span>Turret / AA / dock / coastal</li>
-        <li><span class="sw ring m-lock"></span>Locked target</li>
-        <li><span class="sw m-reach"></span>Can move here</li>
-        <li><span class="sw m-drop"></span>Drop / build hex</li>
-        <li><span class="sw ring m-attack"></span>You can hit</li>
-        <li><span class="sw ring m-threat"></span>Enemy can hit</li>
-      </ul>
-  </aside>
-
-  <div id="dir-pad" class="overlay" hidden>
-    <div class="sheet">
-      <p id="dir-title">Choose facing</p>
-      <div class="dirs">
-        <button type="button" data-dir="5">NE</button>
-        <button type="button" data-dir="0">E</button>
-        <button type="button" data-dir="1">SE</button>
-        <button type="button" data-dir="4">NW</button>
-        <button type="button" data-dir="3">W</button>
-        <button type="button" data-dir="2">SW</button>
+  <div id="app">
+    <header class="hud-top">
+      <div class="hq-bar enemy"><span class="lbl">ENEMY HQ</span><div class="bar"><i id="hq1"></i></div></div>
+      <div id="clock" class="clock">0:00</div>
+      <button id="btn-menu" class="menu-btn" aria-label="Menu">☰</button>
+    </header>
+    <canvas id="board" aria-label="Battlefield"></canvas>
+    <div id="lane-orders" class="lane-orders"></div>
+    <div id="turn-banner" class="turn-banner" hidden></div>
+    <footer class="hud-bottom">
+      <div class="hq-bar you"><span class="lbl">YOUR HQ</span><div class="bar"><i id="hq0"></i></div></div>
+      <div class="econ">
+        <div class="credits"><span class="gem">◆</span><b id="credits">0</b><small id="income">+0/s</small></div>
+        <button id="btn-base" class="chip base">🏗️ Base</button>
+        <button id="btn-strike" class="chip strike"><span>✈️ Strike</span><i id="strike-cd"></i></button>
       </div>
-      <button type="button" class="ghost" id="dir-cancel">Cancel</button>
-    </div>
+      <div id="tray" class="tray"></div>
+    </footer>
+    <section id="base-sheet" class="sheet" hidden>
+      <h2>Your Base</h2>
+      <div id="base-list" class="base-list"></div>
+      <button id="base-close" class="big">Back to battle</button>
+    </section>
+    <section id="menu-sheet" class="sheet" hidden>
+      <h2>Menu</h2>
+      <div class="base-list">
+        <button id="menu-restart" class="big wide">⚔️ Restart match</button>
+        <button id="menu-tips" class="big wide">❓ Show tips</button>
+        <a class="big wide link" href="/">🏠 Toy Box</a>
+        <a id="menu-classic" class="big wide link" href="./hex.html">♟️ Classic mode (turn-based hex)</a>
+      </div>
+      <button id="menu-close" class="big">Back to battle</button>
+    </section>
+    <section id="tip" class="tip" hidden><p id="tip-text"></p><div class="tip-row"><span id="tip-n"></span><button id="tip-next" class="big">Got it</button></div></section>
+    <section id="end" class="end" hidden>
+      <div class="end-card"><div id="end-icon" class="end-icon">🏆</div><h2 id="end-title">VICTORY</h2><p id="end-sub"></p><button id="btn-restart" class="big">Play again</button></div>
+    </section>
   </div>
-
-  <div id="wheel-pad" class="overlay" hidden>
-    <div class="sheet">
-      <p>Wheel — pick pivot, then rotate</p>
-      <div id="wheel-pivots" class="row"></div>
-      <div class="row">
-        <button type="button" id="wheel-cw">Clockwise</button>
-        <button type="button" id="wheel-ccw">Counter-clockwise</button>
-      </div>
-      <button type="button" class="ghost" id="wheel-cancel">Cancel</button>
-    </div>
-  </div>
-
-  <div id="tutorial" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="tut-title">
-    <div class="sheet tutorial">
-      <p class="tut-count" id="tut-count"></p>
-      <h2 id="tut-title"></h2>
-      <p id="tut-body"></p>
-      <div id="tut-legend" hidden>
-        <ul class="legend-list">
-        <li><span class="sw t-plains"></span>Plains · 1 AP</li>
-        <li><span class="sw t-ore"></span>Ore · pays Phytane</li>
-        <li><span class="sw t-ruins"></span>Ruins · 2 AP, cover</li>
-        <li><span class="sw t-mountain"></span>Mountain · blocked</li>
-        <li><span class="sw t-forest"></span>Forest · 2 AP, hides</li>
-        <li><span class="sw t-hills"></span>Hills · 2 AP, vantage</li>
-        <li><span class="sw t-water"></span>Water · ships only</li>
-        <li><span class="sw t-road"></span>Road · 1 AP</li>
-        <li><span class="sw t-plateau"></span>Plateau · high ground</li>
-        <li><span class="sw t-pit"></span>Spike pit · jump it</li>
-        <li><span class="sw t-link"></span>Stairs / ladder</li>
-        <li><span class="sw t-pad"></span>Jump pad</li>
-        <li><span class="sw t-turret"></span>Turret / AA / dock / coastal</li>
-        <li><span class="sw ring m-lock"></span>Locked target</li>
-        <li><span class="sw m-reach"></span>Can move here</li>
-        <li><span class="sw m-drop"></span>Drop / build hex</li>
-        <li><span class="sw ring m-attack"></span>You can hit</li>
-        <li><span class="sw ring m-threat"></span>Enemy can hit</li>
-      </ul>
-      </div>
-      <div class="row tut-nav">
-        <button type="button" class="ghost" id="tut-skip">Skip</button>
-        <span class="spacer"></span>
-        <button type="button" id="tut-back">Back</button>
-        <button type="button" id="tut-next" class="primary">Next</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="map-picker" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="picker-title">
-    <div class="sheet picker">
-      <h2 id="picker-title">New match</h2>
-      <div id="map-cards" class="map-cards"></div>
-      <label class="seed-row">Map seed
-        <input id="seed-input" type="number" min="1" max="99999" inputmode="numeric" />
-        <button type="button" id="seed-random">Random</button>
-      </label>
-      <div id="picker-effects" class="picker-effects" aria-label="Map effects"></div>
-      <p class="muted small">Same seed, same map. Locked chips are that map's weather. Share the page link to share the map.</p>
-      <button type="button" class="ghost" id="picker-cancel">Cancel</button>
-    </div>
-  </div>
-
-  <div id="victory" class="overlay" hidden>
-    <div class="sheet victory">
-      <p id="victory-title">Match over</p>
-      <p id="victory-body"></p>
-      <button type="button" id="victory-again">Play again</button>
-    </div>
-  </div>
-
-  <footer class="dock">
-    <div id="coach" class="coach" hidden aria-live="polite">
-      <div class="coach-copy">
-        <b id="coach-title"></b>
-        <span id="coach-text"></span>
-      </div>
-      <div id="coach-dots" class="coach-dots" aria-hidden="true"></div>
-      <button type="button" class="ghost" id="coach-skip">Skip</button>
-    </div>
-    <div class="modes">
-      <span class="mode-label">Mode <b id="mode-name">select</b></span>
-      <button type="button" id="btn-move">Move</button>
-      <button type="button" id="btn-face">Face</button>
-      <button type="button" id="btn-group">Group</button>
-      <button type="button" id="btn-wheel">Wheel</button>
-      <button type="button" id="btn-attack">Attack</button>
-      <button type="button" id="btn-commit" hidden>Commit move</button>
-      <button type="button" id="btn-end">End turn</button>
-    </div>
-    <div class="eco-row">
-      <div id="economy" class="economy" aria-live="polite"></div>
-      <div class="build">
-        <div id="build-tabs" class="build-tabs" role="tablist">
-          <button type="button" data-tab="units" class="active">Units</button>
-          <button type="button" data-tab="defenses">Defenses</button>
-          <button type="button" data-tab="research">Research</button>
-        </div>
-        <div id="produce" class="produce"></div>
-      </div>
-      <div id="reserves" class="reserves">
-        <span class="tray-label">Reserves</span>
-        <div id="reserve-cards" class="reserve-cards"></div>
-      </div>
-    </div>
-    <p class="hint">Tap a unit · green hexes are legal moves · tap the last hex again to commit · M / A / E keys · ? help · Esc clears</p>
-  </footer>
-
 </body>
 </html>
