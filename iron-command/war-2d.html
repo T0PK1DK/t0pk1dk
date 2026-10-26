@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>IRON COMMAND · War: Territory (2D view)</title>
+<link rel="canonical" href="https://t0pk1dk.com/iron-command/war-2d">
+  <meta name="description" content="Iron Command War: Territory. Paint a big hex map in your colour, take supply depots and outposts, hold 70% to win." />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <script type="module" crossorigin src="./assets/war2d-pzHPwkUl.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-BTn-X1SE.js">
+  <link rel="modulepreload" crossorigin href="./assets/lane-config-D2Ctsrv7.js">
+  <link rel="modulepreload" crossorigin href="./assets/movement-Dbr7z6ZX.js">
+  <link rel="modulepreload" crossorigin href="./assets/index-qLhzrKK-.js">
+  <link rel="modulepreload" crossorigin href="./assets/juice-BCBvM2tZ.js">
+  <link rel="stylesheet" crossorigin href="./assets/lane-config-Cp6lwJfC.css">
+  <link rel="stylesheet" crossorigin href="./assets/war-DFcdqfIr.css">
+</head>
+<body>
+  <div id="app">
+    <header class="hud-top">
+      <div class="hq-bar enemy"><span class="lbl">ENEMY HQ</span><div class="bar"><i id="hq1"></i></div></div>
+      <div id="clock" class="clock">0:00</div>
+      <button id="btn-menu" class="menu-btn" aria-label="Menu">☰</button>
+    </header>
+    <div id="terr" class="terr-bar" aria-label="Territory"><b id="terr-you">0%</b><div class="terr-track"><i id="terr-fill-you"></i><i id="terr-fill-ai"></i><span class="terr-goal" title="70% wins"></span></div><b id="terr-ai">0%</b></div>
+    <div class="board-wrap"><canvas id="board" aria-label="War map"></canvas><canvas id="minimap" class="minimap" aria-label="Minimap"></canvas><div class="zoom-btns"><button id="zoom-in" aria-label="Zoom in">＋</button><button id="zoom-out" aria-label="Zoom out">－</button><button id="zoom-home" aria-label="Back to base">🏠</button></div></div>
+    <div id="region-orders" class="region-orders"></div>
+        <div id="turn-banner" class="turn-banner" hidden></div>
+    <footer class="hud-bottom">
+      <div class="hq-bar you"><span class="lbl">YOUR HQ</span><div class="bar"><i id="hq0"></i></div></div>
+      <div class="econ">
+        <div class="credits"><span class="gem">◆</span><b id="credits">0</b><small id="income">+0/s</small></div>
+        <button id="btn-base" class="chip base">🏗️ Base</button>
+        <button id="btn-strike" class="chip strike"><span>✈️ Strike</span><i id="strike-cd"></i></button>
+      </div>
+      <div id="tray" class="tray"></div>
+    </footer>
+    <section id="base-sheet" class="sheet" hidden>
+      <h2>Your Base</h2>
+      <div id="base-list" class="base-list"></div>
+      <button id="base-close" class="big">Back to battle</button>
+    </section>
+    <section id="menu-sheet" class="sheet" hidden>
+      <h2>Menu</h2>
+      <div class="base-list">
+        <button id="menu-restart" class="big wide">⚔️ Restart match</button>
+        <button id="menu-tips" class="big wide">❓ Show tips</button>
+        <a class="big wide link" href="/">🏠 Toy Box</a>
+<a id="menu-lanes" class="big wide link" href="./index.html">⚡ Lane battle</a>
+        <a id="menu-3d" class="big wide link" href="./war.html">🌍 3D War (main)</a>
+        <a id="menu-classic" class="big wide link" href="./hex.html">⬢ Classic (hex)</a>
+        <a id="menu-turns" class="big wide link" href="./hex-turns.html">♟️ Turn-based Classic (legacy)</a>
+      </div>
+      <button id="menu-close" class="big">Back to battle</button>
+    </section>
+    <section id="tip" class="tip" hidden><p id="tip-text"></p><div class="tip-row"><span id="tip-n"></span><button id="tip-next" class="big">Got it</button></div></section>
+    <div id="drag-ghost" class="drag-ghost" hidden></div>
+    <section id="end" class="end" hidden>
+      <div class="end-card"><div id="end-icon" class="end-icon">🏆</div><h2 id="end-title">VICTORY</h2><p id="end-sub"></p><button id="btn-restart" class="big">Play again</button></div>
+    </section>
+  </div>
+</body>
+</html>
