@@ -88,27 +88,36 @@ Do not redo this work. Build on it.
 - Every `/p/<id>/` page: local hrefs, CSS, favicon, manifest, and 720/360/144 WebP+AVIF all 200. All 22 public `liveUrl`s still 200. Coming-soon share pages have no external Open. JSON-LD ids match `projects.json`.
 - Opening a Lockbox card no longer writes `/p/undefined/` into the tab title or share tags. `validate.mjs` now requires each share page to carry its `liveUrl` (or no `target="_blank"` if there isn't one) and each id in the homepage list. Cache-bust is `?v=20`. No new cards. No invented URLs.
 
+### Pass 10 (IRON COMMAND playable on t0pk1dk.com)
+
+- **Playable host.** IRON COMMAND now lives at `https://t0pk1dk.com/iron-command/` — a static snapshot under `/iron-command/` in this repo (HTML + hashed JS/CSS). The private GitHub repo was not readable from this environment, so the playable files were copied in without touching any other project. **Do not** link a `workers.dev` host from the shelf, share pages, or public copy.
+- **Card.** New `iron-command` entry in `data/projects.json` (`In progress`, same-site `liveUrl`). Share page, sitemap, homepage JSON-LD, and hero stats (`33 · 11 live · 12 in progress`) updated. Preview is a real hex-map screenshot in 720/360/144 WebP + AVIF.
+- **Link recheck.** All previous public `liveUrl`s still return HTTP 200. Habla / Learn Spanish was left untouched (King hasn't decided). No invented hosts. Nabu and Launch Kit stay on GitHub.
+- **Small fixes.** Same-site Open buttons say **Play** and stay in-tab. News rows lift on hover (fine pointers). Search is `spellcheck="false"`. Share-page actions go two-up from 520px. `/iron-command` pretty-URL redirect. Long-cache hashed game assets. Game page has a Toy Box back link, canonical, theme-color, and favicon.
+- Cache-bust is `?v=21`. Tests were not weakened. Lockbox crypto was not touched.
+
 ## Hard rules (do not break)
 
 - **Do not remove any project** from `data/projects.json`.
 - **Do not change Lockbox protection.** Leave `js/private-vault.js` decrypt (`PBKDF2` + `AES-GCM`), `sessionStorage` key, `data/private.enc.json`, and the encrypt scripts alone unless you are only touching labels / focus / layout around the form.
 - **Never commit** `data/private.json`, the vault password, the numeric PIN, or King's legal name. Public copy is **T0PK1DK** / **King's Toy Box** only. `npm test` scans for forbidden name fragments.
-- **Do not invent URLs.** If a link is dead and you cannot confirm a replacement, leave `liveUrl` as-is or set it `null` and drop status to `In development` — never guess a host. Do not list Iron Command. Do not list `workers.dev` links.
+- **Do not invent URLs.** If a link is dead and you cannot confirm a replacement, leave `liveUrl` as-is or set it `null` and drop status to `In development` — never guess a host. IRON COMMAND's public URL is `https://t0pk1dk.com/iron-command/`. Do not list `workers.dev` links.
 - Additive only. No framework, no rewrite of the card renderer, no new build step. `npm test` / `npm run build` must stay green (`scripts/validate.mjs`). Do not weaken tests.
 - Bump `?v=` on `/css/toybox.css` and `/js/toybox.js` (and lockbox JS if you touch it) when you edit them. Cache is 7 days. Card images cache-bust with `lastUpdated`.
 - Keep the feeling: **soft, warm, uncluttered**, cream paper in light mode, cocoa dark mode. No neon, no dense dashboards, no stock-SaaS chrome.
 
 ## Design brief for this round
 
-Share cards and srcset are in. What is still open is **missing live hosts**.
+IRON COMMAND is playable on this domain. What is still open is **other missing live hosts**.
 
 Ideas, pick a few — do not do all of them:
 
-1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s. Do not use lookalike `pages.dev` hosts that are not King's.
+1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s — leave that link as-is until King decides. Do not use lookalike `pages.dev` hosts that are not King's.
 2. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
 3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode 144, 360, and 720 WebP + AVIF. Do not invent blurbs for CONCLAVE, Dominous, E-SEKAI, EUTS, LAJAN, MiCasa, SNAGGIT, or TAPN until a README or live page exists.
 4. **Invert.** Play is drawn on a canvas. If you recapture, click the canvas Play control — a DOM button locator will miss.
-5. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
+5. **IRON COMMAND.** Refresh `/iron-command/` from a newer static build when the game ships an update. Keep the public URL on `t0pk1dk.com`. Recapture the card shot after the hex field is visible (skip the tutorial overlay).
+6. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
 
 ## Done means
 

@@ -39,6 +39,7 @@
   const fmtDate = (d) => { const t = new Date(`${d}T12:00:00`); return isNaN(t) ? "" : t.toLocaleDateString("en-US", { month: "short", day: "numeric", ...(t.getFullYear() !== new Date().getFullYear() ? { year: "numeric" } : {}) }); };
   const isFresh = (d) => { const t = new Date(`${d}T12:00:00`); return !isNaN(t) && Date.now() - t < 7 * 864e5; };
   const host = (u) => { try { return new URL(u).host + (new URL(u).pathname.length > 1 ? new URL(u).pathname : ""); } catch { return ""; } };
+  const sameSite = (u) => { try { return new URL(u).host === "t0pk1dk.com"; } catch { return false; } };
   const HOME_TITLE = document.title;
   const HOME_OG = {
     title: "King's Toy Box",
@@ -138,7 +139,19 @@
     const nolinkCopy = $("[data-sheet-nolink-copy]");
     if (p.url) {
       open.hidden = false; open.href = p.url;
-      open.textContent = p.url.includes("github.com") ? "View on GitHub ↗" : `Open ${p.name} ↗`;
+      const local = sameSite(p.url);
+      open.textContent = p.url.includes("github.com")
+        ? "View on GitHub ↗"
+        : local
+          ? `Play ${p.name}`
+          : `Open ${p.name} ↗`;
+      if (local) {
+        open.removeAttribute("target");
+        open.removeAttribute("rel");
+      } else {
+        open.target = "_blank";
+        open.rel = "noopener noreferrer";
+      }
       $("[data-sheet-host]").textContent = p.private ? "" : host(p.url);
       nolink.hidden = true;
       if (dismiss) dismiss.hidden = true;
