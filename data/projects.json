@@ -221,6 +221,16 @@
       "updateNote": "Playable in your phone browser now. Android app still coming."
     },
     {
+      "id": "iron-command",
+      "name": "IRON COMMAND",
+      "description": "Turn-based hex tactical war game. Move, face, and fight on the map.",
+      "category": "game",
+      "status": "In progress",
+      "liveUrl": "https://t0pk1dk.com/iron-command/",
+      "lastUpdated": "2026-10-26",
+      "updateNote": "Playable now — hosted on this site."
+    },
+    {
       "id": "conclave",
       "name": "CONCLAVE",
       "description": "CONCLAVE — strategy game in development.",

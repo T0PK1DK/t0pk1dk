@@ -15,7 +15,7 @@ Cloudflare Pages, static.
 - Output directory: `/` (repo root)
 - Custom domain: `t0pk1dk.com`
 
-Pretty URLs come from folder pages (`/work/`, `/about/`, `/contact/`). `/sites/` redirects to the Toy Box home.
+Pretty URLs come from folder pages (`/work/`, `/about/`, `/contact/`, `/iron-command/`). `/sites/` redirects to the Toy Box home.
 
 ```bash
 npm test              # validate data + files

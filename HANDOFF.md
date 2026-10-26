@@ -3,6 +3,7 @@
 - Cards: `data/projects.json`. Fields: id, name, description, category (`game`|`site`|`tool`), status (`Live`|`In progress`|`Android app`|`In development`), liveUrl (https or null; `In development` = no link, Live/In progress need a link), lastUpdated, updateNote.
 - Preview screenshots: `assets/previews/<id>.webp` (720px wide) plus `<id>-360` and `<id>-144` WebP/AVIF srcset sizes. Missing ones fall back to `assets/previews/fallback.svg`.
 - Share cards: static `p/<id>/index.html` (OG/Twitter tags from the JSON name, description, and preview). Regenerate with `node scripts/write-share-pages.mjs` after card edits. Homepage `?p=<id>` opens the sheet.
+- IRON COMMAND plays at `/iron-command/` (static snapshot in this repo). Card `liveUrl` is `https://t0pk1dk.com/iron-command/`. Do not link a `workers.dev` host.
 - Lockbox: edit gitignored `data/private.json` (`{projects:[{title,url,kind,note}]}`), then `PRIVATE_PASSWORD=... npm run encrypt-private && npm test`. Never commit the plaintext or passcode.
 - UI: `index.html`, `css/toybox.css`, `js/toybox.js`, `js/private-vault.js`. Bump `?v=` on CSS/JS when editing (7-day cache).
 

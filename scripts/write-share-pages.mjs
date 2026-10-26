@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const KIND = { game: "Game", site: "Site", tool: "Tool" };
-const V = "20";
+const V = "21";
 
 const esc = (s) =>
   String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -24,10 +24,13 @@ function pageHtml(p) {
   const desc = p.description;
   const bust = encodeURIComponent(p.lastUpdated);
   const alt = p.liveUrl ? `Screenshot of ${p.name}` : `Coming soon art for ${p.name}`;
+  const sameHost = p.liveUrl && p.liveUrl.startsWith("https://t0pk1dk.com/");
   const openLabel = p.liveUrl
     ? p.liveUrl.includes("github.com")
       ? "View on GitHub ↗"
-      : `Open ${p.name} ↗`
+      : sameHost
+        ? `Play ${p.name}`
+        : `Open ${p.name} ↗`
     : "";
   const jsonld = {
     "@context": "https://schema.org",
@@ -101,7 +104,7 @@ function pageHtml(p) {
         <p>${esc(desc)}</p>
         <p class="muted small">${esc(p.updateNote)}</p>
         <div class="share-actions">
-          ${p.liveUrl ? `<a class="btn" href="${attr(p.liveUrl)}" target="_blank" rel="noopener noreferrer">${esc(openLabel)}</a>` : ""}
+          ${p.liveUrl ? `<a class="btn" href="${attr(p.liveUrl)}"${sameHost ? "" : ` target="_blank" rel="noopener noreferrer"`}>${esc(openLabel)}</a>` : ""}
           <a class="btn btn-ghost" href="/?p=${encodeURIComponent(p.id)}">See it on the shelf</a>
         </div>
       </div>
@@ -123,11 +126,15 @@ function pageHtml(p) {
 
 const doc = JSON.parse(readFileSync(join(ROOT, "data", "projects.json"), "utf8"));
 const items = [];
+const extra = [];
 for (const p of doc.projects) {
   const dir = join(ROOT, "p", p.id);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "index.html"), pageHtml(p));
   items.push(`  <url><loc>https://t0pk1dk.com/p/${p.id}/</loc></url>`);
+  if (p.liveUrl && p.liveUrl.startsWith("https://t0pk1dk.com/") && !p.liveUrl.startsWith("https://t0pk1dk.com/p/")) {
+    extra.push(`  <url><loc>${p.liveUrl}</loc></url>`);
+  }
 }
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -136,7 +143,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <url><loc>https://t0pk1dk.com/work/</loc></url>
   <url><loc>https://t0pk1dk.com/about/</loc></url>
   <url><loc>https://t0pk1dk.com/contact/</loc></url>
-${items.join("\n")}
+${extra.join("\n")}${extra.length ? "\n" : ""}${items.join("\n")}
 </urlset>
 `;
 writeFileSync(join(ROOT, "sitemap.xml"), sitemap);
