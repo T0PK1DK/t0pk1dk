@@ -223,7 +223,7 @@
     {
       "id": "iron-command",
       "name": "IRON COMMAND",
-      "description": "Turn-based hex tactical war game. Move, face, and fight on the map.",
+      "description": "Auto-battle war game. Build your base, deploy troops, and lead as the general. Classic hex mode inside.",
       "category": "game",
       "status": "In progress",
       "liveUrl": "https://t0pk1dk.com/iron-command/",
