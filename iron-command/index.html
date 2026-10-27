@@ -4,15 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
   <meta name="theme-color" content="#0b1220" />
-  <title>IRON COMMAND · Auto-General</title>
+  <title>IRON COMMAND · Nard Labs</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-  <script type="module" crossorigin src="./assets/main-B9xj6q0_.js"></script>
+  <script type="module" crossorigin src="./assets/main-PXDbUUF-.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/modulepreload-polyfill-BTn-X1SE.js">
-  <link rel="modulepreload" crossorigin href="./assets/icons-C5gAoBCT.js">
+  <link rel="modulepreload" crossorigin href="./assets/shell-BrT3hWMe.js">
+  <link rel="modulepreload" crossorigin href="./assets/tutor-CO7v7dBN.js">
   <link rel="modulepreload" crossorigin href="./assets/juice-BCBvM2tZ.js">
-  <link rel="stylesheet" crossorigin href="./assets/icons-DREe5Jx0.css">
+  <link rel="stylesheet" crossorigin href="./assets/shell-B-54c5mB.css">
 </head>
-<body>
+<body class="on-title">
   <div id="app">
     <header class="hud-top">
       <div class="hq-bar enemy"><span class="lbl">ENEMY HQ</span><div class="bar"><i id="hq1"></i></div></div>
@@ -39,6 +40,7 @@
     <section id="menu-sheet" class="sheet" hidden>
       <h2>Menu</h2>
       <div class="base-list">
+        <button id="menu-home" class="big wide">🏠 Title screen</button>
         <button id="menu-restart" class="big wide">⚔️ Restart match</button>
         <button id="menu-tips" class="big wide">❓ Show tips</button>
         <a id="menu-classic" class="big wide link" href="./hex.html">⬢ Classic mode (hex map)</a>
@@ -48,8 +50,31 @@
     </section>
     <section id="tip" class="tip" hidden><p id="tip-text"></p><div class="tip-row"><span id="tip-n"></span><button id="tip-next" class="big">Got it</button></div></section>
     <section id="end" class="end" hidden>
-      <div class="end-card"><div id="end-icon" class="end-icon">🏆</div><h2 id="end-title">VICTORY</h2><p id="end-sub"></p><button id="btn-restart" class="big">Play again</button></div>
+      <div class="end-card"><div id="end-icon" class="end-icon">🏆</div><h2 id="end-title">VICTORY</h2><p id="end-sub"></p>
+        <div class="end-actions"><button id="btn-restart" class="big">Rematch</button><button id="btn-menu-home" class="big alt">Menu</button></div></div>
     </section>
+    <div id="boot" class="boot">
+      <div id="boot-spin" class="boot-spin" aria-label="Loading"></div>
+      <section id="title" class="title-screen" aria-label="Start">
+        <span class="nard-badge">Nard Labs</span>
+        <h1>IRON<br>COMMAND</h1>
+        <p class="tag">Drop troops. Give orders. Win the field.</p>
+        <button id="btn-play" class="play-btn" type="button">PLAY</button>
+        <nav class="mode-picker" aria-label="Game modes">
+          <a href="./index.html" data-mode="lanes"><b>⚡ Lanes</b><small>Three roads</small></a>
+          <a href="./hex.html" data-mode="hex"><b>⬢ Hex</b><small>Classic 3D</small></a>
+          <a href="./war.html" data-mode="war"><b>🗺️ War 3D</b><small>Paint the map</small></a>
+          <a href="./war-2d.html" data-mode="war2d"><b>🧭 War 2D</b><small>Tactical view</small></a>
+        </nav>
+        <button id="btn-tut-replay" class="ghost-btn" type="button" hidden>Replay tutorial</button>
+      </section>
+    </div>
+    <aside id="coach" class="coach" hidden>
+      <button id="coach-skip" class="skip-btn" type="button">Skip</button>
+      <p id="coach-text"></p>
+      <span id="coach-n"></span>
+    </aside>
   </div>
+  <script>setTimeout(function(){document.documentElement.classList.add("booted");},8000);</script>
 </body>
 </html>
