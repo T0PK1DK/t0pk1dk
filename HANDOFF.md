@@ -1,6 +1,6 @@
 # King's Toy Box (v3, Oct 2026)
 
-- Cards: `data/projects.json`. Fields: id, name, description, category (`game`|`site`|`tool`), status (`Live`|`In progress`|`Android app`|`In development`), liveUrl (https or null; `In development` = no link, Live/In progress need a link), lastUpdated, updateNote. Optional `launch: true` puts a card in the homepage soft-launch strip (`#launch`). Optional `launchSoon: true` styles that tile as coming soon / Playtest soon (no outbound link on the tile).
+- Cards: `data/projects.json`. Fields: id, name, description, category (`game`|`site`|`tool`), status (`Live`|`In progress`|`Android app`|`In development`), liveUrl (https or null; `In development` = no link, Live/In progress need a link), lastUpdated, updateNote. Optional `launch: true` puts a card in the homepage soft-launch strip (`#launch`). Optional `launchSoon: true` styles that tile as coming soon / Playtest soon (no outbound link on the tile). Featured **Play** chips go to `liveUrl` (same-site stays in-tab).
 - Preview screenshots: `assets/previews/<id>.webp` (720px wide) plus `<id>-360` and `<id>-144` WebP/AVIF srcset sizes. Missing ones fall back to `assets/previews/fallback.svg`.
 - Share cards: static `p/<id>/index.html` (OG/Twitter tags from the JSON name, description, and preview). Regenerate with `node scripts/write-share-pages.mjs` after card edits. Homepage `?p=<id>` opens the sheet.
 - IRON COMMAND plays at `/iron-command/` (static snapshot in this repo). Card `liveUrl` is `https://t0pk1dk.com/iron-command/`. Do not link a `workers.dev` host.

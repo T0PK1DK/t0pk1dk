@@ -108,6 +108,15 @@ Do not redo this work. Build on it.
 - **UI.** Warm wash, 2-up from 401px, 3-up from 900px with Iron Command as a full-width banner. Hover lift only on fine pointers. 44px Playtest chip at 390px. Focus rings use `--focus`. Copy is T0PK1DK / Nard Labs / King's Toy Box only.
 - JSON flags: `launch: true` on the four games; `launchSoon: true` on Iron Command. Cache-bust is `?v=22`. Tests were not weakened. Lockbox crypto was not touched.
 
+### Pass 12 (Iron Command playable in the strip)
+
+- **Featured tile.** Iron Command is no longer the dashed **Playtest soon** banner. It is a normal launch card next to HILO, INVERT, and SPRAIN, with a **Play** chip. `launchSoon` was removed; `launch: true` stays. Shelf card, share page, and `liveUrl` were already `https://t0pk1dk.com/iron-command/`. **Do not** point the card at a `workers.dev` host.
+- **Play links.** Clicking **Play** on a featured card goes to that game's `liveUrl`. Same-site Play (Iron Command) stays in-tab. Off-site Play (HILO, INVERT, SPRAIN) opens in a new tab. Tapping the rest of the card still opens the preview sheet.
+- **Copy.** Hero and “On the table.” ledes now name all four playable games. Iron Command is not “next” or still in paint.
+- **Layout.** 2-up from 401px, 2-up from 900px, 4-up from 1100px so the four Play cards sit as peers. The unused `launchSoon` banner styles remain in CSS for a later coming-soon tile.
+- **Small fixes.** Cache-bust is `?v=23`. Featured Play chip is the outbound control (no invented URL). 44px Play chip at 390px still applies. Focus rings still use `--focus`. Public copy is T0PK1DK / Nard Labs / King's Toy Box only.
+- Tests were not weakened. Lockbox crypto was not touched.
+
 ## Hard rules (do not break)
 
 - **Do not remove any project** from `data/projects.json`.
@@ -125,7 +134,7 @@ The soft-launch strip is on the homepage. What is still open is **custom-domain 
 Ideas, pick a few — do not do all of them:
 
 1. **Swap HILO / INVERT off `pages.dev` the moment a custom domain exists.** Do not invent one. Leave the current Pages hosts until then. Never add a `workers.dev` link.
-2. **Iron Command featured tile** still says Playtest soon. When the war game is ready to promote as playable in the strip, set `launchSoon: false` so the tile says Play. Keep `https://t0pk1dk.com/iron-command/` — do not point the card at a workers host.
+2. **IRON COMMAND.** Refresh `/iron-command/` from a newer static build when the game ships an update. Keep the public URL on `t0pk1dk.com`. Recapture the card shot after the hex field is visible (skip the tutorial overlay). Do not point the featured tile at a workers host.
 3. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s — leave that link as-is until King decides. Do not use lookalike `pages.dev` hosts that are not King's.
 4. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
 5. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode 144, 360, and 720 WebP + AVIF. Do not invent blurbs for CONCLAVE, Dominous, E-SEKAI, EUTS, LAJAN, MiCasa, SNAGGIT, or TAPN until a README or live page exists.

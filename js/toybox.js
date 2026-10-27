@@ -217,7 +217,7 @@
     const img = pictureHtml(p, {
       eager: i < 2,
       high: i === 0,
-      sizes: soon ? "(max-width:899px) 100vw, 280px" : "(max-width:400px) 100vw,(max-width:899px) 50vw, 33vw",
+      sizes: soon ? "(max-width:899px) 100vw, 280px" : "(max-width:400px) 100vw,(max-width:1099px) 50vw, 25vw",
     });
     const vt = `launch-${String(p.id || i).replace(/[^a-z0-9-]/gi, "")}`;
     const go = soon ? "Playtest soon" : "Play";
@@ -280,7 +280,16 @@
     bindThumbs(launchHost);
     launchHost.onclick = (e) => {
       const c = e.target.closest(".card");
-      if (c) openSheet(list[+c.dataset.idx], c);
+      if (!c) return;
+      const p = list[+c.dataset.idx];
+      const go = e.target.closest(".launch-go");
+      if (go && p?.url && !p.launchSoon) {
+        e.preventDefault();
+        if (sameSite(p.url)) location.assign(p.url);
+        else window.open(p.url, "_blank", "noopener,noreferrer");
+        return;
+      }
+      openSheet(p, c);
     };
   };
   const byRecent = (a, b) => String(b.lastUpdated).localeCompare(String(a.lastUpdated));
