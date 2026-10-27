@@ -96,11 +96,23 @@ Do not redo this work. Build on it.
 - **Small fixes.** Same-site Open buttons say **Play** and stay in-tab. News rows lift on hover (fine pointers). Search is `spellcheck="false"`. Share-page actions go two-up from 520px. `/iron-command` pretty-URL redirect. Long-cache hashed game assets. Game page has a Toy Box back link, canonical, theme-color, and favicon.
 - Cache-bust is `?v=21`. Tests were not weakened. Lockbox crypto was not touched.
 
+### Pass 11 (soft-launch strip)
+
+- **Featured section.** Homepage `#launch` strip under the hero: HILO, INVERT, SPRAIN as playable featured cards, Iron Command as a dashed coming-soon / **Playtest soon** tile. Existing shelf cards stay. Hash `#launch` / `#soft-launch` scrolls there. The strip hides while search or filters are on so the shelf stays the focus.
+- **Links used (all already in this repo, none are `workers.dev`).** Game repos `T0PK1DK/HILO-game`, `T0PK1DK/INVERT`, `T0PK1DK/SPRAIN`, and `T0PK1DK/iron-command` were private / 404 from this environment — no new host was invented.
+  - HILO → `https://hilo-game-dnh.pages.dev`
+  - INVERT → `https://invert-game.pages.dev`
+  - SPRAIN → `https://www.thebando.cc/games/sprain/`
+  - Iron Command shelf / share page still uses `https://t0pk1dk.com/iron-command/`. The launch tile itself has **no outbound link** (Playtest soon). Tapping it still opens the preview sheet, which keeps the existing Play button.
+- **Where to drop a later link.** If HILO or INVERT get a custom domain, swap `liveUrl` in `data/projects.json` and regenerate share pages. If Iron Command should stay unlinked on the shelf too, set `liveUrl: null` and `status: "In development"` (and drop `launchSoon` only when you want the featured tile to say Play). If a custom-domain playtest URL appears, put it on `liveUrl` and set `launchSoon: false`.
+- **UI.** Warm wash, 2-up from 401px, 3-up from 900px with Iron Command as a full-width banner. Hover lift only on fine pointers. 44px Playtest chip at 390px. Focus rings use `--focus`. Copy is T0PK1DK / Nard Labs / King's Toy Box only.
+- JSON flags: `launch: true` on the four games; `launchSoon: true` on Iron Command. Cache-bust is `?v=22`. Tests were not weakened. Lockbox crypto was not touched.
+
 ## Hard rules (do not break)
 
 - **Do not remove any project** from `data/projects.json`.
 - **Do not change Lockbox protection.** Leave `js/private-vault.js` decrypt (`PBKDF2` + `AES-GCM`), `sessionStorage` key, `data/private.enc.json`, and the encrypt scripts alone unless you are only touching labels / focus / layout around the form.
-- **Never commit** `data/private.json`, the vault password, the numeric PIN, or King's legal name. Public copy is **T0PK1DK** / **King's Toy Box** only. `npm test` scans for forbidden name fragments.
+- **Never commit** `data/private.json`, the vault password, the numeric PIN, or King's legal name. Public copy is **T0PK1DK** / **Nard Labs** / **King's Toy Box** only. `npm test` scans for forbidden name fragments.
 - **Do not invent URLs.** If a link is dead and you cannot confirm a replacement, leave `liveUrl` as-is or set it `null` and drop status to `In development` — never guess a host. IRON COMMAND's public URL is `https://t0pk1dk.com/iron-command/`. Do not list `workers.dev` links.
 - Additive only. No framework, no rewrite of the card renderer, no new build step. `npm test` / `npm run build` must stay green (`scripts/validate.mjs`). Do not weaken tests.
 - Bump `?v=` on `/css/toybox.css` and `/js/toybox.js` (and lockbox JS if you touch it) when you edit them. Cache is 7 days. Card images cache-bust with `lastUpdated`.
@@ -108,21 +120,22 @@ Do not redo this work. Build on it.
 
 ## Design brief for this round
 
-IRON COMMAND is playable on this domain. What is still open is **other missing live hosts**.
+The soft-launch strip is on the homepage. What is still open is **custom-domain hosts** and **missing live pages**.
 
 Ideas, pick a few — do not do all of them:
 
-1. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s — leave that link as-is until King decides. Do not use lookalike `pages.dev` hosts that are not King's.
-2. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
-3. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode 144, 360, and 720 WebP + AVIF. Do not invent blurbs for CONCLAVE, Dominous, E-SEKAI, EUTS, LAJAN, MiCasa, SNAGGIT, or TAPN until a README or live page exists.
-4. **Invert.** Play is drawn on a canvas. If you recapture, click the canvas Play control — a DOM button locator will miss.
-5. **IRON COMMAND.** Refresh `/iron-command/` from a newer static build when the game ships an update. Keep the public URL on `t0pk1dk.com`. Recapture the card shot after the hex field is visible (skip the tutorial overlay).
-6. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
+1. **Swap HILO / INVERT off `pages.dev` the moment a custom domain exists.** Do not invent one. Leave the current Pages hosts until then. Never add a `workers.dev` link.
+2. **Iron Command featured tile** still says Playtest soon. When the war game is ready to promote as playable in the strip, set `launchSoon: false` so the tile says Play. Keep `https://t0pk1dk.com/iron-command/` — do not point the card at a workers host.
+3. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s — leave that link as-is until King decides. Do not use lookalike `pages.dev` hosts that are not King's.
+4. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
+5. **Coming-soon art** is designed key art. If a real public screenshot or repo image appears, swap it in and encode 144, 360, and 720 WebP + AVIF. Do not invent blurbs for CONCLAVE, Dominous, E-SEKAI, EUTS, LAJAN, MiCasa, SNAGGIT, or TAPN until a README or live page exists.
+6. **Invert.** Play is drawn on a canvas. If you recapture, click the canvas Play control — a DOM button locator will miss.
+7. **Type.** System rounded is fine. No render-blocking Google Fonts on the homepage.
 
 ## Done means
 
 - `npm test` passes. Do not weaken tests.
-- Phone (~390px) and desktop (~1280px) screenshots of the homepage in **light and dark**, including What's new.
+- Phone (~390px) and desktop (~1280px) screenshots of the homepage in **light and dark**, including the launch strip and What's new.
 - Push to the open PR if one is already waiting (do not open a second PR for the same shelf pass).
 - Update this file with what you shipped and a fresh ready-to-paste prompt for the round after you.
 

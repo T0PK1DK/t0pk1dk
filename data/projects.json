@@ -68,7 +68,8 @@
       "status": "Live",
       "liveUrl": "https://www.thebando.cc/games/sprain/",
       "lastUpdated": "2026-06-01",
-      "updateNote": "Live now."
+      "updateNote": "Live now.",
+      "launch": true
     },
     {
       "id": "chamber-arcade",
@@ -128,7 +129,8 @@
       "status": "In progress",
       "liveUrl": "https://invert-game.pages.dev",
       "lastUpdated": "2026-10-15",
-      "updateNote": "Playable now and still getting updates."
+      "updateNote": "Playable now and still getting updates.",
+      "launch": true
     },
     {
       "id": "nabu",
@@ -218,7 +220,8 @@
       "status": "In progress",
       "liveUrl": "https://hilo-game-dnh.pages.dev",
       "lastUpdated": "2026-10-22",
-      "updateNote": "Playable in your phone browser now. Android app still coming."
+      "updateNote": "Playable in your phone browser now. Android app still coming.",
+      "launch": true
     },
     {
       "id": "iron-command",
@@ -228,7 +231,9 @@
       "status": "In progress",
       "liveUrl": "https://t0pk1dk.com/iron-command/",
       "lastUpdated": "2026-10-26",
-      "updateNote": "Playable now — hosted on this site."
+      "updateNote": "Playable now — hosted on this site.",
+      "launch": true,
+      "launchSoon": true
     },
     {
       "id": "conclave",

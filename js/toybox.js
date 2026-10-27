@@ -211,6 +211,30 @@
       <div class="card-body"><h3>${esc(p.name)}</h3>${p.lastUpdated ? `<span class="upd${isFresh(p.lastUpdated) ? " fresh" : ""}">Updated ${esc(fmtDate(p.lastUpdated))}</span>` : ""}<p>${esc(p.description)}</p></div>
     </button>`;
   };
+  const LAUNCH_ORDER = ["hilo-game", "invert", "sprain", "iron-command"];
+  const launchCardHtml = (p, i) => {
+    const soon = Boolean(p.launchSoon);
+    const img = pictureHtml(p, {
+      eager: i < 2,
+      high: i === 0,
+      sizes: soon ? "(max-width:899px) 100vw, 280px" : "(max-width:400px) 100vw,(max-width:899px) 50vw, 33vw",
+    });
+    const vt = `launch-${String(p.id || i).replace(/[^a-z0-9-]/gi, "")}`;
+    const go = soon ? "Playtest soon" : "Play";
+    const badge = soon ? "Coming soon" : p.status;
+    const badgeClass = soon ? "b-dev" : (BADGE[p.status] || "");
+    const label = soon
+      ? `${p.name}, coming soon. ${p.description} Playtest soon.`
+      : `${p.name}. ${p.description} Play`;
+    return `
+    <button class="card launch-card${soon ? " launch-soon" : ""}" type="button" data-tint="${tintOf(p.id || i)}" style="--i:${i};--vt:${vt}" data-idx="${i}" aria-label="${esc(label)}">
+      <div class="thumb">${img}
+        <span class="badge ${badgeClass}">${esc(badge)}</span>
+        ${soon ? `<span class="soon-flag">Playtest soon</span>` : ""}</div>
+      <div class="card-body"><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p>
+        <span class="launch-go${soon ? " launch-go-soon" : ""}">${go}</span></div>
+    </button>`;
+  };
 
   const bindThumbs = (el) => {
     el.querySelectorAll(".thumb img, .news-thumb img").forEach((img) => {
@@ -240,9 +264,25 @@
   window.ToyBox = { renderInto, openSheet };
 
   const grid = $("[data-grid]");
+  const launchHost = $("[data-launch]");
+  const launchSec = $("#launch");
   let all = [];
   let painted = false;
   const state = { cat: "all", status: "", recent: false, q: "" };
+  const launchList = () => LAUNCH_ORDER.map((id) => all.find((p) => p.id === id)).filter(Boolean);
+  const paintLaunch = () => {
+    if (!launchHost || !launchSec) return;
+    const list = launchList();
+    const hide = Boolean(state.q || state.status || state.cat !== "all") || !list.length;
+    launchSec.hidden = hide;
+    if (hide) return;
+    launchHost.innerHTML = list.map(launchCardHtml).join("");
+    bindThumbs(launchHost);
+    launchHost.onclick = (e) => {
+      const c = e.target.closest(".card");
+      if (c) openSheet(list[+c.dataset.idx], c);
+    };
+  };
   const byRecent = (a, b) => String(b.lastUpdated).localeCompare(String(a.lastUpdated));
   const matchesQ = (p, q) => {
     if (!q) return true;
@@ -269,6 +309,7 @@
     const list = filtered();
     grid.classList.toggle("reshuffle", Boolean(snap));
     renderInto(grid, list);
+    paintLaunch();
     const status = $("[data-filter-status]");
     if (status) status.textContent = list.length ? labelFor(list.length) : "No projects match.";
     const first = grid.querySelector(".card") || grid.querySelector(".empty");
@@ -389,6 +430,9 @@
     if (hash === "new" || hash === "whats-new") {
       show(false);
       $("#whats-new")?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
+    } else if (hash === "launch" || hash === "soft-launch") {
+      show(false);
+      $("#launch")?.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
     } else if (hash === "lockbox") show(false);
     else if (hashFilter) {
       state.cat = hashFilter;
