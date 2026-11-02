@@ -117,12 +117,22 @@ Do not redo this work. Build on it.
 - **Small fixes.** Cache-bust is `?v=23`. Featured Play chip is the outbound control (no invented URL). 44px Play chip at 390px still applies. Focus rings still use `--focus`. Public copy is T0PK1DK / Nard Labs / King's Toy Box only.
 - Tests were not weakened. Lockbox crypto was not touched.
 
+### Pass 13 (honest card dates / status — do not merge or deploy)
+
+- **SPRAIN date.** Shelf card still said `2026-06-01`. The private `T0PK1DK/SPRAIN` repo is not readable here; the production `sprain` Worker (hosts `games.thebando.cc`, `thebando.cc`, `www.thebando.cc`) was last deployed from main on **2026-10-31**. `lastUpdated` is now `2026-10-31`.
+- **SPRAIN link.** The card and share page pointed at `play.testdasite.com/play/game/` — that hostname is the `sprain-playtest` Worker, not production. Open / Play now goes to the approved live game, `https://games.thebando.cc/game/` (HTTP 200). No `workers.dev`.
+- **SWEET-D.** The diner page title is “SWEET-D — In development” and the play path is a key-gated preview (`PREVIEW BUILD · KEY REQUIRED · NOT OPEN YET`). Card status is now `In development`, `liveUrl: null`, coming-soon note and no Open button — same polish as CONCLAVE & friends. Hero first-paint stats are `33 · 11 live · 11 in progress`.
+- **Baller.** No card added. The only King-owned host found is a test Worker on `baller.testdasite.com`, which **404s**. `baller.pages.dev` returns 200 but is a Pages preview, not an approved live custom domain — do not use `pages.dev` for new entries. No `thebando.cc` / `t0pk1dk.com` production URL.
+- **Link rule.** Hard rules now say the site links only to approved live builds; in-progress updates stay on separate preview links.
+- Cache-bust unchanged (`?v=23` — CSS/JS not edited). Tests were not weakened. Lockbox crypto was not touched. **Do not merge or deploy from this pass.**
+
 ## Hard rules (do not break)
 
 - **Do not remove any project** from `data/projects.json`.
 - **Do not change Lockbox protection.** Leave `js/private-vault.js` decrypt (`PBKDF2` + `AES-GCM`), `sessionStorage` key, `data/private.enc.json`, and the encrypt scripts alone unless you are only touching labels / focus / layout around the form.
 - **Never commit** `data/private.json`, the vault password, the numeric PIN, or King's legal name. Public copy is **T0PK1DK** / **Nard Labs** / **King's Toy Box** only. `npm test` scans for forbidden name fragments.
 - **Do not invent URLs.** If a link is dead and you cannot confirm a replacement, leave `liveUrl` as-is or set it `null` and drop status to `In development` — never guess a host. IRON COMMAND's public URL is `https://t0pk1dk.com/iron-command/`. Do not list `workers.dev` links.
+- **Approved live builds only.** The shelf, share pages, and featured Play chips link only to approved live production hosts that return HTTP 200. In-progress updates live on separate preview / playtest / `*.pages.dev` / `*.testdasite.com` links — never on the public card. No `pages.dev` for new entries. No `workers.dev`. No personal-account hostnames. If a project has no approved live URL, leave it off the shelf or keep `liveUrl: null` and `In development`.
 - Additive only. No framework, no rewrite of the card renderer, no new build step. `npm test` / `npm run build` must stay green (`scripts/validate.mjs`). Do not weaken tests.
 - Bump `?v=` on `/css/toybox.css` and `/js/toybox.js` (and lockbox JS if you touch it) when you edit them. Cache is 7 days. Card images cache-bust with `lastUpdated`.
 - Keep the feeling: **soft, warm, uncluttered**, cream paper in light mode, cocoa dark mode. No neon, no dense dashboards, no stock-SaaS chrome.
@@ -133,7 +143,7 @@ The soft-launch strip is on the homepage. What is still open is **custom-domain 
 
 Ideas, pick a few — do not do all of them:
 
-1. **Swap HILO / INVERT off `pages.dev` the moment a custom domain exists.** Do not invent one. Leave the current Pages hosts until then. Never add a `workers.dev` link.
+1. **Swap HILO / INVERT off `pages.dev` the moment a custom domain exists.** Do not invent one. Leave the current Pages hosts until then. Never add a `workers.dev` link. New cards must already have an approved live host.
 2. **IRON COMMAND.** Refresh `/iron-command/` from a newer static build when the game ships an update. Keep the public URL on `t0pk1dk.com`. Recapture the card shot after the hex field is visible (skip the tutorial overlay). Do not point the featured tile at a workers host.
 3. **Find live pages, do not invent them.** If Terminal Trader, NOMI, Habla / Learn Spanish, Miami AI Weather, E-SEKAI, or Porch Market get a real public host, add or update the card and recapture a screenshot. Habla's README still points at a GitHub Pages URL that 404s — leave that link as-is until King decides. Do not use lookalike `pages.dev` hosts that are not King's.
 4. **GitHub cards.** Nabu and Launch Kit still show github.com chrome. Recapture only if a Pages demo ships.
@@ -148,4 +158,4 @@ Ideas, pick a few — do not do all of them:
 - Push to the open PR if one is already waiting (do not open a second PR for the same shelf pass).
 - Update this file with what you shipped and a fresh ready-to-paste prompt for the round after you.
 
-If you only have time for one thing: **wire a live URL the moment one of the missing public projects actually ships.** Leave the lockbox locked.
+If you only have time for one thing: **wire a live URL the moment one of the missing public projects actually ships — on an approved production host, never a preview.** Leave the lockbox locked.

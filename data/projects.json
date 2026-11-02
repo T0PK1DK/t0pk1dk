@@ -66,8 +66,8 @@
       "description": "Card football on the CALIBRO sim. Call a play, set coverage, and watch the match run.",
       "category": "game",
       "status": "Live",
-      "liveUrl": "https://play.testdasite.com/play/game/",
-      "lastUpdated": "2026-06-01",
+      "liveUrl": "https://games.thebando.cc/game/",
+      "lastUpdated": "2026-10-31",
       "updateNote": "Live now.",
       "launch": true
     },
@@ -187,10 +187,10 @@
       "name": "SWEET-D",
       "description": "An 8-bit top-down cooking game. Drag the chef, sear the patty, feed the room.",
       "category": "game",
-      "status": "In progress",
-      "liveUrl": "https://diner.thebando.cc",
+      "status": "In development",
+      "liveUrl": null,
       "lastUpdated": "2026-10-11",
-      "updateNote": "Playable now and still getting updates."
+      "updateNote": "Still being built. Coming-soon art on the card — no public link yet."
     },
     {
       "id": "launch-kit",
